@@ -168,3 +168,4 @@ This project is licensed under the 0BSD license - see the LICENSE file for detai
 ---
 
 *Built with [Gatsby](https://www.gatsbyjs.com/) and the [Minimal Blog Theme](https://github.com/LekoArts/gatsby-themes/tree/main/themes/gatsby-theme-minimal-blog)*
+
