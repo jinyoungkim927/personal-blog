@@ -2,10 +2,14 @@
    HIDE PAGE HEADERS/TITLES - But show post titles
    =========================================== */
 
-/* Hide headers on listing/index pages only */
+/* Hide "Blog" header and other page headers on listing pages */
 [class*="Blog"] > h1,
 [class*="Homepage"] > h1,
-section:first-child > h1:first-child:not([class*="post"]) {
+main > section:first-child > h1:first-child,
+#skip-nav > section > h1:first-child,
+/* Target standalone "Blog" header before post listings */
+main > h1:first-child:not(:only-child),
+#skip-nav > h1:first-child:not(:only-child) {
   display: none !important;
 }
 

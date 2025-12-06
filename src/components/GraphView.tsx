@@ -31,9 +31,10 @@ interface GraphData {
 interface GraphViewProps {
   width?: number
   height?: number
+  onNavigate?: () => void  // Callback to close modal
 }
 
-const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600 }) => {
+const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, onNavigate }) => {
   const svgRef = useRef<SVGSVGElement>(null)
   const [graphData, setGraphData] = useState<GraphData | null>(null)
   const [loading, setLoading] = useState<string | null>(null)
@@ -47,8 +48,14 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600 }) => {
 
   const handleNodeClick = (node: GraphNode) => {
     if (node.exists && node.slug) {
-      setLoading(node.isTag ? `#${node.title}` : node.title)
-      setTimeout(() => navigate(node.slug!), 300)
+      const displayName = node.isTag ? `#${node.title}` : node.title
+      setLoading(displayName)
+      
+      // Navigate after brief loading display, then close modal
+      setTimeout(() => {
+        if (onNavigate) onNavigate() // Close modal first
+        navigate(node.slug!)
+      }, 400)
     }
   }
 
@@ -133,19 +140,19 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600 }) => {
 
       return () => simulation.stop()
     })
-  }, [graphData, width, height])
+  }, [graphData, width, height, onNavigate])
 
   if (!graphData) {
     return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "#888" }}>Loading graph...</div>
   }
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "visible" }}>
       {loading && (
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-          background: "rgba(250,249,247,0.9)", display: "flex", alignItems: "center", justifyContent: "center",
-          zIndex: 10, borderRadius: 8
+          background: "rgba(250,249,247,0.95)", display: "flex", alignItems: "center", justifyContent: "center",
+          zIndex: 100, borderRadius: 8
         }}>
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 14, color: "#3d2817", marginBottom: 8 }}>Loading</div>
@@ -153,26 +160,36 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600 }) => {
           </div>
         </div>
       )}
-      <svg ref={svgRef} width={width} height={height} style={{ background: "#faf9f7", borderRadius: "8px" }} />
-      {/* Legend - positioned with explicit z-index and background */}
+      <svg ref={svgRef} width={width} height={height} style={{ background: "#faf9f7", borderRadius: "8px", display: "block" }} />
+      {/* Legend - positioned outside SVG with enough margin */}
       <div style={{ 
         position: "absolute", 
-        bottom: 16, 
-        left: 16, 
+        bottom: 20, 
+        left: 20, 
         fontSize: "11px", 
         color: "#555", 
-        background: "rgba(255,255,255,0.95)", 
-        padding: "10px 14px", 
-        borderRadius: "6px",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        zIndex: 5
+        background: "rgba(255,255,255,0.98)", 
+        padding: "12px 16px", 
+        borderRadius: "8px",
+        boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+        zIndex: 50,
+        lineHeight: 1.6
       }}>
-        <div style={{ marginBottom: 6 }}><span style={{ display: "inline-block", width: 12, height: 12, borderRadius: "50%", background: "#f97316", marginRight: 6, verticalAlign: "middle" }} />Post</div>
-        <div style={{ marginBottom: 6 }}><span style={{ display: "inline-block", width: 12, height: 12, borderRadius: "50%", background: "#dc2626", marginRight: 6, verticalAlign: "middle" }} />Tag</div>
-        <div><span style={{ display: "inline-block", width: 12, height: 12, borderRadius: "50%", background: "#4b5563", border: "1px dashed #1f2937", marginRight: 6, verticalAlign: "middle" }} />Unlinked</div>
+        <div style={{ display: "flex", alignItems: "center", marginBottom: 6 }}>
+          <span style={{ display: "inline-block", width: 12, height: 12, borderRadius: "50%", background: "#f97316", marginRight: 8, flexShrink: 0 }} />
+          <span>Post</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", marginBottom: 6 }}>
+          <span style={{ display: "inline-block", width: 12, height: 12, borderRadius: "50%", background: "#dc2626", marginRight: 8, flexShrink: 0 }} />
+          <span>Tag</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span style={{ display: "inline-block", width: 12, height: 12, borderRadius: "50%", background: "#4b5563", border: "1px dashed #1f2937", marginRight: 8, flexShrink: 0 }} />
+          <span>Unlinked</span>
+        </div>
       </div>
       {/* Stats */}
-      <div style={{ position: "absolute", top: 12, left: 12, fontSize: "11px", color: "#888" }}>
+      <div style={{ position: "absolute", top: 12, left: 12, fontSize: "11px", color: "#888", zIndex: 50 }}>
         {graphData.nodes.length} nodes · {graphData.links.length} links
       </div>
     </div>

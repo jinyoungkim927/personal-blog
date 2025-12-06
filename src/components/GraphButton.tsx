@@ -11,8 +11,8 @@ const GraphButton: React.FC = () => {
       const updateDimensions = () => {
         // 2x wider, 1.5x taller - nearly fullscreen
         setDimensions({
-          width: Math.min(window.innerWidth * 0.95, 1800),  // Much wider
-          height: Math.min(window.innerHeight * 0.92, 1000), // Much taller
+          width: Math.min(window.innerWidth * 0.95, 1800),
+          height: Math.min(window.innerHeight * 0.92, 1000),
         })
       }
       updateDimensions()
@@ -30,6 +30,8 @@ const GraphButton: React.FC = () => {
     return () => { document.removeEventListener("keydown", handleEsc); document.body.style.overflow = "" }
   }, [isOpen])
 
+  const closeModal = () => setIsOpen(false)
+
   return (
     <>
       <button onClick={() => setIsOpen(true)} className="graph-button" aria-label="Open knowledge graph" title="View knowledge graph">
@@ -41,15 +43,19 @@ const GraphButton: React.FC = () => {
 
       {isOpen && (
         <div className="graph-modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setIsOpen(false) }}>
-          <div className="graph-modal" style={{ width: dimensions.width, height: dimensions.height }}>
+          <div className="graph-modal" style={{ width: dimensions.width, height: dimensions.height, overflow: "visible" }}>
             <button className="graph-modal-close" onClick={() => setIsOpen(false)} aria-label="Close graph">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
-            <div style={{ position: "absolute", top: 16, left: "50%", transform: "translateX(-50%)", fontWeight: 600, color: "#1a1815", fontSize: "16px" }}>Knowledge Graph</div>
-            <div style={{ paddingTop: 50, height: "100%" }}>
-              <GraphView width={dimensions.width} height={dimensions.height - 60} />
+            <div style={{ position: "absolute", top: 16, left: "50%", transform: "translateX(-50%)", fontWeight: 600, color: "#1a1815", fontSize: "16px", zIndex: 10 }}>Knowledge Graph</div>
+            <div style={{ paddingTop: 50, height: "calc(100% - 50px)", overflow: "visible" }}>
+              <GraphView 
+                width={dimensions.width} 
+                height={dimensions.height - 60} 
+                onNavigate={closeModal}
+              />
             </div>
           </div>
         </div>
