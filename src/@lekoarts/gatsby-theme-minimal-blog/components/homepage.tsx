@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { HeadFC, graphql, useStaticQuery } from "gatsby"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Listing from "@lekoarts/gatsby-theme-minimal-blog/src/components/listing"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
+import { HeadFC, graphql, useStaticQuery } from "gatsby"
 
 // Homepage fetches ALL posts (not limited to 3)
 const Homepage = () => {
