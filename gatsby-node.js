@@ -12,12 +12,18 @@ function extractWikiLinks(content) {
 }
 
 function extractTags(content) {
-  // Extract tags from frontmatter
-  const tagsMatch = content.match(/tags:\s*\n((?:\s*-\s*.+\n?)+)/i)
+  // Extract tags from frontmatter YAML block only
+  const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/)
+  if (!frontmatterMatch) return []
+  
+  const frontmatter = frontmatterMatch[1]
+  const tagsMatch = frontmatter.match(/tags:\s*\n((?:\s*-\s*.+\n?)+)/i)
   if (!tagsMatch) return []
   
   const tagLines = tagsMatch[1].match(/-\s*(.+)/g) || []
-  return tagLines.map(line => line.replace(/^-\s*/, '').trim().toLowerCase())
+  return tagLines
+    .map(line => line.replace(/^-\s*/, '').trim().toLowerCase())
+    .filter(tag => tag.length > 1 && !/^-+$/.test(tag) && !/^loading$/i.test(tag)) // Filter out invalid tags
 }
 
 function slugify(text) {
@@ -56,7 +62,8 @@ exports.onPostBuild = async () => {
 
     // Count tags
     tags.forEach(tag => {
-      allTags.set(tag, (allTags.get(tag) || 0) + 1)
+      const slug = slugify(tag)
+      if (slug) allTags.set(tag, (allTags.get(tag) || 0) + 1)
     })
 
     nodes.push({
@@ -83,33 +90,39 @@ exports.onPostBuild = async () => {
 
     // Tag links
     tags.forEach((tag) => {
-      links.push({
-        source: dir,
-        target: `tag-${slugify(tag)}`,
-        targetTitle: tag,
-      })
+      const tagSlug = slugify(tag)
+      if (tagSlug) {
+        links.push({
+          source: dir,
+          target: `tag-${tagSlug}`,
+          targetTitle: tag,
+        })
+      }
     })
   }
 
   // Add tag nodes
   allTags.forEach((count, tag) => {
-    nodes.push({
-      id: `tag-${slugify(tag)}`,
-      title: tag,
-      slug: `/tags/${slugify(tag)}/`,
-      exists: true,
-      isTag: true,
-      linkCount: count,
-      incomingLinks: count,
-      totalLinks: count,
-    })
+    const tagSlug = slugify(tag)
+    if (tagSlug) {
+      nodes.push({
+        id: `tag-${tagSlug}`,
+        title: tag,
+        slug: `/tags/${tagSlug}/`,
+        exists: true,
+        isTag: true,
+        linkCount: count,
+        incomingLinks: count,
+        totalLinks: count,
+      })
+    }
   })
 
   // Add unresolved wiki-link nodes
   allLinkedTargets.forEach((title) => {
     if (!titleToSlug.has(title.toLowerCase())) {
       const slug = slugify(title)
-      if (!nodes.find(n => n.id === slug)) {
+      if (slug && !nodes.find(n => n.id === slug)) {
         nodes.push({ id: slug, title, slug: null, exists: false, isTag: false, linkCount: 0, incomingLinks: 0, totalLinks: 0 })
       }
     }
@@ -121,9 +134,12 @@ exports.onPostBuild = async () => {
     if (node && !node.isTag) { node.incomingLinks++; node.totalLinks++ }
   })
 
+  // Filter out links with empty targets
+  const validLinks = links.filter(l => l.target && l.target.length > 0)
+
   // Remove tag property before serializing (not needed in output)
   const cleanNodes = nodes.map(({ tags, ...rest }) => rest)
 
-  fs.writeFileSync(path.join(__dirname, "public", "graph-data.json"), JSON.stringify({ nodes: cleanNodes, links }))
-  console.log(`Graph: ${cleanNodes.length} nodes, ${links.length} links`)
+  fs.writeFileSync(path.join(__dirname, "public", "graph-data.json"), JSON.stringify({ nodes: cleanNodes, links: validLinks }))
+  console.log(`Graph: ${cleanNodes.length} nodes, ${validLinks.length} links`)
 }

@@ -9,9 +9,10 @@ const GraphButton: React.FC = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const updateDimensions = () => {
+        // 2x wider, 1.5x taller - nearly fullscreen
         setDimensions({
-          width: Math.min(window.innerWidth * 0.9, 1200),
-          height: Math.min(window.innerHeight * 0.85, 800),
+          width: Math.min(window.innerWidth * 0.95, 1800),  // Much wider
+          height: Math.min(window.innerHeight * 0.92, 1000), // Much taller
         })
       }
       updateDimensions()

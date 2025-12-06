@@ -47,11 +47,8 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600 }) => {
 
   const handleNodeClick = (node: GraphNode) => {
     if (node.exists && node.slug) {
-      setLoading(node.title)
+      setLoading(node.isTag ? `#${node.title}` : node.title)
       setTimeout(() => navigate(node.slug!), 300)
-    } else if (node.isTag) {
-      setLoading(`#${node.title}`)
-      setTimeout(() => navigate(`/tags/${node.id}/`), 300)
     }
   }
 
@@ -67,6 +64,19 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600 }) => {
       // Reduced size difference: base 6, max 14
       const getNodeSize = (d: GraphNode) => Math.max(6, Math.min(14, 6 + d.totalLinks * 1.5))
 
+      // Colors: Tags = cherry red, Posts = orange, Unlinked = gray/black
+      const getNodeFill = (d: GraphNode) => {
+        if (d.isTag) return "#dc2626" // Cherry red
+        if (d.exists) return "#f97316" // Orange
+        return "#4b5563" // Gray
+      }
+      
+      const getNodeStroke = (d: GraphNode) => {
+        if (d.isTag) return "#991b1b" // Dark red
+        if (d.exists) return "#c2410c" // Dark orange
+        return "#1f2937" // Dark gray
+      }
+
       const simulation = d3
         .forceSimulation<GraphNode>(graphData.nodes)
         .force("link", d3.forceLink<GraphNode, GraphLink>(graphData.links).id((d) => d.id).distance(80))
@@ -80,19 +90,19 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600 }) => {
 
       const node = g.append("g").attr("class", "nodes").selectAll("g")
         .data(graphData.nodes).enter().append("g")
-        .attr("cursor", (d) => (d.exists || d.isTag ? "pointer" : "default"))
+        .attr("cursor", (d) => (d.exists ? "pointer" : "default"))
         .call(d3.drag<SVGGElement, GraphNode>()
           .on("start", (event, d) => { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y })
           .on("drag", (event, d) => { d.fx = event.x; d.fy = event.y })
           .on("end", (event, d) => { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null }))
 
-      // Node circles - tags get different color
+      // Node circles
       node.append("circle")
         .attr("r", getNodeSize)
-        .attr("fill", (d) => d.isTag ? "#a09080" : d.exists ? "#8b6f47" : "#d4c9b9")
-        .attr("stroke", (d) => d.isTag ? "#7a6b5a" : d.exists ? "#6b5435" : "#a09080")
+        .attr("fill", getNodeFill)
+        .attr("stroke", getNodeStroke)
         .attr("stroke-width", 1.5)
-        .attr("stroke-dasharray", (d) => (d.exists || d.isTag ? "none" : "3,2"))
+        .attr("stroke-dasharray", (d) => (d.exists ? "none" : "3,2"))
 
       // Node labels
       node.append("text")
@@ -106,7 +116,7 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600 }) => {
 
       node.on("mouseenter", function (event, d) {
         d3.select(this).select("circle").attr("stroke-width", 2.5)
-        link.attr("stroke", (l: any) => l.source.id === d.id || l.target.id === d.id ? "#8b6f47" : "#d4c9b9")
+        link.attr("stroke", (l: any) => l.source.id === d.id || l.target.id === d.id ? "#f97316" : "#d4c9b9")
             .attr("stroke-width", (l: any) => l.source.id === d.id || l.target.id === d.id ? 2 : 1)
       }).on("mouseleave", function () {
         d3.select(this).select("circle").attr("stroke-width", 1.5)
@@ -139,16 +149,29 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600 }) => {
         }}>
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 14, color: "#3d2817", marginBottom: 8 }}>Loading</div>
-            <div style={{ fontSize: 18, fontWeight: 600, color: "#8b6f47" }}>{loading}</div>
+            <div style={{ fontSize: 18, fontWeight: 600, color: "#f97316" }}>{loading}</div>
           </div>
         </div>
       )}
       <svg ref={svgRef} width={width} height={height} style={{ background: "#faf9f7", borderRadius: "8px" }} />
-      <div style={{ position: "absolute", bottom: 12, left: 12, fontSize: "11px", color: "#888", background: "rgba(250,249,247,0.9)", padding: "6px 10px", borderRadius: "4px" }}>
-        <div><span style={{ display: "inline-block", width: 10, height: 10, borderRadius: "50%", background: "#8b6f47", marginRight: 4 }} />Post</div>
-        <div style={{ marginTop: 3 }}><span style={{ display: "inline-block", width: 10, height: 10, borderRadius: "50%", background: "#a09080", marginRight: 4 }} />Tag</div>
-        <div style={{ marginTop: 3 }}><span style={{ display: "inline-block", width: 10, height: 10, borderRadius: "50%", background: "#d4c9b9", border: "1px dashed #a09080", marginRight: 4 }} />Unlinked</div>
+      {/* Legend - positioned with explicit z-index and background */}
+      <div style={{ 
+        position: "absolute", 
+        bottom: 16, 
+        left: 16, 
+        fontSize: "11px", 
+        color: "#555", 
+        background: "rgba(255,255,255,0.95)", 
+        padding: "10px 14px", 
+        borderRadius: "6px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        zIndex: 5
+      }}>
+        <div style={{ marginBottom: 6 }}><span style={{ display: "inline-block", width: 12, height: 12, borderRadius: "50%", background: "#f97316", marginRight: 6, verticalAlign: "middle" }} />Post</div>
+        <div style={{ marginBottom: 6 }}><span style={{ display: "inline-block", width: 12, height: 12, borderRadius: "50%", background: "#dc2626", marginRight: 6, verticalAlign: "middle" }} />Tag</div>
+        <div><span style={{ display: "inline-block", width: 12, height: 12, borderRadius: "50%", background: "#4b5563", border: "1px dashed #1f2937", marginRight: 6, verticalAlign: "middle" }} />Unlinked</div>
       </div>
+      {/* Stats */}
       <div style={{ position: "absolute", top: 12, left: 12, fontSize: "11px", color: "#888" }}>
         {graphData.nodes.length} nodes · {graphData.links.length} links
       </div>
