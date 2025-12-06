@@ -26,7 +26,68 @@ div > a[href="/tags/"] {
 }
 
 /* ===========================================
-   FOOTER: Hide default content, add Disclaimer link
+   SPACING & TYPOGRAPHY
+   =========================================== */
+
+/* Add breathing room to the whole page */
+body {
+  padding: 0 20px;
+}
+
+/* Main content container */
+main,
+[id="skip-nav"] {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* Post titles on listing */
+article h2,
+section h2 a {
+  margin-bottom: 8px;
+}
+
+/* Post content */
+article,
+section > div {
+  line-height: 1.7;
+}
+
+/* Headings in posts */
+article h1,
+article h2,
+article h3 {
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 1.25em;
+}
+
+/* Lists */
+ul, ol {
+  margin-bottom: 1.5em;
+  padding-left: 1.5em;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+/* Blockquotes */
+blockquote {
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+  border-left: 3px solid #8b6f47;
+  background: rgba(139, 111, 71, 0.05);
+  font-style: italic;
+}
+
+/* ===========================================
+   FOOTER
    =========================================== */
 
 footer > div,
@@ -37,31 +98,24 @@ footer > p {
 
 footer {
   position: relative;
+  margin-top: 60px;
+  padding: 24px 0;
+  border-top: 1px solid #e8e0d5;
 }
 
 footer::after {
   content: "Disclaimer";
   display: block;
   text-align: center;
-  padding: 24px 0;
   color: #8b7a6f;
   font-size: 12px;
 }
 
-/* Make footer clickable via invisible link overlay */
-footer a[href="/disclaimer/"] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-}
-
 /* ===========================================
-   TIGHTER SPACING
+   HEADER SPACING
    =========================================== */
 
 header {
-  margin-bottom: 24px !important;
+  margin-bottom: 40px !important;
+  padding-top: 20px;
 }
