@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { jsx } from "theme-ui"
 import { Link as GatsbyLink } from "gatsby"
 
 const Footer = () => {
