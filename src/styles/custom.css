@@ -1,41 +1,67 @@
-/* Hide the default footer copyright and theme attribution */
-footer > div:first-child,
-footer > div:last-child {
+/* ===========================================
+   HIDE ALL PAGE HEADERS/TITLES
+   =========================================== */
+
+/* Hide ANY h1 or h2 that looks like a page title */
+h1[class*="Heading"],
+h2[class*="Heading"],
+[class*="Title"],
+main > h1,
+main > h2,
+main > section > h1,
+main > section > h2,
+section > h1:first-child,
+section > h2:first-child,
+div > h1:first-child,
+div > h2:first-child {
   display: none !important;
 }
 
-/* Add simple disclaimer link to footer */
+/* Nuclear option: hide the first heading in any main content area */
+main h1:first-of-type,
+main h2:first-of-type,
+[id="skip-nav"] > h1:first-child,
+[id="skip-nav"] > section > h1:first-child {
+  display: none !important;
+}
+
+/* Hide hero section completely */
+.hero-area,
+[class*="hero"],
+[class*="Hero"] {
+  display: none !important;
+}
+
+/* Hide "View all tags" link */
+a[href*="/tags"] {
+  display: none !important;
+}
+
+/* ===========================================
+   FOOTER: Hide default, show Disclaimer
+   =========================================== */
+
+footer > div,
+footer > span,
+footer > p,
+footer > a:not([href="/disclaimer/"]) {
+  display: none !important;
+}
+
 footer::after {
   content: "Disclaimer";
   display: block;
   text-align: center;
   padding: 24px 0;
-  color: #666;
+  color: #8b7a6f;
   font-size: 12px;
-}
-
-footer {
   cursor: pointer;
 }
 
-/* Hide "About" page title */
-main > section > h1:first-child {
-  display: none !important;
-}
+/* ===========================================
+   TIGHTER SPACING
+   =========================================== */
 
-/* Hide hero section on homepage */
-.hero-area,
-[class*="hero"] {
-  display: none !important;
-}
-
-/* Hide "Latest Posts" and "Blog" headings */
-main h2:first-of-type {
-  display: none !important;
-}
-
-/* Compact spacing */
 header {
-  margin-bottom: 32px !important;
+  margin-bottom: 24px !important;
 }
-
