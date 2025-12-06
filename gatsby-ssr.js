@@ -1,12 +1,1 @@
-import * as React from "react";
-import GraphButton from "./src/components/GraphButton";
-
-export const wrapPageElement = ({ element }) => {
-  return (
-    <>
-      {element}
-      <GraphButton />
-    </>
-  );
-};
-
+// No wrapPageElement for SSR - GraphButton only renders on client

@@ -1,15 +1,21 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
-import GraphView from "./GraphView"
+
+// Lazy load GraphView to avoid SSR issues with d3
+const GraphView = React.lazy(() => import("./GraphView"))
 
 const GraphButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const updateDimensions = () => {
-        // 2x wider, 1.5x taller - nearly fullscreen
         setDimensions({
           width: Math.min(window.innerWidth * 0.95, 1800),
           height: Math.min(window.innerHeight * 0.92, 1000),
@@ -32,6 +38,9 @@ const GraphButton: React.FC = () => {
 
   const closeModal = () => setIsOpen(false)
 
+  // Don't render anything during SSR
+  if (!isMounted) return null
+
   return (
     <>
       <button onClick={() => setIsOpen(true)} className="graph-button" aria-label="Open knowledge graph" title="View knowledge graph">
@@ -51,11 +60,13 @@ const GraphButton: React.FC = () => {
             </button>
             <div style={{ position: "absolute", top: 16, left: "50%", transform: "translateX(-50%)", fontWeight: 600, color: "#1a1815", fontSize: "16px", zIndex: 10 }}>Knowledge Graph</div>
             <div style={{ paddingTop: 50, height: "calc(100% - 50px)", overflow: "visible" }}>
-              <GraphView 
-                width={dimensions.width} 
-                height={dimensions.height - 60} 
-                onNavigate={closeModal}
-              />
+              <React.Suspense fallback={<div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "#888" }}>Loading graph...</div>}>
+                <GraphView 
+                  width={dimensions.width} 
+                  height={dimensions.height - 60} 
+                  onNavigate={closeModal}
+                />
+              </React.Suspense>
             </div>
           </div>
         </div>
