@@ -56,7 +56,7 @@ const Figure: React.FC<FigureProps> = ({ src, alt, caption }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            backgroundColor: "rgba(0, 0, 0, 0.85)",
             zIndex: 2000,
             display: "flex",
             flexDirection: "column",
@@ -66,16 +66,25 @@ const Figure: React.FC<FigureProps> = ({ src, alt, caption }) => {
             padding: "20px",
           }}
         >
-          <img
-            src={src}
-            alt={alt}
+          <div
             style={{
-              maxWidth: "90vw",
-              maxHeight: "80vh",
-              objectFit: "contain",
-              borderRadius: "4px",
+              backgroundColor: "white",
+              padding: "16px",
+              borderRadius: "8px",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
             }}
-          />
+          >
+            <img
+              src={src}
+              alt={alt}
+              style={{
+                maxWidth: "85vw",
+                maxHeight: "75vh",
+                objectFit: "contain",
+                display: "block",
+              }}
+            />
+          </div>
           {caption && (
             <p
               style={{
