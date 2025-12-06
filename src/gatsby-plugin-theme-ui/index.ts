@@ -184,19 +184,7 @@ const theme: Theme = {
       maxWidth: "100%",
     },
   },
-  modes: {
-    dark: {
-      text: "#e8e0d5", // Light sepia for dark mode
-      background: "#1a1612", // Deep sepia dark
-      primary: "#b8a082", // Lighter golden sepia
-      primaryHover: "#d4c4a8",
-      secondary: "#9a8b7a",
-      muted: "#2d241f",
-      heading: "#f5f1e8",
-      divide: "#3d3428",
-      highlightLineBg: "rgba(184, 160, 130, 0.15)",
-    },
-  },
+  // Dark mode removed
 }
 
 export default theme
