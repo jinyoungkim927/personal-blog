@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { jsx } from "theme-ui"
 import { Link as GatsbyLink } from "gatsby"
 
