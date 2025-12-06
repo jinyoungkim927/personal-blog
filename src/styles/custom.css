@@ -2,40 +2,11 @@
    HIDE PAGE HEADERS/TITLES - But show post titles
    =========================================== */
 
-/* Hide "Blog", "About" and other page headers on listing/static pages */
-[class*="Blog"] > h1,
-[class*="Homepage"] > h1,
-[class*="Page"] > h1,
-main > section:first-child > h1:first-child,
-#skip-nav > section > h1:first-child,
-main > h1:first-child:not(:only-child),
-#skip-nav > h1:first-child:not(:only-child),
-main > section > h1:first-child,
-#skip-nav > div > h1:first-child {
+/* Hide visually-hidden h1 site title on all pages */
+h1[class*="visuallyHidden"],
+h1[style*="clip"],
+h1[style*="position: absolute"][style*="height: 1px"] {
   display: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  height: 0 !important;
-  line-height: 0 !important;
-}
-
-/* Remove extra spacing from containers that held headers */
-main > section:first-child,
-#skip-nav > section:first-child,
-[class*="Blog"] > section:first-child,
-[class*="Page"] > section:first-child {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* SHOW post titles on individual post pages */
-article > h1,
-[class*="Post"] h1:first-of-type,
-main h1[class*="title"],
-h1.post-title {
-  display: block !important;
-  margin-top: 0;
-  margin-bottom: 1rem;
 }
 
 .hero-area,
@@ -267,25 +238,10 @@ blockquote {
    FOOTER
    =========================================== */
 
-footer > div,
-footer > span,
-footer > p {
-  display: none !important;
-}
-
 footer {
-  position: relative;
   margin-top: 60px;
   padding: 24px 0;
   border-top: 1px solid #e8e0d5;
-}
-
-footer::after {
-  content: "Disclaimer";
-  display: block;
-  text-align: center;
-  color: #8b7a6f;
-  font-size: 12px;
 }
 
 /* ===========================================

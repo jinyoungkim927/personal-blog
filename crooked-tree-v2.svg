@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Warm paper background -->
+  <rect width="128" height="128" fill="#f5f0e6"/>
+  
+  <!-- Ground line hint -->
+  <ellipse cx="64" cy="112" rx="28" ry="6" fill="#8b7355" opacity="0.3"/>
+  
+  <!-- Roots spreading out -->
+  <g fill="none" stroke="#5d4e37" stroke-linecap="round" stroke-width="4">
+    <path d="M58 108 Q45 114 35 112"/>
+    <path d="M68 108 Q80 115 92 110"/>
+    <path d="M63 110 Q63 118 60 122"/>
+  </g>
+  
+  <!-- Main crooked trunk -->
+  <g fill="none" stroke="#3d3227" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 108 Q52 95 58 78 Q46 62 58 45 Q50 32 62 22" 
+          stroke-width="11"/>
+    
+    <!-- Left branch -->
+    <path d="M54 52 Q38 44 26 42" 
+          stroke-width="6"/>
+    
+    <!-- Right branch -->  
+    <path d="M60 32 Q75 26 88 30" 
+          stroke-width="5"/>
+    
+    <!-- Small upper twig -->
+    <path d="M62 22 Q58 14 52 12" 
+          stroke-width="3"/>
+  </g>
+  
+  <!-- Green foliage clusters -->
+  <g fill="#4a7c59">
+    <!-- Left branch canopy -->
+    <ellipse cx="22" cy="38" rx="14" ry="11"/>
+    <ellipse cx="34" cy="44" rx="10" ry="8"/>
+    
+    <!-- Right branch canopy -->
+    <ellipse cx="92" cy="26" rx="12" ry="10"/>
+    <ellipse cx="80" cy="32" rx="9" ry="7"/>
+    
+    <!-- Top canopy -->
+    <ellipse cx="48" cy="10" rx="11" ry="9"/>
+    <ellipse cx="60" cy="16" rx="8" ry="6"/>
+  </g>
+  
+  <!-- Slightly darker leaf accents for depth -->
+  <g fill="#3d6b4a">
+    <ellipse cx="18" cy="36" rx="6" ry="5"/>
+    <ellipse cx="94" cy="22" rx="5" ry="4"/>
+    <ellipse cx="44" cy="8" rx="5" ry="4"/>
+  </g>
+</svg>
