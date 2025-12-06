@@ -1,84 +1,76 @@
 /** @jsx jsx */
-import type { HeadFC, PageProps } from "gatsby"
+import { jsx, Box, Container, Flex, Heading } from "theme-ui"
+import { HeadFC, PageProps } from "gatsby"
+import { Link } from "gatsby"
 import * as React from "react"
-import { jsx, Heading, Flex, Box } from "theme-ui"
-import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
-import ItemTags from "@lekoarts/gatsby-theme-minimal-blog/src/components/item-tags"
+import { Global } from "@emotion/react"
+import { MDXProvider } from "@mdx-js/react"
+import MdxComponents from "@lekoarts/gatsby-theme-minimal-blog/src/components/mdx-components"
+import useMinimalBlogConfig from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-minimal-blog-config"
+import useSiteMetadata from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-site-metadata"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
-import PostFooter from "@lekoarts/gatsby-theme-minimal-blog/src/components/post-footer"
 
-export type MBPostProps = {
+const tagColors = [
+  { bg: "rgba(251, 191, 36, 0.2)", color: "#92400e" },
+  { bg: "rgba(244, 114, 182, 0.2)", color: "#9d174d" },
+  { bg: "rgba(74, 222, 128, 0.2)", color: "#166534" },
+  { bg: "rgba(96, 165, 250, 0.2)", color: "#1e40af" },
+  { bg: "rgba(251, 146, 60, 0.2)", color: "#9a3412" },
+  { bg: "rgba(192, 132, 252, 0.2)", color: "#6b21a8" },
+]
+
+const hash = (s: string) => { let h = 0; for (let i = 0; i < s.length; i++) h = s.charCodeAt(i) + ((h << 5) - h); return Math.abs(h) }
+
+type PostProps = {
   post: {
     slug: string
     title: string
     date: string
-    tags?: {
-      name: string
-      slug: string
-    }[]
+    tags?: { name: string; slug: string }[]
     description?: string
-    canonicalUrl?: string
     excerpt: string
     timeToRead?: number
-    banner?: {
-      childImageSharp: {
-        resize: {
-          src: string
-        }
-      }
-    }
   }
 }
 
-const px = [`16px`, `8px`, `4px`]
-const shadow = px.map((v) => `rgba(0, 0, 0, 0.1) 0px ${v} ${v} 0px`)
+const Post: React.FC<React.PropsWithChildren<PageProps<PostProps>>> = ({ data: { post }, children }) => {
+  const { navigation, tagsPath, basePath } = useMinimalBlogConfig()
+  const { siteTitle } = useSiteMetadata()
 
-const Post: React.FC<React.PropsWithChildren<PageProps<MBPostProps>>> = ({ data: { post }, children }) => (
-  <Layout>
-    <Flex sx={{ alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 2, mb: 3 }}>
-      <Heading as="h1" variant="styles.h1" sx={{ flex: "1 1 auto", minWidth: "200px" }}>
-        {post.title}
-      </Heading>
-      {post.tags && (
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, alignItems: "center" }}>
-          <ItemTags tags={post.tags} />
+  return (
+    <MDXProvider components={MdxComponents}>
+      <Global styles={{ "*": { boxSizing: "border-box" }, body: { margin: 0, padding: 0 } }} />
+      <Container sx={{ maxWidth: 720, px: [3, 4], py: [4, 5] }}>
+        <Flex as="header" sx={{ mb: 5, alignItems: "center", justifyContent: "space-between" }}>
+          <Link to="/" sx={{ color: "heading", textDecoration: "none", fontWeight: 600, fontSize: [2, 3] }}>{siteTitle}</Link>
+          <Flex as="nav" sx={{ gap: 4 }}>
+            {navigation.map((n: any) => <Link key={n.slug} to={n.slug} sx={{ color: "secondary", textDecoration: "none", fontSize: 1, "&:hover": { color: "heading" } }}>{n.title}</Link>)}
+          </Flex>
+        </Flex>
+
+        <Box as="main">
+          <Heading as="h1" sx={{ fontSize: [4, 5], mb: 3 }}>{post.title}</Heading>
+          <Flex sx={{ color: "secondary", fontSize: 0, mb: 4, alignItems: "center", gap: 2, flexWrap: "wrap" }}>
+            <span>{post.date}</span>
+            {post.tags && post.tags.length > 0 && (
+              <Flex sx={{ gap: 1 }}>
+                {post.tags.map((tag) => {
+                  const c = tagColors[hash(tag.slug) % tagColors.length]
+                  return <Link key={tag.slug} to={`/${basePath}/${tagsPath}/${tag.slug}`.replace(/\/\/+/g, "/")} sx={{ px: "6px", py: "2px", borderRadius: 3, bg: c.bg, color: c.color, textDecoration: "none", fontSize: "11px", fontWeight: 500 }}>#{tag.name}</Link>
+                })}
+              </Flex>
+            )}
+          </Flex>
+          <Box sx={{ lineHeight: 1.7 }}>{children}</Box>
         </Box>
-      )}
-    </Flex>
-    <p sx={{ color: `secondary`, mt: 2, a: { color: `secondary` }, fontSize: [1, 1, 2] }}>
-      <time>{post.date}</time>
-      {post.timeToRead && ` — `}
-      {post.timeToRead && <span>{post.timeToRead} min read</span>}
-    </p>
-    <section
-      sx={{
-        my: 5,
-        ".gatsby-resp-image-wrapper": {
-          my: [4, 4, 5],
-          borderRadius: `4px`,
-          boxShadow: shadow.join(`, `),
-          ".gatsby-resp-image-image": {
-            borderRadius: `4px`,
-          },
-        },
-        variant: `layout.content`,
-      }}
-    >
-      {children}
-    </section>
-    <PostFooter post={post} />
-  </Layout>
-)
+
+        <Box as="footer" sx={{ mt: 6, pt: 4, borderTop: "1px solid", borderColor: "divide", textAlign: "center" }}>
+          <Link to="/disclaimer" sx={{ color: "secondary", textDecoration: "none", fontSize: 0, "&:hover": { color: "primary" } }}>Disclaimer</Link>
+        </Box>
+      </Container>
+    </MDXProvider>
+  )
+}
 
 export default Post
-
-export const Head: HeadFC<MBPostProps> = ({ data: { post } }) => (
-  <Seo
-    title={post.title}
-    description={post.description ? post.description : post.excerpt}
-    image={post.banner ? post.banner?.childImageSharp?.resize?.src : undefined}
-    pathname={post.slug}
-    canonicalUrl={post.canonicalUrl}
-  />
-)
-
+export const Head: HeadFC<PostProps> = ({ data: { post } }) => <Seo title={post.title} description={post.description || post.excerpt} />
