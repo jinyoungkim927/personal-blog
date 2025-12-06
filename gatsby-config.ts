@@ -29,7 +29,7 @@ const config: GatsbyConfig = {
             slug: `/blog`,
           },
           {
-            title: `Why This Exists`,
+            title: `About`,
             slug: `/about`,
           },
         ],
