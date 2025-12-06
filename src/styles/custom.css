@@ -1,0 +1,41 @@
+/* Hide the default footer copyright and theme attribution */
+footer > div:first-child,
+footer > div:last-child {
+  display: none !important;
+}
+
+/* Add simple disclaimer link to footer */
+footer::after {
+  content: "Disclaimer";
+  display: block;
+  text-align: center;
+  padding: 24px 0;
+  color: #666;
+  font-size: 12px;
+}
+
+footer {
+  cursor: pointer;
+}
+
+/* Hide "About" page title */
+main > section > h1:first-child {
+  display: none !important;
+}
+
+/* Hide hero section on homepage */
+.hero-area,
+[class*="hero"] {
+  display: none !important;
+}
+
+/* Hide "Latest Posts" and "Blog" headings */
+main h2:first-of-type {
+  display: none !important;
+}
+
+/* Compact spacing */
+header {
+  margin-bottom: 32px !important;
+}
+
