@@ -33,16 +33,7 @@ const config: GatsbyConfig = {
             slug: `/about`,
           },
         ],
-        externalLinks: [
-          {
-            name: `GitHub`,
-            url: `https://github.com/jinyoungkim927`,
-          },
-          {
-            name: `Contact`,
-            url: `mailto:hello@more-useless.com`,
-          },
-        ],
+        externalLinks: [],
       },
     },
     {
