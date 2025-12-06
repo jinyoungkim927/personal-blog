@@ -8,7 +8,7 @@ const Header = () => {
   const { navigation: nav } = useMinimalBlogConfig()
 
   return (
-    <header sx={{ mb: [5, 6] }}>
+    <header sx={{ mb: [4, 5] }}>
       <Flex sx={{ alignItems: `center`, justifyContent: `space-between` }}>
         <HeaderTitle />
       </Flex>
@@ -18,7 +18,7 @@ const Header = () => {
           display: `flex`,
           variant: `dividers.bottom`,
           alignItems: `center`,
-          justifyContent: `space-between`,
+          justifyContent: `flex-start`,
           mt: 3,
           color: `secondary`,
           a: { color: `secondary`, ":hover": { color: `heading` } },
@@ -32,4 +32,3 @@ const Header = () => {
 }
 
 export default Header
-

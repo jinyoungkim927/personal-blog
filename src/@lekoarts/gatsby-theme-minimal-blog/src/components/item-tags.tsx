@@ -14,11 +14,11 @@ type TagsProps = {
 
 // Soft highlight colors: yellow, pink, green, blue, orange
 const tagColors = [
-  { bg: "#fef3c7", color: "#92400e" }, // soft yellow
-  { bg: "#fce7f3", color: "#9f1239" }, // soft pink
-  { bg: "#d1fae5", color: "#065f46" }, // soft green
-  { bg: "#dbeafe", color: "#1e40af" }, // soft blue
-  { bg: "#fed7aa", color: "#9a3412" }, // soft orange
+  { bg: "#fef3c7", color: "#92400e", hoverBg: "#fde68a", hoverColor: "#78350f" }, // soft yellow
+  { bg: "#fce7f3", color: "#9f1239", hoverBg: "#fbcfe8", hoverColor: "#831843" }, // soft pink
+  { bg: "#d1fae5", color: "#065f46", hoverBg: "#a7f3d0", hoverColor: "#047857" }, // soft green
+  { bg: "#dbeafe", color: "#1e40af", hoverBg: "#bfdbfe", hoverColor: "#1e3a8a" }, // soft blue
+  { bg: "#fed7aa", color: "#9a3412", hoverBg: "#fdba74", hoverColor: "#7c2d12" }, // soft orange
 ]
 
 // Hash function to consistently assign colors to tags
@@ -53,8 +53,12 @@ const ItemTags = ({ tags }: TagsProps) => {
               textDecoration: "none",
               fontSize: "0.875rem",
               fontWeight: 500,
+              transition: "all 0.2s ease",
               "&:hover": {
-                opacity: 0.8,
+                backgroundColor: colors.hoverBg,
+                color: colors.hoverColor,
+                transform: "translateY(-1px)",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
               },
             }}
           >
@@ -67,4 +71,3 @@ const ItemTags = ({ tags }: TagsProps) => {
 }
 
 export default ItemTags
-

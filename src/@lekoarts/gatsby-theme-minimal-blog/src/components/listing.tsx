@@ -25,51 +25,52 @@ const Listing = ({ posts, className = ``, showTags = true }: ListingProps) => {
 
   return (
     <section sx={{ mb: [5, 6, 7] }} className={className}>
-      <Box sx={{ mb: 4 }}>
+      <Box sx={{ mb: 4, display: "flex", justifyContent: "flex-end" }}>
         <Button
           onClick={() => setTagsVisible(!tagsVisible)}
           sx={{
-            bg: "muted",
+            bg: "transparent",
             color: "text",
             border: "1px solid",
             borderColor: "divide",
             px: 3,
-            py: 2,
+            py: 1,
             borderRadius: "4px",
             cursor: "pointer",
-            fontSize: 1,
+            fontSize: 0,
+            fontWeight: 400,
+            transition: "all 0.2s ease",
             "&:hover": {
-              bg: "primary",
-              color: "background",
+              bg: "muted",
               borderColor: "primary",
             },
           }}
         >
           {tagsVisible ? "Hide Tags" : "Show All Titles"}
         </Button>
-        {!tagsVisible && (
-          <Box sx={{ mt: 3 }}>
-            {posts.map((post) => (
-              <Box key={post.slug} sx={{ mb: 2 }}>
-                <a
-                  href={post.slug}
-                  sx={{
-                    color: "text",
-                    textDecoration: "none",
-                    fontSize: [1, 2],
-                    "&:hover": {
-                      color: "primary",
-                      textDecoration: "underline",
-                    },
-                  }}
-                >
-                  {post.title}
-                </a>
-              </Box>
-            ))}
-          </Box>
-        )}
       </Box>
+      {!tagsVisible && (
+        <Box sx={{ mt: 2 }}>
+          {posts.map((post) => (
+            <Box key={post.slug} sx={{ mb: 2 }}>
+              <a
+                href={post.slug}
+                sx={{
+                  color: "text",
+                  textDecoration: "none",
+                  fontSize: [1, 2],
+                  transition: "color 0.2s ease",
+                  "&:hover": {
+                    color: "primary",
+                  },
+                }}
+              >
+                {post.title}
+              </a>
+            </Box>
+          ))}
+        </Box>
+      )}
       {tagsVisible && posts.map((post) => (
         <BlogListItem key={post.slug} post={post} showTags={showTags} />
       ))}
@@ -78,4 +79,3 @@ const Listing = ({ posts, className = ``, showTags = true }: ListingProps) => {
 }
 
 export default Listing
-

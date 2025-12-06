@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import * as React from "react"
-import { jsx, Box, Flex, Button } from "theme-ui"
+import { jsx, Box, Flex } from "theme-ui"
 import { Link } from "gatsby"
 import ItemTags from "@lekoarts/gatsby-theme-minimal-blog/src/components/item-tags"
 
@@ -25,13 +25,17 @@ const BlogListItem = ({ post, showTags = true }: BlogListItemProps) => (
     <Flex sx={{ alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 2, mb: 1 }}>
       <Link 
         to={post.slug} 
-        sx={(t) => ({ 
-          ...t.styles?.a, 
+        sx={{
           fontSize: [1, 2, 3], 
           color: `text`,
           flex: "1 1 auto",
           minWidth: "200px",
-        })}
+          textDecoration: "none",
+          transition: "color 0.2s ease",
+          "&:hover": {
+            color: "primary",
+          },
+        }}
       >
         {post.title}
       </Link>
@@ -41,11 +45,10 @@ const BlogListItem = ({ post, showTags = true }: BlogListItemProps) => (
         </Box>
       )}
     </Flex>
-    <p sx={{ color: `secondary`, mt: 1, a: { color: `secondary` }, fontSize: [1, 1, 2] }}>
+    <p sx={{ color: `secondary`, mt: 1, fontSize: [0, 1] }}>
       <time>{post.date}</time>
     </p>
   </Box>
 )
 
 export default BlogListItem
-

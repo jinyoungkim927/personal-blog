@@ -2,11 +2,8 @@
 import { jsx } from "theme-ui"
 import { HeadFC } from "gatsby"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
-import useMinimalBlogConfig from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-minimal-blog-config"
-import useSiteMetadata from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-site-metadata"
-import { visuallyHidden } from "@lekoarts/gatsby-theme-minimal-blog/src/styles/utils"
+import Listing from "@lekoarts/gatsby-theme-minimal-blog/src/components/listing"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
-import Hero from "../texts/hero.mdx"
 
 export type MBHomepageProps = {
   posts: {
@@ -24,17 +21,10 @@ export type MBHomepageProps = {
 }
 
 const Homepage = ({ posts }: MBHomepageProps) => {
-  const { basePath, blogPath } = useMinimalBlogConfig()
-  const { siteTitle } = useSiteMetadata()
-
   return (
     <Layout>
-      <h1 sx={visuallyHidden}>{siteTitle}</h1>
-      <section sx={{ mb: [5, 6, 7], p: { fontSize: [1, 2, 3], mt: 2 }, variant: `section_hero` }}>
-        <Hero />
-      </section>
-      {/* Latest Posts section removed */}
-      {/* Bottom section removed */}
+      {/* Homepage replaced with blog listing - minimalist design */}
+      <Listing posts={posts} sx={{ mt: [4, 5] }} />
     </Layout>
   )
 }
@@ -42,4 +32,3 @@ const Homepage = ({ posts }: MBHomepageProps) => {
 export default Homepage
 
 export const Head: HeadFC = () => <Seo />
-

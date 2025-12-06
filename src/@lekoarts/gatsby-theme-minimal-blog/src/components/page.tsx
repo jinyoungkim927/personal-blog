@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import type { HeadFC, PageProps } from "gatsby"
-import { jsx } from "theme-ui"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
+import type { HeadFC, PageProps } from "gatsby"
 
 export type MBPageProps = {
   page: {
