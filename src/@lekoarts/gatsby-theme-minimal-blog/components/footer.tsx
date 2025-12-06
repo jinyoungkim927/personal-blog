@@ -1,11 +1,11 @@
-/** @jsx jsx */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { jsx } from "theme-ui"
+import * as React from "react"
 import { Link as GatsbyLink } from "gatsby"
+import { Box } from "theme-ui"
 
 const Footer = () => {
   return (
-    <footer
+    <Box
+      as="footer"
       sx={{
         boxSizing: `border-box`,
         display: `flex`,
@@ -32,7 +32,7 @@ const Footer = () => {
       >
         Disclaimer
       </GatsbyLink>
-    </footer>
+    </Box>
   )
 }
 
