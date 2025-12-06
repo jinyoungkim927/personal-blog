@@ -9,8 +9,8 @@ const config: GatsbyConfig = {
     // You can also add new values here to query them like usual
     // See all options: https://github.com/LekoArts/gatsby-themes/blob/main/themes/gatsby-theme-minimal-blog/gatsby-config.mjs
     siteTitle: `More Useless`,
-    siteTitleAlt: `More Useless - A Collection of Curiosities`,
-    siteHeadline: `More Useless - Exploring the Wonderfully Pointless`,
+    siteTitleAlt: `More Useless`,
+    siteHeadline: `More Useless`,
     siteUrl: `https://more-useless.com`,
     siteDescription: `A delightful collection of wonderfully useless things, random thoughts, and curious discoveries. Because sometimes the most interesting things are the least practical.`,
     siteImage: `/banner.jpg`,
@@ -45,8 +45,8 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `More Useless - A Collection of Curiosities`,
-        short_name: `more-useless`,
+        name: `More Useless`,
+        short_name: `More Useless`,
         description: `A delightful collection of wonderfully useless things, random thoughts, and curious discoveries.`,
         start_url: `/`,
         background_color: `#faf8f3`,
