@@ -58,10 +58,10 @@ const config: GatsbyConfig = {
         short_name: `more-useless`,
         description: `A delightful collection of wonderfully useless things, random thoughts, and curious discoveries.`,
         start_url: `/`,
-        background_color: `#fff`,
+        background_color: `#faf8f3`,
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
-        // theme_color: `#6B46C1`,
+        theme_color: `#8b6f47`,
         display: `standalone`,
         icons: [
           {
