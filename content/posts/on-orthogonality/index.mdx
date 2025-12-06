@@ -101,7 +101,7 @@ Think of each dimension as an asset. My "portfolio" is how I allocate time and e
 
 First, what are my major correlated clusters? Running PCA reveals three main factors:
 
-![Principal component descriptions showing three main factors: PC1 (General thriving), PC2 (Achievement-wellbeing tradeoff), PC3 (Impact-material tradeoff)](./PC_descriptions.png)
+<Figure src={pcDescriptions} alt="Principal component descriptions" caption="Three main factors from PCA analysis" />
 
 - **PC1 (General thriving):** When career, health, relationships, and emotions move together - the "everything is good" feeling
 - **PC2 (Achievement-wellbeing tradeoff):** Career and productivity gains that come at the cost of emotions and relationships
@@ -111,7 +111,7 @@ These clusters reveal correlation structure. PC1 shows that my satisfaction sour
 
 To find orthogonal components, we compute the mean absolute correlation |r| for each dimension against all others:
 
-![Feature orthogonality score showing Contribution & Impact has the lowest mean correlation](./feature_orthogonality_score.png)
+<Figure src={featureOrthogonality} alt="Feature orthogonality score" caption="Contribution & Impact has the lowest mean correlation" />
 
 **Contribution & Impact** has the lowest mean correlation—it's the most independent from my other life dimensions, signalling it's an orthogonal asset.
 
