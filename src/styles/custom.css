@@ -1,27 +1,12 @@
 /* ===========================================
-   HIDE ALL PAGE HEADERS/TITLES
+   HIDE PAGE HEADERS/TITLES ONLY
    =========================================== */
 
-/* Hide ANY h1 or h2 that looks like a page title */
-h1[class*="Heading"],
-h2[class*="Heading"],
-[class*="Title"],
-main > h1,
-main > h2,
-main > section > h1,
-main > section > h2,
-section > h1:first-child,
-section > h2:first-child,
-div > h1:first-child,
-div > h2:first-child {
-  display: none !important;
-}
-
-/* Nuclear option: hide the first heading in any main content area */
-main h1:first-of-type,
-main h2:first-of-type,
-[id="skip-nav"] > h1:first-child,
-[id="skip-nav"] > section > h1:first-child {
+/* Target the specific heading elements that are page titles */
+main > div:first-child > h1,
+main > section:first-child > h1,
+[id="skip-nav"] > h1,
+[id="skip-nav"] > div > h1 {
   display: none !important;
 }
 
@@ -32,8 +17,11 @@ main h2:first-of-type,
   display: none !important;
 }
 
-/* Hide "View all tags" link */
-a[href*="/tags"] {
+/* Hide standalone "View all tags" link (not tag links on posts) */
+p > a[href="/tags"],
+p > a[href="/tags/"],
+div > a[href="/tags"],
+div > a[href="/tags/"] {
   display: none !important;
 }
 
@@ -43,8 +31,7 @@ a[href*="/tags"] {
 
 footer > div,
 footer > span,
-footer > p,
-footer > a:not([href="/disclaimer/"]) {
+footer > p {
   display: none !important;
 }
 
