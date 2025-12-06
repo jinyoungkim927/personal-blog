@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { HeadFC } from "gatsby"
-import Layout from "./layout"
-import useMinimalBlogConfig from "../hooks/use-minimal-blog-config"
-import useSiteMetadata from "../hooks/use-site-metadata"
-import { visuallyHidden } from "../styles/utils"
-import Seo from "./seo"
+import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
+import useMinimalBlogConfig from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-minimal-blog-config"
+import useSiteMetadata from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-site-metadata"
+import { visuallyHidden } from "@lekoarts/gatsby-theme-minimal-blog/src/styles/utils"
+import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
 import Hero from "../texts/hero.mdx"
 
 export type MBHomepageProps = {
