@@ -32,4 +32,3 @@ const Homepage = ({ posts }: MBHomepageProps) => {
 export default Homepage
 
 export const Head: HeadFC = () => <Seo />
-
