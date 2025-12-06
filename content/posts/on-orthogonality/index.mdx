@@ -12,6 +12,12 @@ tags:
 
 import Math from "../../../src/components/Math"
 import SpotifyTrack from "../../../src/components/SpotifyTrack"
+import Figure from "../../../src/components/Figure"
+
+import thoughtSpace from "./01_thought_space-2.png"
+import communicationProjection from "./02_communication_projection.png"
+import pcDescriptions from "./PC_descriptions.png"
+import featureOrthogonality from "./feature_orthogonality_score.png"
 
 Work has recently made me think a lot about the concept of 'orthogonality'. It's helped me iterate on some of my personal beliefs:
 
@@ -37,13 +43,11 @@ How would we model the collection of your thoughts?
 
 The most natural model to me feels like a high dimensional space, where each point represents a single thought. In a similar way to how embeddings like [CLIP](https://openai.com/index/clip/) represent abstract dimensions, I don't know what these dimensions intuitively 'mean' or are, but for instance, since we all consume and excrete food, I imagine some dimensions are probably highly correlated with concepts like taste and hunger.
 
-![High-dimensional thought space visualization showing points representing individual thoughts in a multi-dimensional space](./01_thought_space-2.png)
-
-My brain ^.
+<Figure src={thoughtSpace} alt="High-dimensional thought space visualization" caption="My brain" />
 
 Ok, so then, how does communication work? One quick observation is that communication happens. So, our thoughts must have a pretty good low rank approximation, i.e. they can be projected down to a shared dimension without losing too much information.
 
-![Low rank approximation visualization showing projection from high-dimensional space to shared communication dimension](./02_communication_projection.png)
+<Figure src={communicationProjection} alt="Low rank approximation visualization" caption="Communication as projection to a shared dimension" />
 
 But what about moments of major miscommunication? When we bicker with loved ones? Or when a teacher has explained something to you that completely went over your head? These to me are signs there are orthogonal components in our thought space. It's not just disagreement. It's more like confusion.
 

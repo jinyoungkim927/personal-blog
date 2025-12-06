@@ -15,6 +15,12 @@ h1[style*="position: absolute"][style*="height: 1px"] {
   display: none !important;
 }
 
+/* Hide the "About" page title */
+body[class*="page-about"] h1:first-of-type,
+main section > h1:first-child {
+  display: none !important;
+}
+
 /* Hide standalone "View all tags" link */
 p > a[href="/tags"],
 p > a[href="/tags/"],
