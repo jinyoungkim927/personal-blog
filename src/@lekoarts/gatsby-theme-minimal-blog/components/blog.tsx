@@ -1,3 +1,4 @@
+import * as React from "react"
 import { HeadFC } from "gatsby"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Listing from "@lekoarts/gatsby-theme-minimal-blog/src/components/listing"
