@@ -1,5 +1,3 @@
-import "./src/styles/custom.css";
-import "katex/dist/katex.min.css";
 import * as React from "react";
 import GraphButton from "./src/components/GraphButton";
 
@@ -11,3 +9,4 @@ export const wrapPageElement = ({ element }) => {
     </>
   );
 };
+
