@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
+import { jsx, Box } from "theme-ui"
+import { HeadFC, PageProps } from "gatsby"
+import Layout from "./layout"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
-import type { HeadFC, PageProps } from "gatsby"
 
 export type MBPageProps = {
   page: {
@@ -13,12 +14,13 @@ export type MBPageProps = {
 
 const Page: React.FC<React.PropsWithChildren<PageProps<MBPageProps>>> = ({ data: { page }, children }) => (
   <Layout>
-    {/* Page title header removed */}
-    <section sx={{ my: 5, variant: `layout.content` }}>{children}</section>
+    {/* No title header - minimalist */}
+    <Box sx={{ variant: "layout.content" }}>{children}</Box>
   </Layout>
 )
 
 export default Page
 
-export const Head: HeadFC<MBPageProps> = ({ data: { page } }) => <Seo title={page.title} description={page.excerpt} />
-
+export const Head: HeadFC<MBPageProps> = ({ data: { page } }) => (
+  <Seo title={page.title} description={page.excerpt} />
+)

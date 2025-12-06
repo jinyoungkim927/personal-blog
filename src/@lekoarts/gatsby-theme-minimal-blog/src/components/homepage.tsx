@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
-import Listing from "@lekoarts/gatsby-theme-minimal-blog/src/components/listing"
-import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
+import { jsx } from "theme-ui"
 import { HeadFC } from "gatsby"
+import Layout from "./layout"
+import Listing from "./listing"
+import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
 
 export type MBHomepageProps = {
   posts: {
@@ -12,21 +13,15 @@ export type MBHomepageProps = {
     excerpt: string
     description: string
     timeToRead?: number
-    tags?: {
-      name: string
-      slug: string
-    }[]
+    tags?: { name: string; slug: string }[]
   }[]
 }
 
-const Homepage = ({ posts }: MBHomepageProps) => {
-  return (
-    <Layout>
-      {/* Homepage replaced with blog listing - minimalist design */}
-      <Listing posts={posts} sx={{ mt: [4, 5] }} />
-    </Layout>
-  )
-}
+const Homepage = ({ posts }: MBHomepageProps) => (
+  <Layout>
+    <Listing posts={posts} />
+  </Layout>
+)
 
 export default Homepage
 

@@ -1,8 +1,4 @@
-/** @jsx jsx */
-
-const Footer = () => {
-  return null
-}
+// Empty footer - hyper minimalist
+const Footer = () => null
 
 export default Footer
-

@@ -1,44 +1,28 @@
 /** @jsx jsx */
 import * as React from "react"
 import { Global } from "@emotion/react"
-import { Box, Container, jsx, get } from "theme-ui"
-import { MDXProvider } from "@mdx-js/react"
-import MdxComponents from "@lekoarts/gatsby-theme-minimal-blog/src/components/mdx-components"
-import Header from "@lekoarts/gatsby-theme-minimal-blog/src/components/header"
-import Footer from "@lekoarts/gatsby-theme-minimal-blog/src/components/footer"
-import CodeStyles from "@lekoarts/gatsby-theme-minimal-blog/src/styles/code"
-import SkipNavLink from "@lekoarts/gatsby-theme-minimal-blog/src/components/skip-nav"
+import { Box, Container, jsx } from "theme-ui"
+import Header from "./header"
+import Footer from "./footer"
 
 type LayoutProps = { children: React.ReactNode; className?: string }
 
 const Layout = ({ children, className = `` }: LayoutProps) => (
-  <MDXProvider components={MdxComponents}>
+  <React.Fragment>
     <Global
-      styles={(t) => ({
-        "*": {
-          boxSizing: `inherit`,
-        },
-        "[hidden]": {
-          display: `none`,
-        },
-        "::selection": {
-          backgroundColor: get(t, `colors.text`),
-          color: get(t, `colors.background`),
-        },
-      })}
+      styles={{
+        "*": { boxSizing: "border-box" },
+        body: { margin: 0, padding: 0 },
+      }}
     />
-    <SkipNavLink>Skip to content</SkipNavLink>
-    <Container>
-      <Box sx={{ pt: [4, 5, 6] }}>
-        <Header />
-      </Box>
-      <Box id="skip-nav" as="main" variant="layout.main" sx={{ ...CodeStyles }} className={className}>
+    <Container sx={{ maxWidth: 680, px: [3, 4], py: [4, 5] }}>
+      <Header />
+      <Box as="main" className={className}>
         {children}
       </Box>
       <Footer />
     </Container>
-  </MDXProvider>
+  </React.Fragment>
 )
 
 export default Layout
-
