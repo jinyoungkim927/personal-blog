@@ -1,168 +1,481 @@
 {
   "nodes": [
     {
-      "id": "on-orthogonality",
-      "title": "On Orthogonality",
-      "slug": "/on-orthogonality/",
-      "exists": true,
-      "linkCount": 5,
-      "incomingLinks": 0,
-      "totalLinks": 5
-    },
-    {
       "id": "before-and-after-superintelligence-part-i",
       "title": "Before and After Superintelligence Part I",
       "slug": "/before-and-after-superintelligence-part-i/",
       "exists": true,
-      "linkCount": 0,
+      "isTag": false,
+      "linkCount": 5,
       "incomingLinks": 0,
-      "totalLinks": 0
+      "totalLinks": 5
     },
     {
       "id": "before-and-after-superintelligence-part-ii",
       "title": "Before and After Superintelligence Part II",
       "slug": "/before-and-after-superintelligence-part-ii/",
       "exists": true,
-      "linkCount": 0,
+      "isTag": false,
+      "linkCount": 5,
       "incomingLinks": 0,
-      "totalLinks": 0
+      "totalLinks": 5
     },
     {
       "id": "before-and-after-superintelligence-personal",
-      "title": "Before and After Superintelligence Personal",
+      "title": "Before and After Superintelligence",
       "slug": "/before-and-after-superintelligence-personal/",
       "exists": true,
-      "linkCount": 8,
+      "isTag": false,
+      "linkCount": 13,
       "incomingLinks": 0,
-      "totalLinks": 8
+      "totalLinks": 13
     },
     {
-      "id": "zhuangzi-class-reflection-long-distance",
-      "title": "Zhuangzi Class Reflection Long Distance",
-      "slug": "/zhuangzi-class-reflection-long-distance/",
+      "id": "code-block-examples",
+      "title": "Code Block Examples",
+      "slug": "/code-block-examples/",
       "exists": true,
+      "isTag": false,
       "linkCount": 2,
       "incomingLinks": 0,
       "totalLinks": 2
     },
     {
-      "id": "orthogonality",
-      "title": "Orthogonality",
-      "slug": null,
-      "exists": false,
+      "id": "markdown-reference",
+      "title": "Markdown Reference",
+      "slug": "/markdown-reference/",
+      "exists": true,
+      "isTag": false,
+      "linkCount": 3,
+      "incomingLinks": 0,
+      "totalLinks": 3
+    },
+    {
+      "id": "normal-text",
+      "title": "Normal Text",
+      "slug": "/normal-text/",
+      "exists": true,
+      "isTag": false,
       "linkCount": 0,
-      "incomingLinks": 1,
+      "incomingLinks": 0,
+      "totalLinks": 0
+    },
+    {
+      "id": "on-orthogonality",
+      "title": "On Orthogonality",
+      "slug": "/on-orthogonality/",
+      "exists": true,
+      "isTag": false,
+      "linkCount": 6,
+      "incomingLinks": 0,
+      "totalLinks": 6
+    },
+    {
+      "id": "with-images",
+      "title": "With Images",
+      "slug": "/with-images/",
+      "exists": true,
+      "isTag": false,
+      "linkCount": 1,
+      "incomingLinks": 0,
       "totalLinks": 1
     },
     {
-      "id": "inner-product",
-      "title": "Inner Product",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
-      "incomingLinks": 1,
-      "totalLinks": 1
+      "id": "zhuangzi-class-reflection-long-distance",
+      "title": "Zhuangzi Class Reflection 2; On Long Distance Relationships",
+      "slug": "/zhuangzi-class-reflection-long-distance/",
+      "exists": true,
+      "isTag": false,
+      "linkCount": 8,
+      "incomingLinks": 0,
+      "totalLinks": 8
     },
     {
-      "id": "bootstrap",
-      "title": "Bootstrap",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
-      "incomingLinks": 1,
-      "totalLinks": 1
+      "id": "tag-ai",
+      "title": "ai",
+      "slug": "/tags/ai/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 3,
+      "incomingLinks": 3,
+      "totalLinks": 3
     },
     {
-      "id": "central-limit-theorem",
-      "title": "Central Limit Theorem",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
-      "incomingLinks": 1,
-      "totalLinks": 1
+      "id": "tag-superintelligence",
+      "title": "superintelligence",
+      "slug": "/tags/superintelligence/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 3,
+      "incomingLinks": 3,
+      "totalLinks": 3
     },
     {
-      "id": "portfolio-theory",
-      "title": "Portfolio Theory",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
-      "incomingLinks": 1,
-      "totalLinks": 1
-    },
-    {
-      "id": "game-theory",
-      "title": "Game Theory",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
+      "id": "tag-future",
+      "title": "future",
+      "slug": "/tags/future/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 2,
       "incomingLinks": 2,
       "totalLinks": 2
     },
     {
-      "id": "radical-or-knightean-uncertainty",
-      "title": "Radical or Knightean Uncertainty",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
+      "id": "tag-philosophy",
+      "title": "philosophy",
+      "slug": "/tags/philosophy/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 4,
+      "incomingLinks": 4,
+      "totalLinks": 4
+    },
+    {
+      "id": "tag-",
+      "title": "--",
+      "slug": "/tags//",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 7,
+      "incomingLinks": 7,
+      "totalLinks": 7
+    },
+    {
+      "id": "tag-personal",
+      "title": "personal",
+      "slug": "/tags/personal/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 2,
+      "incomingLinks": 2,
+      "totalLinks": 2
+    },
+    {
+      "id": "tag-insights",
+      "title": "insights",
+      "slug": "/tags/insights/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 2,
+      "incomingLinks": 2,
+      "totalLinks": 2
+    },
+    {
+      "id": "tag-agi",
+      "title": "agi",
+      "slug": "/tags/agi/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 1,
       "incomingLinks": 1,
       "totalLinks": 1
     },
     {
-      "id": "ishita",
-      "title": "Ishita",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
+      "id": "tag-code",
+      "title": "code",
+      "slug": "/tags/code/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 2,
+      "incomingLinks": 2,
+      "totalLinks": 2
+    },
+    {
+      "id": "tag-markdown",
+      "title": "markdown",
+      "slug": "/tags/markdown/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 1,
       "incomingLinks": 1,
       "totalLinks": 1
     },
     {
-      "id": "simulations",
-      "title": "Simulations",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
+      "id": "tag-mathematics",
+      "title": "mathematics",
+      "slug": "/tags/mathematics/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 1,
       "incomingLinks": 1,
       "totalLinks": 1
     },
     {
-      "id": "nash-equilibrium",
-      "title": "Nash Equilibrium",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
+      "id": "tag-linear-algebra",
+      "title": "linear-algebra",
+      "slug": "/tags/linear-algebra/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 1,
       "incomingLinks": 1,
       "totalLinks": 1
     },
     {
-      "id": "dynamic-programming-dp",
-      "title": "Dynamic Programming (DP)",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
+      "id": "tag-tutorial",
+      "title": "tutorial",
+      "slug": "/tags/tutorial/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 1,
       "incomingLinks": 1,
       "totalLinks": 1
     },
     {
-      "id": "long-distance-relationships",
-      "title": "Long Distance Relationships",
-      "slug": null,
-      "exists": false,
-      "linkCount": 0,
+      "id": "tag-theology",
+      "title": "theology",
+      "slug": "/tags/theology/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 1,
+      "incomingLinks": 1,
+      "totalLinks": 1
+    },
+    {
+      "id": "tag-aesthetics",
+      "title": "aesthetics",
+      "slug": "/tags/aesthetics/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 1,
+      "incomingLinks": 1,
+      "totalLinks": 1
+    },
+    {
+      "id": "tag-zhuangzi",
+      "title": "zhuangzi",
+      "slug": "/tags/zhuangzi/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 1,
+      "incomingLinks": 1,
+      "totalLinks": 1
+    },
+    {
+      "id": "tag-long-distance-relationships",
+      "title": "long distance relationships",
+      "slug": "/tags/long-distance-relationships/",
+      "exists": true,
+      "isTag": true,
+      "linkCount": 1,
       "incomingLinks": 1,
       "totalLinks": 1
     }
   ],
   "links": [
-    { "source": "before-and-after-superintelligence-personal", "target": "game-theory", "targetTitle": "Game Theory" },
-    { "source": "before-and-after-superintelligence-personal", "target": "radical-or-knightean-uncertainty", "targetTitle": "Radical or Knightean Uncertainty" },
-    { "source": "before-and-after-superintelligence-personal", "target": "ishita", "targetTitle": "Ishita" },
-    { "source": "before-and-after-superintelligence-personal", "target": "game-theory", "targetTitle": "Game Theory" },
-    { "source": "before-and-after-superintelligence-personal", "target": "simulations", "targetTitle": "Simulations" },
-    { "source": "before-and-after-superintelligence-personal", "target": "nash-equilibrium", "targetTitle": "Nash Equilibrium" },
-    { "source": "before-and-after-superintelligence-personal", "target": "dynamic-programming-dp", "targetTitle": "Dynamic Programming (DP)" },
-    { "source": "zhuangzi-class-reflection-long-distance", "target": "long-distance-relationships", "targetTitle": "Long Distance Relationships" }
+    {
+      "source": "before-and-after-superintelligence-part-i",
+      "target": "tag-ai",
+      "targetTitle": "ai"
+    },
+    {
+      "source": "before-and-after-superintelligence-part-i",
+      "target": "tag-superintelligence",
+      "targetTitle": "superintelligence"
+    },
+    {
+      "source": "before-and-after-superintelligence-part-i",
+      "target": "tag-future",
+      "targetTitle": "future"
+    },
+    {
+      "source": "before-and-after-superintelligence-part-i",
+      "target": "tag-philosophy",
+      "targetTitle": "philosophy"
+    },
+    {
+      "source": "before-and-after-superintelligence-part-i",
+      "target": "tag-",
+      "targetTitle": "--"
+    },
+    {
+      "source": "before-and-after-superintelligence-part-ii",
+      "target": "tag-ai",
+      "targetTitle": "ai"
+    },
+    {
+      "source": "before-and-after-superintelligence-part-ii",
+      "target": "tag-superintelligence",
+      "targetTitle": "superintelligence"
+    },
+    {
+      "source": "before-and-after-superintelligence-part-ii",
+      "target": "tag-future",
+      "targetTitle": "future"
+    },
+    {
+      "source": "before-and-after-superintelligence-part-ii",
+      "target": "tag-philosophy",
+      "targetTitle": "philosophy"
+    },
+    {
+      "source": "before-and-after-superintelligence-part-ii",
+      "target": "tag-",
+      "targetTitle": "--"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "",
+      "targetTitle": "초지능 전후 (한국어)"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "game-theory",
+      "targetTitle": "Game Theory"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "radical-or-knightean-uncertainty",
+      "targetTitle": "Radical or Knightean Uncertainty"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "ishita",
+      "targetTitle": "Ishita"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "simulations",
+      "targetTitle": "Simulations"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "nash-equilibrium",
+      "targetTitle": "Nash Equilibrium"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "dynamic-programming-dp",
+      "targetTitle": "Dynamic Programming (DP)"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "tag-personal",
+      "targetTitle": "personal"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "tag-insights",
+      "targetTitle": "insights"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "tag-ai",
+      "targetTitle": "ai"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "tag-agi",
+      "targetTitle": "agi"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "tag-superintelligence",
+      "targetTitle": "superintelligence"
+    },
+    {
+      "source": "before-and-after-superintelligence-personal",
+      "target": "tag-",
+      "targetTitle": "--"
+    },
+    {
+      "source": "code-block-examples",
+      "target": "tag-code",
+      "targetTitle": "code"
+    },
+    {
+      "source": "code-block-examples",
+      "target": "tag-",
+      "targetTitle": "--"
+    },
+    {
+      "source": "markdown-reference",
+      "target": "tag-code",
+      "targetTitle": "code"
+    },
+    {
+      "source": "markdown-reference",
+      "target": "tag-markdown",
+      "targetTitle": "markdown"
+    },
+    {
+      "source": "markdown-reference",
+      "target": "tag-",
+      "targetTitle": "--"
+    },
+    {
+      "source": "on-orthogonality",
+      "target": "tag-personal",
+      "targetTitle": "personal"
+    },
+    {
+      "source": "on-orthogonality",
+      "target": "tag-insights",
+      "targetTitle": "insights"
+    },
+    {
+      "source": "on-orthogonality",
+      "target": "tag-mathematics",
+      "targetTitle": "mathematics"
+    },
+    {
+      "source": "on-orthogonality",
+      "target": "tag-linear-algebra",
+      "targetTitle": "linear-algebra"
+    },
+    {
+      "source": "on-orthogonality",
+      "target": "tag-philosophy",
+      "targetTitle": "philosophy"
+    },
+    {
+      "source": "on-orthogonality",
+      "target": "tag-",
+      "targetTitle": "--"
+    },
+    {
+      "source": "with-images",
+      "target": "tag-tutorial",
+      "targetTitle": "tutorial"
+    },
+    {
+      "source": "zhuangzi-class-reflection-long-distance",
+      "target": "2",
+      "targetTitle": "장자 2문"
+    },
+    {
+      "source": "zhuangzi-class-reflection-long-distance",
+      "target": "long-distance-relationships",
+      "targetTitle": "Long Distance Relationships"
+    },
+    {
+      "source": "zhuangzi-class-reflection-long-distance",
+      "target": "tag-philosophy",
+      "targetTitle": "philosophy"
+    },
+    {
+      "source": "zhuangzi-class-reflection-long-distance",
+      "target": "tag-theology",
+      "targetTitle": "theology"
+    },
+    {
+      "source": "zhuangzi-class-reflection-long-distance",
+      "target": "tag-aesthetics",
+      "targetTitle": "aesthetics"
+    },
+    {
+      "source": "zhuangzi-class-reflection-long-distance",
+      "target": "tag-zhuangzi",
+      "targetTitle": "zhuangzi"
+    },
+    {
+      "source": "zhuangzi-class-reflection-long-distance",
+      "target": "tag-long-distance-relationships",
+      "targetTitle": "long distance relationships"
+    },
+    {
+      "source": "zhuangzi-class-reflection-long-distance",
+      "target": "tag-",
+      "targetTitle": "--"
+    }
   ]
 }
-
