@@ -26,13 +26,17 @@ div > a[href="/tags/"] {
 }
 
 /* ===========================================
-   FOOTER: Hide default, show Disclaimer
+   FOOTER: Hide default content, add Disclaimer link
    =========================================== */
 
 footer > div,
 footer > span,
 footer > p {
   display: none !important;
+}
+
+footer {
+  position: relative;
 }
 
 footer::after {
@@ -42,7 +46,16 @@ footer::after {
   padding: 24px 0;
   color: #8b7a6f;
   font-size: 12px;
-  cursor: pointer;
+}
+
+/* Make footer clickable via invisible link overlay */
+footer a[href="/disclaimer/"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 
 /* ===========================================
