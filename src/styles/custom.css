@@ -8,13 +8,24 @@
 [class*="Page"] > h1,
 main > section:first-child > h1:first-child,
 #skip-nav > section > h1:first-child,
-/* Target standalone headers before content */
 main > h1:first-child:not(:only-child),
 #skip-nav > h1:first-child:not(:only-child),
-/* Hide About page header specifically */
 main > section > h1:first-child,
 #skip-nav > div > h1:first-child {
   display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Remove extra spacing from containers that held headers */
+main > section:first-child,
+#skip-nav > section:first-child,
+[class*="Blog"] > section:first-child,
+[class*="Page"] > section:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 /* SHOW post titles on individual post pages */
