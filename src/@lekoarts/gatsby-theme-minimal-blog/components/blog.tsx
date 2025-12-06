@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui"
 import { HeadFC } from "gatsby"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Listing from "@lekoarts/gatsby-theme-minimal-blog/src/components/listing"
@@ -24,7 +22,9 @@ export type MBBlogProps = {
 const Blog = ({ posts }: MBBlogProps) => {
   return (
     <Layout>
-      <Listing posts={posts} sx={{ mt: [4, 5] }} />
+      <div style={{ marginTop: "32px" }}>
+        <Listing posts={posts} />
+      </div>
     </Layout>
   )
 }

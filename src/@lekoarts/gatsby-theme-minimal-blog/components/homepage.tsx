@@ -1,8 +1,7 @@
-/** @jsx jsx */
+import { HeadFC, graphql, useStaticQuery } from "gatsby"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Listing from "@lekoarts/gatsby-theme-minimal-blog/src/components/listing"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
-import { HeadFC, graphql, useStaticQuery } from "gatsby"
 
 // Homepage fetches ALL posts (not limited to 3)
 const Homepage = () => {
@@ -27,7 +26,9 @@ const Homepage = () => {
 
   return (
     <Layout>
-      <Listing posts={data.allPost.nodes} sx={{ mt: [4, 5] }} />
+      <div style={{ marginTop: "32px" }}>
+        <Listing posts={data.allPost.nodes} />
+      </div>
     </Layout>
   )
 }
