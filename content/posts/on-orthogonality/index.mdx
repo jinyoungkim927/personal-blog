@@ -18,9 +18,9 @@ Work has recently made me think a lot about the concept of 'orthogonality'. I us
 
 First, what does orthogonality, the state of two vectors being *orthogonal*, mean? Here are some definitions that get increasingly less precise but more intuitive.
 
-Two vectors `u` and `v` are orthogonal if...
+Two vectors **u** and **v** are orthogonal if...
 
-1. Their inner product is zero: `⟨u, v⟩ = 0`
+1. Their inner product is zero: ⟨u, v⟩ = 0
 2. They meet at a right angle
 3. They are maximally independent, meaning knowing something about one tells you absolutely nothing about the other ([datcreativity.com](https://www.datcreativity.com))
 4. One represents genuinely new information that expands what the space can express with the other
@@ -54,27 +54,23 @@ This makes me feel in awe at the complexity, depth and mysticism of the world.
 
 ## 2. Take ~~more~~ different risks
 
-First, a quick overview on why independent bets are great. Suppose you have a bet with expected value `μ` and variance `σ²`. If you take `n` independent identical bets, the central limit theorem tells us:
+First, a quick overview on why independent bets are great. Suppose you have a bet with expected value μ and variance σ². If you take n independent identical bets, the central limit theorem tells us:
 
-- Your total expected value scales linearly: `nμ`
-- Your total variance scales linearly: `nσ²`
-- But your _standard deviation per unit expectation_ scales as `√n`
+- Your total expected value scales linearly: nμ
+- Your total variance scales linearly: nσ²
+- But your _standard deviation per unit expectation_ scales as √n
 
-This means taking more of the same bet gives you `√n` times better risk-adjusted returns, which is pretty neat.
+This means taking more of the same bet gives you √n times better risk-adjusted returns, which is pretty neat.
 
-Now consider taking bets on _uncorrelated_ outcomes. This is where portfolio theory becomes powerful. Let `w = (w₁, w₂, ..., wₙ)ᵀ` be your portfolio weights (where `Σwᵢ = 1`), `r = (r₁, r₂, ..., rₙ)ᵀ` be the vector of asset returns, and `Σ` be the covariance matrix where `Σᵢⱼ = Cov(rᵢ, rⱼ)`.
+Now consider taking bets on _uncorrelated_ outcomes. This is where portfolio theory becomes powerful. Let **w** = (w₁, w₂, ..., wₙ)ᵀ be your portfolio weights (where Σwᵢ = 1), **r** = (r₁, r₂, ..., rₙ)ᵀ be the vector of asset returns, and Σ be the covariance matrix where Σᵢⱼ = Cov(rᵢ, rⱼ).
 
 Portfolio variance becomes:
 
-```
-σₚ² = wᵀΣw = Σᵢ Σⱼ wᵢwⱼσᵢⱼ
-```
+> σₚ² = wᵀΣw = Σᵢ Σⱼ wᵢwⱼσᵢⱼ
 
 Expected return is simply:
 
-```
-μₚ = wᵀμ
-```
+> μₚ = wᵀμ
 
 The diagonal terms `wᵢ²σᵢ²` represent each asset's individual risk contribution—these scale with the square of your allocation.
 
