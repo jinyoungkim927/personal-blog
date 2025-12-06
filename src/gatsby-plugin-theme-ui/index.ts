@@ -1,9 +1,10 @@
 import baseTheme from "@lekoarts/gatsby-theme-minimal-blog/src/gatsby-plugin-theme-ui"
-import { merge } from "theme-ui"
 
-// Warm sepia/golden theme
-const theme = merge(baseTheme, {
+// Warm sepia/golden theme - spread base and override
+const theme = {
+  ...baseTheme,
   colors: {
+    ...baseTheme.colors,
     text: "#3d2817",
     background: "#faf8f3",
     primary: "#8b6f47",
@@ -12,26 +13,19 @@ const theme = merge(baseTheme, {
     heading: "#2d1f14",
     divide: "#e8e0d5",
     toggleIcon: "#6b5435",
-    // Code
-    "plain-color": "#3d2817",
-    "plain-backgroundColor": "#f5f1e8",
-  },
-  fonts: {
-    body: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    heading: "inherit",
-  },
-  styles: {
-    root: {
-      color: "text",
-      backgroundColor: "background",
-    },
-    a: {
-      color: "primary",
-      "&:hover": {
-        color: "heading",
+    modes: {
+      dark: {
+        text: "#e8e0d5",
+        background: "#1a1815",
+        primary: "#c9a66b",
+        secondary: "#a09080",
+        muted: "#2d2a26",
+        heading: "#faf8f3",
+        divide: "#3d3530",
+        toggleIcon: "#c9a66b",
       },
     },
   },
-})
+}
 
 export default theme
