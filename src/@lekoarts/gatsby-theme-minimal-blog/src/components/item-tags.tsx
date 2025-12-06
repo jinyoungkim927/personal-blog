@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import * as React from "react"
-import { Link } from "gatsby"
 import useMinimalBlogConfig from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-minimal-blog-config"
 import replaceSlashes from "@lekoarts/gatsby-theme-minimal-blog/src/utils/replaceSlashes"
+import { Link } from "gatsby"
+import * as React from "react"
 
 type TagsProps = {
   tags: {

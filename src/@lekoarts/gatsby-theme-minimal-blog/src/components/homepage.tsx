@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { HeadFC } from "gatsby"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Listing from "@lekoarts/gatsby-theme-minimal-blog/src/components/listing"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
+import { HeadFC } from "gatsby"
 
 export type MBHomepageProps = {
   posts: {

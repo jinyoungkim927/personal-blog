@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { jsx, Box, Button } from "theme-ui"
-import * as React from "react"
 import BlogListItem from "@lekoarts/gatsby-theme-minimal-blog/src/components/blog-list-item"
+import * as React from "react"
+import { Box, Button } from "theme-ui"
 
 type ListingProps = {
   posts: {

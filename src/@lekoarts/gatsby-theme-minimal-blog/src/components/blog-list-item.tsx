@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import * as React from "react"
-import { jsx, Box, Flex } from "theme-ui"
-import { Link } from "gatsby"
 import ItemTags from "@lekoarts/gatsby-theme-minimal-blog/src/components/item-tags"
+import { Link } from "gatsby"
+import { Box, Flex } from "theme-ui"
 
 type BlogListItemProps = {
   post: {
