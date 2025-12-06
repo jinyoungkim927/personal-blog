@@ -1,38 +1,29 @@
-import * as React from "react"
-import { Link as GatsbyLink } from "gatsby"
-import { Box } from "theme-ui"
+import { Link } from "gatsby"
 
 const Footer = () => {
   return (
-    <Box
-      as="footer"
-      sx={{
-        boxSizing: `border-box`,
-        display: `flex`,
-        justifyContent: `center`,
-        mt: [6],
-        color: `secondary`,
-        a: {
-          variant: `links.secondary`,
-        },
-        variant: `dividers.top`,
-        py: 4,
+    <footer
+      style={{
+        boxSizing: "border-box",
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "64px",
+        paddingTop: "24px",
+        paddingBottom: "24px",
+        borderTop: "1px solid #e8e0d5",
       }}
     >
-      <GatsbyLink
+      <Link
         to="/disclaimer/"
-        sx={{
-          color: `#8b7a6f`,
-          fontSize: `12px`,
-          textDecoration: `none`,
-          "&:hover": {
-            textDecoration: `underline`,
-          },
+        style={{
+          color: "#8b7a6f",
+          fontSize: "12px",
+          textDecoration: "none",
         }}
       >
         Disclaimer
-      </GatsbyLink>
-    </Box>
+      </Link>
+    </footer>
   )
 }
 
