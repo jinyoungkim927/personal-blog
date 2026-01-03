@@ -1,6 +1,9 @@
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import { HeadFC, Link } from "gatsby"
 import * as React from "react"
 import { useEffect, useState } from "react"
+import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import GraphView from "../components/GraphView"
 
 const GraphPage: React.FC = () => {
@@ -11,7 +14,7 @@ const GraphPage: React.FC = () => {
       const updateDimensions = () => {
         setDimensions({
           width: Math.min(window.innerWidth - 48, 1200),
-          height: Math.max(window.innerHeight - 200, 400),
+          height: Math.max(window.innerHeight - 280, 500),
         })
       }
       updateDimensions()
@@ -21,32 +24,31 @@ const GraphPage: React.FC = () => {
   }, [])
 
   return (
-    <div style={{ minHeight: "100vh", background: "#faf9f7", padding: "32px 0" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-        <div style={{ marginBottom: 32, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Link to="/" style={{ color: "#1a1815", textDecoration: "none", fontWeight: 600, fontSize: 20 }}>More Useless</Link>
-          <nav style={{ display: "flex", gap: 24 }}>
-            <Link to="/blog" style={{ color: "#a09080", textDecoration: "none", fontSize: 14 }}>Useless Posts</Link>
-            <Link to="/about" style={{ color: "#a09080", textDecoration: "none", fontSize: 14 }}>About</Link>
-          </nav>
-        </div>
-
-        <h1 style={{ marginBottom: 24, fontSize: 28, color: "#1a1815" }}>Knowledge Graph</h1>
-
-        <div style={{ borderRadius: 12, overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
-          <GraphView width={dimensions.width} height={dimensions.height} />
-        </div>
-
-        <div style={{ marginTop: 24, color: "#a09080", fontSize: 13 }}>
-          <p>This graph shows connections between posts based on wiki-style <code>[[links]]</code>.</p>
-          <p style={{ marginTop: 8 }}>
-            • <strong>Solid nodes</strong> are existing posts (click to navigate)<br />
-            • <strong>Dashed nodes</strong> are referenced but don't have posts yet<br />
-            • Drag nodes to rearrange · Scroll to zoom · Click and drag background to pan
-          </p>
-        </div>
+    <Layout>
+      <h1 sx={{ fontSize: [4, 5], fontWeight: "bold", color: "heading", mb: 4 }}>
+        Knowledge Graph
+      </h1>
+      
+      <div sx={{ 
+        borderRadius: "12px", 
+        overflow: "hidden", 
+        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+        border: "1px solid",
+        borderColor: "divide"
+      }}>
+        <GraphView width={dimensions.width} height={dimensions.height} />
       </div>
-    </div>
+
+      <div sx={{ mt: 4, color: "secondary", fontSize: 1 }}>
+        <p>This graph shows connections between posts based on wiki-style <code sx={{ bg: "muted", px: 1, borderRadius: 4 }}>[[links]]</code> and shared tags.</p>
+        <p sx={{ mt: 2 }}>
+          • <strong>Orange nodes</strong> are existing posts (click to navigate)<br />
+          • <strong>Red nodes</strong> are tags<br />
+          • <strong>Dashed nodes</strong> are referenced but don't exist yet<br />
+          • Drag nodes to rearrange · Scroll to zoom · Click and drag background to pan
+        </p>
+      </div>
+    </Layout>
   )
 }
 

@@ -29,6 +29,10 @@ const config: GatsbyConfig = {
             slug: `/blog`,
           },
           {
+            title: `Graph`,
+            slug: `/graph`,
+          },
+          {
             title: `About`,
             slug: `/about`,
           },
