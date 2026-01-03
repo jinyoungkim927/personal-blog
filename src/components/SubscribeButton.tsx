@@ -1,27 +1,52 @@
 import * as React from "react"
 import { useState } from "react"
 
+// TODO: Replace with your Buttondown username after signing up at buttondown.email
+const BUTTONDOWN_USERNAME = "moreuseless"
+
 const SubscribeButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
     
     const form = e.currentTarget
     const formData = new FormData(form)
+    const email = formData.get("email") as string
     
     try {
-      await fetch("/", {
+      // Submit to Buttondown API
+      const response = await fetch(`https://api.buttondown.email/v1/subscribers`, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as any).toString(),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          metadata: {
+            firstName: formData.get("firstName"),
+            lastName: formData.get("lastName"),
+          },
+          referrer_url: window.location.href,
+        }),
       })
+      
+      if (response.ok || response.status === 201) {
+        setIsSubmitted(true)
+      } else {
+        // Fallback: open Buttondown subscribe page
+        window.open(`https://buttondown.email/${BUTTONDOWN_USERNAME}`, "_blank")
+        setIsSubmitted(true)
+      }
+    } catch (err) {
+      // Fallback: open Buttondown subscribe page
+      window.open(`https://buttondown.email/${BUTTONDOWN_USERNAME}`, "_blank")
       setIsSubmitted(true)
-    } catch (error) {
-      console.error("Form submission error:", error)
     } finally {
       setIsSubmitting(false)
     }
@@ -42,6 +67,7 @@ const SubscribeButton: React.FC = () => {
           textUnderlineOffset: "3px",
           marginTop: "24px",
           display: "block",
+          textAlign: "left",
         }}
       >
         subscribe
@@ -60,10 +86,24 @@ const SubscribeButton: React.FC = () => {
           fontSize: "14px",
           lineHeight: "1.6",
           color: "#3d2817",
+          textAlign: "left",
         }}
       >
-        <p style={{ margin: 0 }}>
-          Hi! Thanks for subscribing. My turn: my email is jinyoungkim927 at gmail dot com. Send me thoughts and suggestions.
+        <p style={{ margin: 0, display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+          <span>
+            Hi! Thanks for subscribing. My turn: my email is jinyoungkim927 at gmail dot com. 
+            Feel free to send thoughts and suggestions, even if they're useless
+          </span>
+          <img 
+            src="/favicon.svg" 
+            alt="More Useless" 
+            style={{ 
+              width: "20px", 
+              height: "20px", 
+              display: "inline-block",
+              verticalAlign: "middle",
+            }} 
+          />
         </p>
       </div>
     )
@@ -76,27 +116,18 @@ const SubscribeButton: React.FC = () => {
         padding: "20px",
         background: "rgba(139, 111, 71, 0.05)",
         borderRadius: "8px",
+        textAlign: "left",
       }}
     >
       <form
-        name="subscribe"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
         onSubmit={handleSubmit}
         style={{
           display: "flex",
           flexDirection: "column",
           gap: "12px",
+          textAlign: "left",
         }}
       >
-        <input type="hidden" name="form-name" value="subscribe" />
-        <p style={{ display: "none" }}>
-          <label>
-            Don't fill this out if you're human: <input name="bot-field" />
-          </label>
-        </p>
-        
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
           <input
             type="text"
@@ -111,6 +142,7 @@ const SubscribeButton: React.FC = () => {
               fontSize: "14px",
               background: "#faf8f3",
               color: "#3d2817",
+              textAlign: "left",
             }}
           />
           <input
@@ -126,6 +158,7 @@ const SubscribeButton: React.FC = () => {
               fontSize: "14px",
               background: "#faf8f3",
               color: "#3d2817",
+              textAlign: "left",
             }}
           />
         </div>
@@ -142,8 +175,13 @@ const SubscribeButton: React.FC = () => {
             fontSize: "14px",
             background: "#faf8f3",
             color: "#3d2817",
+            textAlign: "left",
           }}
         />
+        
+        {error && (
+          <p style={{ color: "#b91c1c", fontSize: "13px", margin: 0 }}>{error}</p>
+        )}
         
         <div style={{ display: "flex", gap: "12px", marginTop: "4px" }}>
           <button
@@ -184,4 +222,3 @@ const SubscribeButton: React.FC = () => {
 }
 
 export default SubscribeButton
-

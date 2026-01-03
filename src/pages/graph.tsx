@@ -1,9 +1,6 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui"
 import { HeadFC, Link } from "gatsby"
 import * as React from "react"
 import { useEffect, useState } from "react"
-import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import GraphView from "../components/GraphView"
 
 const GraphPage: React.FC = () => {
@@ -13,8 +10,8 @@ const GraphPage: React.FC = () => {
     if (typeof window !== "undefined") {
       const updateDimensions = () => {
         setDimensions({
-          width: Math.min(window.innerWidth - 48, 1200),
-          height: Math.max(window.innerHeight - 280, 500),
+          width: window.innerWidth,
+          height: window.innerHeight - 60, // Account for header
         })
       }
       updateDimensions()
@@ -24,31 +21,76 @@ const GraphPage: React.FC = () => {
   }, [])
 
   return (
-    <Layout>
-      <h1 sx={{ fontSize: [4, 5], fontWeight: "bold", color: "heading", mb: 4 }}>
-        Knowledge Graph
-      </h1>
-      
-      <div sx={{ 
-        borderRadius: "12px", 
-        overflow: "hidden", 
-        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-        border: "1px solid",
-        borderColor: "divide"
+    <div style={{ 
+      minHeight: "100vh", 
+      background: "#faf8f3",
+      display: "flex",
+      flexDirection: "column",
+    }}>
+      {/* Minimal header */}
+      <header style={{ 
+        display: "flex", 
+        alignItems: "center", 
+        justifyContent: "space-between",
+        padding: "16px 24px",
+        background: "rgba(250, 248, 243, 0.95)",
+        backdropFilter: "blur(8px)",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        borderBottom: "1px solid rgba(232, 224, 213, 0.5)",
       }}>
-        <GraphView width={dimensions.width} height={dimensions.height} />
+        <Link 
+          to="/" 
+          style={{ 
+            color: "#2d1f14", 
+            textDecoration: "none", 
+            fontWeight: 600, 
+            fontSize: 18,
+          }}
+        >
+          More Useless
+        </Link>
+        <nav style={{ display: "flex", gap: 20, fontSize: 14 }}>
+          <Link to="/blog/" style={{ color: "#7a6b5a", textDecoration: "none" }}>Posts</Link>
+          <Link to="/graph/" style={{ color: "#8b6f47", textDecoration: "none", fontWeight: 500 }}>Graph</Link>
+          <Link to="/about/" style={{ color: "#7a6b5a", textDecoration: "none" }}>About</Link>
+        </nav>
+      </header>
+
+      {/* Full-page graph */}
+      <div style={{ 
+        flex: 1, 
+        marginTop: 60, // Header height
+        position: "relative",
+      }}>
+        <GraphView 
+          width={dimensions.width} 
+          height={dimensions.height} 
+          fullPage={true}
+        />
       </div>
 
-      <div sx={{ mt: 4, color: "secondary", fontSize: 1 }}>
-        <p>This graph shows connections between posts based on wiki-style <code sx={{ bg: "muted", px: 1, borderRadius: 4 }}>[[links]]</code> and shared tags.</p>
-        <p sx={{ mt: 2 }}>
-          • <strong>Orange nodes</strong> are existing posts (click to navigate)<br />
-          • <strong>Red nodes</strong> are tags<br />
-          • <strong>Dashed nodes</strong> are referenced but don't exist yet<br />
-          • Drag nodes to rearrange · Scroll to zoom · Click and drag background to pan
-        </p>
+      {/* Instructions - bottom right */}
+      <div style={{
+        position: "fixed",
+        bottom: 24,
+        right: 24,
+        fontSize: 11,
+        color: "#888",
+        background: "rgba(255,255,255,0.95)",
+        padding: "10px 14px",
+        borderRadius: 8,
+        boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
+        lineHeight: 1.5,
+        maxWidth: 200,
+        zIndex: 50,
+      }}>
+        Drag to move · Scroll to zoom · Click nodes to navigate
       </div>
-    </Layout>
+    </div>
   )
 }
 

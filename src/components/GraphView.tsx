@@ -31,10 +31,11 @@ interface GraphData {
 interface GraphViewProps {
   width?: number
   height?: number
-  onNavigate?: () => void  // Callback to close modal
+  fullPage?: boolean  // New prop for full-page mode
+  onNavigate?: () => void
 }
 
-const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, onNavigate }) => {
+const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, fullPage = false, onNavigate }) => {
   const svgRef = useRef<SVGSVGElement>(null)
   const [graphData, setGraphData] = useState<GraphData | null>(null)
   const [loading, setLoading] = useState<string | null>(null)
@@ -51,9 +52,8 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, onNavi
       const displayName = node.isTag ? `#${node.title}` : node.title
       setLoading(displayName)
       
-      // Navigate after brief loading display, then close modal
       setTimeout(() => {
-        if (onNavigate) onNavigate() // Close modal first
+        if (onNavigate) onNavigate()
         navigate(node.slug!)
       }, 400)
     }
@@ -68,28 +68,30 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, onNavi
 
       const g = svg.append("g")
 
-      // Reduced size difference: base 6, max 14
-      const getNodeSize = (d: GraphNode) => Math.max(6, Math.min(14, 6 + d.totalLinks * 1.5))
+      // Slightly larger nodes for full-page mode
+      const baseSize = fullPage ? 8 : 6
+      const maxSize = fullPage ? 18 : 14
+      const getNodeSize = (d: GraphNode) => Math.max(baseSize, Math.min(maxSize, baseSize + d.totalLinks * 1.5))
 
       // Colors: Tags = cherry red, Posts = orange, Unlinked = gray/black
       const getNodeFill = (d: GraphNode) => {
-        if (d.isTag) return "#dc2626" // Cherry red
-        if (d.exists) return "#f97316" // Orange
-        return "#4b5563" // Gray
+        if (d.isTag) return "#dc2626"
+        if (d.exists) return "#f97316"
+        return "#4b5563"
       }
       
       const getNodeStroke = (d: GraphNode) => {
-        if (d.isTag) return "#991b1b" // Dark red
-        if (d.exists) return "#c2410c" // Dark orange
-        return "#1f2937" // Dark gray
+        if (d.isTag) return "#991b1b"
+        if (d.exists) return "#c2410c"
+        return "#1f2937"
       }
 
       const simulation = d3
         .forceSimulation<GraphNode>(graphData.nodes)
-        .force("link", d3.forceLink<GraphNode, GraphLink>(graphData.links).id((d) => d.id).distance(80))
-        .force("charge", d3.forceManyBody().strength(-200))
+        .force("link", d3.forceLink<GraphNode, GraphLink>(graphData.links).id((d) => d.id).distance(fullPage ? 120 : 80))
+        .force("charge", d3.forceManyBody().strength(fullPage ? -300 : -200))
         .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collision", d3.forceCollide().radius(25))
+        .force("collision", d3.forceCollide().radius(fullPage ? 35 : 25))
 
       const link = g.append("g").attr("class", "links").selectAll("line")
         .data(graphData.links).enter().append("line")
@@ -111,13 +113,13 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, onNavi
         .attr("stroke-width", 1.5)
         .attr("stroke-dasharray", (d) => (d.exists ? "none" : "3,2"))
 
-      // Node labels
+      // Node labels - slightly larger in full-page mode
       node.append("text")
         .text((d) => d.isTag ? `#${d.title}` : d.title)
         .attr("x", 0)
-        .attr("y", (d) => getNodeSize(d) + 12)
+        .attr("y", (d) => getNodeSize(d) + (fullPage ? 14 : 12))
         .attr("text-anchor", "middle")
-        .attr("font-size", "10px")
+        .attr("font-size", fullPage ? "12px" : "10px")
         .attr("fill", "#3d2817")
         .attr("font-family", "system-ui, sans-serif")
 
@@ -140,19 +142,19 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, onNavi
 
       return () => simulation.stop()
     })
-  }, [graphData, width, height, onNavigate])
+  }, [graphData, width, height, fullPage, onNavigate])
 
   if (!graphData) {
     return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "#888" }}>Loading graph...</div>
   }
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "visible" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
       {loading && (
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-          background: "rgba(250,249,247,0.95)", display: "flex", alignItems: "center", justifyContent: "center",
-          zIndex: 100, borderRadius: 8
+          background: "rgba(250,248,243,0.95)", display: "flex", alignItems: "center", justifyContent: "center",
+          zIndex: 100
         }}>
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 14, color: "#3d2817", marginBottom: 8 }}>Loading</div>
@@ -160,18 +162,27 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, onNavi
           </div>
         </div>
       )}
-      <svg ref={svgRef} width={width} height={height} style={{ background: "#faf9f7", borderRadius: "8px", display: "block" }} />
-      {/* Legend - positioned outside SVG with enough margin */}
+      <svg 
+        ref={svgRef} 
+        width={width} 
+        height={height} 
+        style={{ 
+          background: fullPage ? "transparent" : "#faf9f7", 
+          borderRadius: fullPage ? 0 : "8px", 
+          display: "block" 
+        }} 
+      />
+      {/* Legend - bottom left */}
       <div style={{ 
         position: "absolute", 
-        bottom: 20, 
-        left: 20, 
-        fontSize: "11px", 
+        bottom: fullPage ? 24 : 20, 
+        left: fullPage ? 24 : 20, 
+        fontSize: fullPage ? "12px" : "11px", 
         color: "#555", 
-        background: "rgba(255,255,255,0.98)", 
-        padding: "12px 16px", 
+        background: "rgba(255,255,255,0.95)", 
+        padding: fullPage ? "14px 18px" : "12px 16px", 
         borderRadius: "8px",
-        boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+        boxShadow: "0 2px 12px rgba(0,0,0,0.12)",
         zIndex: 50,
         lineHeight: 1.6
       }}>
@@ -188,8 +199,19 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, onNavi
           <span>Unlinked</span>
         </div>
       </div>
-      {/* Stats */}
-      <div style={{ position: "absolute", top: 12, left: 12, fontSize: "11px", color: "#888", zIndex: 50 }}>
+      {/* Stats - top right for full page, top left for modal */}
+      <div style={{ 
+        position: "absolute", 
+        top: fullPage ? 80 : 12, 
+        right: fullPage ? 24 : undefined,
+        left: fullPage ? undefined : 12, 
+        fontSize: "11px", 
+        color: "#888", 
+        zIndex: 50,
+        background: fullPage ? "rgba(255,255,255,0.9)" : "transparent",
+        padding: fullPage ? "6px 12px" : 0,
+        borderRadius: fullPage ? "6px" : 0,
+      }}>
         {graphData.nodes.length} nodes · {graphData.links.length} links
       </div>
     </div>
