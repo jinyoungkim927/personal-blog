@@ -1,30 +1,5 @@
 /* ===========================================
-   HIDE PAGE HEADERS/TITLES - But show post titles
-   =========================================== */
-
-/* Hide visually-hidden h1 site title on all pages */
-h1[class*="visuallyHidden"],
-h1[style*="clip"],
-h1[style*="position: absolute"][style*="height: 1px"] {
-  display: none !important;
-}
-
-.hero-area,
-[class*="hero"],
-[class*="Hero"] {
-  display: none !important;
-}
-
-/* Hide standalone "View all tags" link */
-p > a[href="/tags"],
-p > a[href="/tags/"],
-div > a[href="/tags"],
-div > a[href="/tags/"] {
-  display: none !important;
-}
-
-/* ===========================================
-   TAG STYLING - Soft colored hashtags
+   TAG STYLING - Consistent colors per tag
    =========================================== */
 
 a[href*="/tags/"] {
@@ -36,55 +11,136 @@ a[href*="/tags/"] {
   font-weight: 500;
   text-decoration: none;
   transition: all 0.2s ease;
+  /* Default fallback color */
+  background: rgba(139, 111, 71, 0.15);
+  color: #6b5435;
 }
 
 a[href*="/tags/"]::before {
   content: "#";
 }
 
-a[href*="/tags/"]:nth-of-type(5n+1) {
-  background: rgba(251, 191, 36, 0.2);
-  color: #92400e;
-}
-a[href*="/tags/"]:nth-of-type(5n+1):hover {
-  background: rgba(251, 191, 36, 0.4);
-}
-
-a[href*="/tags/"]:nth-of-type(5n+2) {
-  background: rgba(244, 114, 182, 0.2);
-  color: #9d174d;
-}
-a[href*="/tags/"]:nth-of-type(5n+2):hover {
-  background: rgba(244, 114, 182, 0.4);
-}
-
-a[href*="/tags/"]:nth-of-type(5n+3) {
-  background: rgba(74, 222, 128, 0.2);
-  color: #166534;
-}
-a[href*="/tags/"]:nth-of-type(5n+3):hover {
-  background: rgba(74, 222, 128, 0.4);
-}
-
-a[href*="/tags/"]:nth-of-type(5n+4) {
-  background: rgba(96, 165, 250, 0.2);
-  color: #1e40af;
-}
-a[href*="/tags/"]:nth-of-type(5n+4):hover {
-  background: rgba(96, 165, 250, 0.4);
-}
-
-a[href*="/tags/"]:nth-of-type(5n+5) {
-  background: rgba(251, 146, 60, 0.2);
-  color: #9a3412;
-}
-a[href*="/tags/"]:nth-of-type(5n+5):hover {
-  background: rgba(251, 146, 60, 0.4);
-}
-
 a[href*="/tags/"]:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Philosophy - Deep purple/violet */
+a[href="/tags/philosophy/"],
+a[href*="/tags/philosophy/"] {
+  background: rgba(139, 92, 246, 0.2);
+  color: #5b21b6;
+}
+a[href="/tags/philosophy/"]:hover,
+a[href*="/tags/philosophy/"]:hover {
+  background: rgba(139, 92, 246, 0.35);
+}
+
+/* Mathematics - Deep blue */
+a[href="/tags/mathematics/"],
+a[href*="/tags/mathematics/"] {
+  background: rgba(59, 130, 246, 0.2);
+  color: #1e40af;
+}
+a[href="/tags/mathematics/"]:hover,
+a[href*="/tags/mathematics/"]:hover {
+  background: rgba(59, 130, 246, 0.35);
+}
+
+/* Linear Algebra - Teal/cyan */
+a[href="/tags/linear-algebra/"],
+a[href*="/tags/linear-algebra/"] {
+  background: rgba(20, 184, 166, 0.2);
+  color: #0f766e;
+}
+a[href="/tags/linear-algebra/"]:hover,
+a[href*="/tags/linear-algebra/"]:hover {
+  background: rgba(20, 184, 166, 0.35);
+}
+
+/* Aesthetics - Rose/pink */
+a[href="/tags/aesthetics/"],
+a[href*="/tags/aesthetics/"] {
+  background: rgba(244, 114, 182, 0.2);
+  color: #9d174d;
+}
+a[href="/tags/aesthetics/"]:hover,
+a[href*="/tags/aesthetics/"]:hover {
+  background: rgba(244, 114, 182, 0.35);
+}
+
+/* Theology - Warm amber/gold */
+a[href="/tags/theology/"],
+a[href*="/tags/theology/"] {
+  background: rgba(245, 158, 11, 0.2);
+  color: #92400e;
+}
+a[href="/tags/theology/"]:hover,
+a[href*="/tags/theology/"]:hover {
+  background: rgba(245, 158, 11, 0.35);
+}
+
+/* Technology - Slate/gray-blue */
+a[href="/tags/technology/"],
+a[href*="/tags/technology/"] {
+  background: rgba(100, 116, 139, 0.2);
+  color: #334155;
+}
+a[href="/tags/technology/"]:hover,
+a[href*="/tags/technology/"]:hover {
+  background: rgba(100, 116, 139, 0.35);
+}
+
+/* AI / Machine Learning - Electric indigo */
+a[href="/tags/ai/"],
+a[href*="/tags/ai/"],
+a[href="/tags/machine-learning/"],
+a[href*="/tags/machine-learning/"] {
+  background: rgba(99, 102, 241, 0.2);
+  color: #3730a3;
+}
+a[href="/tags/ai/"]:hover,
+a[href*="/tags/ai/"]:hover,
+a[href="/tags/machine-learning/"]:hover,
+a[href*="/tags/machine-learning/"]:hover {
+  background: rgba(99, 102, 241, 0.35);
+}
+
+/* Writing - Warm green */
+a[href="/tags/writing/"],
+a[href*="/tags/writing/"] {
+  background: rgba(34, 197, 94, 0.2);
+  color: #15803d;
+}
+a[href="/tags/writing/"]:hover,
+a[href*="/tags/writing/"]:hover {
+  background: rgba(34, 197, 94, 0.35);
+}
+
+/* Life - Coral/orange */
+a[href="/tags/life/"],
+a[href*="/tags/life/"] {
+  background: rgba(251, 146, 60, 0.2);
+  color: #c2410c;
+}
+a[href="/tags/life/"]:hover,
+a[href*="/tags/life/"]:hover {
+  background: rgba(251, 146, 60, 0.35);
+}
+
+/* Finance/Economics - Forest green */
+a[href="/tags/finance/"],
+a[href*="/tags/finance/"],
+a[href="/tags/economics/"],
+a[href*="/tags/economics/"] {
+  background: rgba(22, 163, 74, 0.2);
+  color: #166534;
+}
+a[href="/tags/finance/"]:hover,
+a[href*="/tags/finance/"]:hover,
+a[href="/tags/economics/"]:hover,
+a[href*="/tags/economics/"]:hover {
+  background: rgba(22, 163, 74, 0.35);
 }
 
 /* ===========================================

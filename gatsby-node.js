@@ -1,6 +1,9 @@
 const fs = require("fs")
 const path = require("path")
 
+// Tags to always filter out
+const FILTERED_TAGS = ['personal', 'insights']
+
 function extractWikiLinks(content) {
   const wikiLinkRegex = /\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g
   const links = []
@@ -23,11 +26,29 @@ function extractTags(content) {
   const tagLines = tagsMatch[1].match(/-\s*(.+)/g) || []
   return tagLines
     .map(line => line.replace(/^-\s*/, '').trim().toLowerCase())
-    .filter(tag => tag.length > 1 && !/^-+$/.test(tag) && !/^loading$/i.test(tag)) // Filter out invalid tags
+    .filter(tag => tag.length > 1 && !/^-+$/.test(tag) && !/^loading$/i.test(tag) && !FILTERED_TAGS.includes(tag))
 }
 
 function slugify(text) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")
+}
+
+// Gatsby API: Filter out unwanted tags from MdxPost
+exports.createResolvers = ({ createResolvers }) => {
+  createResolvers({
+    MdxPost: {
+      tags: {
+        resolve: (source) => {
+          if (!source.tags) return []
+          
+          // Filter out personal/insights tags
+          return source.tags.filter(tag => 
+            tag && tag.name && !FILTERED_TAGS.includes(tag.name.toLowerCase())
+          )
+        },
+      },
+    },
+  })
 }
 
 exports.onPostBuild = async () => {
