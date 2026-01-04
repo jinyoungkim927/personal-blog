@@ -73,10 +73,21 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, fullPa
 
       const g = svg.append("g")
 
-      // Slightly larger nodes for full-page mode
-      const baseSize = fullPage ? 8 : 6
-      const maxSize = fullPage ? 18 : 14
-      const getNodeSize = (d: GraphNode) => Math.max(baseSize, Math.min(maxSize, baseSize + d.totalLinks * 1.5))
+      // Node sizes based on type: Posts (2x), Tags (1.5x), Snippets (1x)
+      const baseSize = fullPage ? 6 : 5
+      const getNodeSize = (d: GraphNode) => {
+        const linkBonus = Math.min(8, d.totalLinks * 0.8)
+        if (d.isTag) {
+          // Tags: 1.5x (medium)
+          return (baseSize * 1.5) + linkBonus
+        } else if (d.isSnippet) {
+          // Snippets: 1x (smallest)
+          return baseSize + linkBonus * 0.5
+        } else {
+          // Posts: 2x (largest)
+          return (baseSize * 2) + linkBonus
+        }
+      }
 
       // Colors based on node type and accessibility
       const getNodeFill = (d: GraphNode) => {
