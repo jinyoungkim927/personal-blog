@@ -31,7 +31,7 @@ const GraphPage: React.FC = () => {
       <Global
         styles={{
           "*": { boxSizing: `inherit` },
-          body: { margin: 0, padding: 0 },
+          "[hidden]": { display: `none` },
         }}
       />
       
