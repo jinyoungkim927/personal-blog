@@ -89,19 +89,17 @@ const SubscribeButton: React.FC = () => {
           textAlign: "left",
         }}
       >
-        <p style={{ margin: 0, display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-          <span>
-            Hi! Thanks for subscribing. My turn: my email is jinyoungkim927 at gmail dot com. 
-            Feel free to send thoughts and suggestions, even if they're useless
-          </span>
+        <p style={{ margin: 0 }}>
+          Hi! Please email jinyoungkim927 at gmail dot com for thoughts and suggestions, especially if they're useless{" "}
           <img 
             src="/favicon.svg" 
-            alt="More Useless" 
+            alt="🌳" 
             style={{ 
-              width: "20px", 
-              height: "20px", 
-              display: "inline-block",
-              verticalAlign: "middle",
+              width: "18px", 
+              height: "18px", 
+              display: "inline",
+              verticalAlign: "text-bottom",
+              marginLeft: "2px",
             }} 
           />
         </p>

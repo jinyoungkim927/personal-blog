@@ -11,7 +11,7 @@ const GraphPage: React.FC = () => {
       const updateDimensions = () => {
         setDimensions({
           width: window.innerWidth,
-          height: window.innerHeight - 60, // Account for header
+          height: window.innerHeight,
         })
       }
       updateDimensions()
@@ -24,47 +24,16 @@ const GraphPage: React.FC = () => {
     <div style={{ 
       minHeight: "100vh", 
       background: "#faf8f3",
-      display: "flex",
-      flexDirection: "column",
+      fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      position: "relative",
     }}>
-      {/* Minimal header */}
-      <header style={{ 
-        display: "flex", 
-        alignItems: "center", 
-        justifyContent: "space-between",
-        padding: "16px 24px",
-        background: "rgba(250, 248, 243, 0.95)",
-        backdropFilter: "blur(8px)",
-        position: "fixed",
+      {/* Graph fills entire viewport */}
+      <div style={{ 
+        position: "absolute",
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 100,
-        borderBottom: "1px solid rgba(232, 224, 213, 0.5)",
-      }}>
-        <Link 
-          to="/" 
-          style={{ 
-            color: "#2d1f14", 
-            textDecoration: "none", 
-            fontWeight: 600, 
-            fontSize: 18,
-          }}
-        >
-          More Useless
-        </Link>
-        <nav style={{ display: "flex", gap: 20, fontSize: 14 }}>
-          <Link to="/blog/" style={{ color: "#7a6b5a", textDecoration: "none" }}>Posts</Link>
-          <Link to="/graph/" style={{ color: "#8b6f47", textDecoration: "none", fontWeight: 500 }}>Graph</Link>
-          <Link to="/about/" style={{ color: "#7a6b5a", textDecoration: "none" }}>About</Link>
-        </nav>
-      </header>
-
-      {/* Full-page graph */}
-      <div style={{ 
-        flex: 1, 
-        marginTop: 60, // Header height
-        position: "relative",
+        bottom: 0,
       }}>
         <GraphView 
           width={dimensions.width} 
@@ -73,6 +42,38 @@ const GraphPage: React.FC = () => {
         />
       </div>
 
+      {/* Transparent floating header */}
+      <header style={{ 
+        display: "flex", 
+        alignItems: "center", 
+        justifyContent: "space-between",
+        padding: "16px 24px",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        background: "transparent",
+      }}>
+        <Link 
+          to="/" 
+          style={{ 
+            color: "#2d1f14", 
+            textDecoration: "none", 
+            fontWeight: 600, 
+            fontSize: 18,
+            fontFamily: "inherit",
+          }}
+        >
+          More Useless
+        </Link>
+        <nav style={{ display: "flex", gap: 20, fontSize: 14, fontFamily: "inherit" }}>
+          <Link to="/blog/" style={{ color: "#7a6b5a", textDecoration: "none" }}>Posts</Link>
+          <Link to="/graph/" style={{ color: "#8b6f47", textDecoration: "none", fontWeight: 500 }}>Graph</Link>
+          <Link to="/about/" style={{ color: "#7a6b5a", textDecoration: "none" }}>About</Link>
+        </nav>
+      </header>
+
       {/* Instructions - bottom right */}
       <div style={{
         position: "fixed",
@@ -80,13 +81,14 @@ const GraphPage: React.FC = () => {
         right: 24,
         fontSize: 11,
         color: "#888",
-        background: "rgba(255,255,255,0.95)",
+        background: "rgba(255,255,255,0.92)",
         padding: "10px 14px",
         borderRadius: 8,
         boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
         lineHeight: 1.5,
         maxWidth: 200,
         zIndex: 50,
+        fontFamily: "inherit",
       }}>
         Drag to move · Scroll to zoom · Click nodes to navigate
       </div>

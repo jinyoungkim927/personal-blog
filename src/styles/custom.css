@@ -151,6 +151,7 @@ body {
   padding: 0 20px;
 }
 
+/* Center the main content container */
 main,
 [id="skip-nav"] {
   max-width: 720px;
@@ -158,11 +159,26 @@ main,
   padding: 40px 24px;
 }
 
-/* Center blog post content */
+/* Center blog post content when reading */
 article {
   max-width: 680px;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
+}
+
+/* Ensure the outer wrapper is centered */
+[class*="css-"] > main,
+#___gatsby > div > div > main {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Post page specific centering */
+[data-gatsby-body-wrapper] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 article h2,

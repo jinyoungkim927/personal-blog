@@ -8,9 +8,14 @@ const GraphButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
   const [isMounted, setIsMounted] = useState(false)
+  const [isGraphPage, setIsGraphPage] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
+    // Check if we're on the graph page
+    if (typeof window !== "undefined") {
+      setIsGraphPage(window.location.pathname === "/graph/" || window.location.pathname === "/graph")
+    }
   }, [])
 
   useEffect(() => {
@@ -38,16 +43,21 @@ const GraphButton: React.FC = () => {
 
   const closeModal = () => setIsOpen(false)
 
-  // Don't render anything during SSR
-  if (!isMounted) return null
+  // Don't render anything during SSR or on graph page
+  if (!isMounted || isGraphPage) return null
 
   return (
     <>
       <button onClick={() => setIsOpen(true)} className="graph-button" aria-label="Open knowledge graph" title="View knowledge graph">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="6" cy="6" r="3" /><circle cx="18" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="18" r="3" />
-          <line x1="8.5" y1="7.5" x2="15.5" y2="16.5" /><line x1="15.5" y1="7.5" x2="8.5" y2="16.5" />
-        </svg>
+        <img 
+          src="/favicon.svg" 
+          alt="Knowledge Graph" 
+          style={{ 
+            width: "100%", 
+            height: "100%", 
+            objectFit: "contain",
+          }} 
+        />
       </button>
 
       {isOpen && (
