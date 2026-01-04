@@ -2,7 +2,7 @@
 import { jsx, Flex } from "theme-ui"
 import useMinimalBlogConfig from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-minimal-blog-config"
 import Navigation from "@lekoarts/gatsby-theme-minimal-blog/src/components/navigation"
-import HeaderTitle from "@lekoarts/gatsby-theme-minimal-blog/src/components/header-title"
+import HeaderTitle from "./header-title"  // Use local shadowed component
 import HeaderExternalLinks from "@lekoarts/gatsby-theme-minimal-blog/src/components/header-external-links"
 
 const Header = () => {
