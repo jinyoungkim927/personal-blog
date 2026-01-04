@@ -3,30 +3,63 @@ import * as React from "react"
 import { jsx } from "theme-ui"
 import { useState, useCallback, useRef, useEffect } from "react"
 
-// 20+ different wacky text animation effects
+// 40+ WILD animation effects - go crazy!
 const ANIMATION_EFFECTS = [
+  // Motion effects
   { name: "wave", className: "anim-wave" },
   { name: "bounce", className: "anim-bounce" },
-  { name: "glitch", className: "anim-glitch" },
-  { name: "rainbow", className: "anim-rainbow" },
   { name: "spin", className: "anim-spin" },
   { name: "jello", className: "anim-jello" },
   { name: "rubber", className: "anim-rubber" },
   { name: "flip", className: "anim-flip" },
-  { name: "blur", className: "anim-blur" },
-  { name: "neon", className: "anim-neon" },
-  { name: "rotate3d", className: "anim-rotate3d" },
   { name: "shake", className: "anim-shake" },
   { name: "pulse", className: "anim-pulse" },
-  { name: "spacing", className: "anim-spacing" },
-  { name: "skew", className: "anim-skew" },
-  { name: "shadow", className: "anim-shadow" },
-  { name: "gradient", className: "anim-gradient" },
-  { name: "melt", className: "anim-melt" },
   { name: "explode", className: "anim-explode" },
-  { name: "typewriter", className: "anim-typewriter" },
-  { name: "scramble", className: "anim-scramble" },
   { name: "squish", className: "anim-squish" },
+  { name: "tornado", className: "anim-tornado" },
+  { name: "float", className: "anim-float" },
+  
+  // Color effects
+  { name: "rainbow", className: "anim-rainbow" },
+  { name: "neon", className: "anim-neon" },
+  { name: "disco", className: "anim-disco" },
+  { name: "fire", className: "anim-fire" },
+  { name: "ice", className: "anim-ice" },
+  { name: "galaxy", className: "anim-galaxy" },
+  { name: "sunset", className: "anim-sunset" },
+  { name: "candy", className: "anim-candy" },
+  { name: "matrix", className: "anim-matrix" },
+  { name: "holographic", className: "anim-holographic" },
+  
+  // Pattern effects
+  { name: "zebra", className: "anim-zebra" },
+  { name: "leopard", className: "anim-leopard" },
+  { name: "tiger", className: "anim-tiger" },
+  { name: "cow", className: "anim-cow" },
+  { name: "glitter", className: "anim-glitter" },
+  { name: "sparkle", className: "anim-sparkle" },
+  
+  // Texture effects
+  { name: "furry", className: "anim-furry" },
+  { name: "slime", className: "anim-slime" },
+  { name: "chrome", className: "anim-chrome" },
+  { name: "lava", className: "anim-lava" },
+  { name: "underwater", className: "anim-underwater" },
+  { name: "electric", className: "anim-electric" },
+  
+  // Style effects
+  { name: "glitch", className: "anim-glitch" },
+  { name: "retro", className: "anim-retro" },
+  { name: "comic", className: "anim-comic" },
+  { name: "graffiti", className: "anim-graffiti" },
+  { name: "psychedelic", className: "anim-psychedelic" },
+  { name: "vaporwave", className: "anim-vaporwave" },
+  
+  // Special effects
+  { name: "scramble", className: "anim-scramble" },
+  { name: "drip", className: "anim-drip" },
+  { name: "balloon", className: "anim-balloon" },
+  { name: "confetti", className: "anim-confetti" },
 ]
 
 // Shuffle array (Fisher-Yates)
@@ -40,7 +73,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 }
 
 // Random characters for scramble effect
-const WACKY_CHARS = "!@#$%^&*()_+-=[]{}|;:',.<>?/~`★☆♠♣♥♦●○◆◇■□▲△▼▽◀◁▶▷"
+const WACKY_CHARS = "!@#$%^&*()★☆♠♣♥♦●○◆◇■□▲△🔥💀👻🎃🌈✨💫🦄🐯🦓🐮🎪🍭🌊⚡🎨🪩"
 
 interface AnimatedUselessProps {
   text?: string
@@ -70,7 +103,7 @@ const AnimatedUseless: React.FC<AnimatedUselessProps> = ({
   // Scramble text effect
   const scrambleText = useCallback((originalText: string) => {
     let iterations = 0
-    const maxIterations = 10
+    const maxIterations = 12
     
     if (scrambleIntervalRef.current) {
       clearInterval(scrambleIntervalRef.current)
@@ -95,7 +128,7 @@ const AnimatedUseless: React.FC<AnimatedUselessProps> = ({
         }
         setDisplayText(originalText)
       }
-    }, 50)
+    }, 60)
   }, [])
   
   const handleMouseEnter = useCallback(() => {
@@ -148,6 +181,7 @@ const AnimatedUseless: React.FC<AnimatedUselessProps> = ({
             display: "inline-block",
             animationDelay: `${index * 0.05}s`,
             "--letter-index": index,
+            "--total-letters": letters.length,
           } as React.CSSProperties}
         >
           {letter === " " ? "\u00A0" : letter}
@@ -158,4 +192,3 @@ const AnimatedUseless: React.FC<AnimatedUselessProps> = ({
 }
 
 export default AnimatedUseless
-
