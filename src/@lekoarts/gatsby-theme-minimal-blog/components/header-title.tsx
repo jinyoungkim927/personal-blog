@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import * as React from "react"
 import { Link } from "gatsby"
 import { jsx } from "theme-ui"
 import replaceSlashes from "@lekoarts/gatsby-theme-minimal-blog/src/utils/replaceSlashes"
