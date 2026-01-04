@@ -325,7 +325,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   })
 }
 
-exports.onPostBuild = async () => {
+// Generate graph data - shared function for both dev and build
+function generateGraphData() {
   const postsDir = path.join(__dirname, "content", "posts")
   const snippetsDir = path.join(__dirname, "content", "snippets")
   
@@ -474,4 +475,14 @@ exports.onPostBuild = async () => {
     JSON.stringify({ nodes, links: validLinks })
   )
   console.log(`Graph: ${nodes.length} nodes (${postNodes.length} posts, ${visibleSnippetNodes.length} snippets), ${validLinks.length} links`)
+}
+
+// Generate graph data during development (after bootstrap)
+exports.onPostBootstrap = async () => {
+  generateGraphData()
+}
+
+// Also generate during production build
+exports.onPostBuild = async () => {
+  generateGraphData()
 }

@@ -374,7 +374,7 @@ a.wiki-link.unresolved {
   50% { transform: translateY(-0.35em); }
 }
 .anim-wave .animated-letter {
-  animation: wave 0.5s ease-in-out infinite;
+  animation: wave 0.67s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.07s);
 }
 
@@ -386,7 +386,7 @@ a.wiki-link.unresolved {
   70% { transform: translateY(-0.15em) scale(1.05, 0.95); }
 }
 .anim-bounce .animated-letter {
-  animation: bounce 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  animation: bounce 0.93s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
   animation-delay: calc(var(--letter-index) * 0.08s);
 }
 
@@ -396,7 +396,7 @@ a.wiki-link.unresolved {
   to { transform: rotateY(360deg); }
 }
 .anim-spin .animated-letter {
-  animation: spin 0.6s ease-in-out infinite;
+  animation: spin 0.8s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.08s);
 }
 
@@ -408,7 +408,7 @@ a.wiki-link.unresolved {
   75% { transform: skewX(-4deg) skewY(-1deg); }
 }
 .anim-jello .animated-letter {
-  animation: jello 0.5s ease-in-out infinite;
+  animation: jello 0.67s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.06s);
 }
 
@@ -420,7 +420,7 @@ a.wiki-link.unresolved {
   75% { transform: scaleX(1.2) scaleY(0.8); }
 }
 .anim-rubber .animated-letter {
-  animation: rubber 0.8s ease-in-out infinite;
+  animation: rubber 1.07s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
 }
 
@@ -431,7 +431,7 @@ a.wiki-link.unresolved {
   100% { transform: perspective(400px) rotateX(360deg); }
 }
 .anim-flip .animated-letter {
-  animation: flip 1s ease-in-out infinite;
+  animation: flip 1.33s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
 }
 
@@ -449,7 +449,7 @@ a.wiki-link.unresolved {
   90% { transform: translate(-3px, 3px); }
 }
 .anim-shake .animated-letter {
-  animation: shake 0.3s linear infinite;
+  animation: shake 0.4s linear infinite;
 }
 
 /* 8. Pulse */
@@ -458,7 +458,7 @@ a.wiki-link.unresolved {
   50% { transform: scale(1.5); }
 }
 .anim-pulse .animated-letter {
-  animation: pulse 0.6s ease-in-out infinite;
+  animation: pulse 0.8s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.08s);
 }
 
@@ -474,7 +474,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-explode .animated-letter {
-  animation: explode 0.8s ease-in-out infinite;
+  animation: explode 1.07s ease-in-out infinite;
 }
 
 /* 10. Squish */
@@ -485,7 +485,7 @@ a.wiki-link.unresolved {
   75% { transform: scaleX(0.6) scaleY(1.4); }
 }
 .anim-squish .animated-letter {
-  animation: squish 0.6s ease-in-out infinite;
+  animation: squish 0.8s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.06s);
 }
 
@@ -498,7 +498,7 @@ a.wiki-link.unresolved {
   100% { transform: rotate(360deg) translateY(0); }
 }
 .anim-tornado .animated-letter {
-  animation: tornado 0.8s linear infinite;
+  animation: tornado 1.07s linear infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
 }
 
@@ -510,7 +510,7 @@ a.wiki-link.unresolved {
   75% { transform: translateY(-10px) rotate(2deg); }
 }
 .anim-float .animated-letter {
-  animation: float 2s ease-in-out infinite;
+  animation: float 2.67s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.2s);
 }
 
@@ -527,7 +527,7 @@ a.wiki-link.unresolved {
   100% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
 }
 .anim-rainbow .animated-letter {
-  animation: rainbow 1.5s linear infinite;
+  animation: rainbow 2s linear infinite;
   animation-delay: calc(var(--letter-index) * 0.12s);
   font-weight: bold;
 }
@@ -544,7 +544,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-neon .animated-letter {
-  animation: neon 0.8s ease-in-out infinite;
+  animation: neon 1.07s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.06s);
 }
 
@@ -558,7 +558,7 @@ a.wiki-link.unresolved {
   100% { color: #ff0080; background: #000; text-shadow: 0 0 20px #ff0080; }
 }
 .anim-disco .animated-letter {
-  animation: disco 0.5s steps(1) infinite;
+  animation: disco 0.67s steps(1) infinite;
   animation-delay: calc(var(--letter-index) * 0.05s);
   padding: 0 2px;
   border-radius: 2px;
@@ -588,7 +588,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-fire .animated-letter {
-  animation: fire 0.4s ease-in-out infinite;
+  animation: fire 0.53s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.05s);
 }
 
@@ -606,7 +606,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-ice .animated-letter {
-  animation: ice 1.2s ease-in-out infinite;
+  animation: ice 1.6s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
 }
 
@@ -619,7 +619,7 @@ a.wiki-link.unresolved {
   100% { color: #ff00ff; text-shadow: 0 0 10px #ff00ff, 2px 2px 20px #0000ff; }
 }
 .anim-galaxy .animated-letter {
-  animation: galaxy 2s linear infinite;
+  animation: galaxy 2.67s linear infinite;
   animation-delay: calc(var(--letter-index) * 0.15s);
   background: linear-gradient(45deg, #000033, #330033, #003333);
   -webkit-background-clip: text;
@@ -634,7 +634,7 @@ a.wiki-link.unresolved {
   75% { color: #8b5cf6; }
 }
 .anim-sunset .animated-letter {
-  animation: sunset 2s ease-in-out infinite;
+  animation: sunset 2.67s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.2s);
   text-shadow: 0 2px 10px currentColor;
 }
@@ -648,7 +648,7 @@ a.wiki-link.unresolved {
   100% { color: #ff69b4; transform: rotate(-5deg); }
 }
 .anim-candy .animated-letter {
-  animation: candy 0.8s ease-in-out infinite;
+  animation: candy 1.07s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
   font-weight: bold;
 }
@@ -667,7 +667,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-matrix .animated-letter {
-  animation: matrix 0.3s steps(2) infinite;
+  animation: matrix 0.4s steps(2) infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
   font-family: "Courier New", monospace;
   background: #000;
@@ -694,7 +694,7 @@ a.wiki-link.unresolved {
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: holographic 1.5s linear infinite;
+  animation: holographic 2s linear infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
 }
 
@@ -714,7 +714,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-zebra .animated-letter {
-  animation: zebra 0.5s steps(1) infinite;
+  animation: zebra 0.67s steps(1) infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
   -webkit-background-clip: text;
   padding: 0 2px;
@@ -732,7 +732,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-leopard .animated-letter {
-  animation: leopard 0.6s ease-in-out infinite;
+  animation: leopard 0.8s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.08s);
   font-weight: bold;
 }
@@ -749,7 +749,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-tiger .animated-letter {
-  animation: tiger 0.4s steps(1) infinite;
+  animation: tiger 0.53s steps(1) infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
   font-weight: 900;
 }
@@ -761,7 +761,7 @@ a.wiki-link.unresolved {
   66% { color: #000; background: #fff; }
 }
 .anim-cow .animated-letter {
-  animation: cow 0.8s steps(1) infinite;
+  animation: cow 1.07s steps(1) infinite;
   animation-delay: calc(var(--letter-index) * 0.15s);
   border-radius: 50%;
   padding: 0 4px;
@@ -787,7 +787,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-glitter .animated-letter {
-  animation: glitter 0.3s linear infinite;
+  animation: glitter 0.4s linear infinite;
   color: #ffd700;
 }
 
@@ -811,7 +811,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-sparkle .animated-letter {
-  animation: sparkle 0.6s ease-in-out infinite;
+  animation: sparkle 0.8s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.08s);
   color: #fff;
 }
@@ -832,7 +832,7 @@ a.wiki-link.unresolved {
   75% { transform: translateX(1px) translateY(1px); }
 }
 .anim-furry .animated-letter {
-  animation: furry 0.2s linear infinite;
+  animation: furry 0.27s linear infinite;
   color: #8B4513;
   font-weight: bold;
 }
@@ -851,7 +851,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-slime .animated-letter {
-  animation: slime 0.8s ease-in-out infinite;
+  animation: slime 1.07s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
 }
 
@@ -868,7 +868,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-chrome .animated-letter {
-  animation: chrome 1s ease-in-out infinite;
+  animation: chrome 1.33s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
   font-weight: 900;
 }
@@ -892,7 +892,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-lava .animated-letter {
-  animation: lava 0.6s ease-in-out infinite;
+  animation: lava 0.8s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.08s);
 }
 
@@ -920,7 +920,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-underwater .animated-letter {
-  animation: underwater 2s ease-in-out infinite;
+  animation: underwater 2.67s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.15s);
   text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
 }
@@ -943,7 +943,7 @@ a.wiki-link.unresolved {
   90% { transform: translate(-2px, 2px); color: #87ceeb; }
 }
 .anim-electric .animated-letter {
-  animation: electric 0.2s linear infinite;
+  animation: electric 0.27s linear infinite;
 }
 
 /* ========== STYLE EFFECTS ========== */
@@ -965,7 +965,7 @@ a.wiki-link.unresolved {
   90% { transform: translate(-3px, 3px); text-shadow: 3px 0 #ff0000, -3px 0 #00ff00; }
 }
 .anim-glitch .animated-letter {
-  animation: glitch 0.2s steps(1) infinite;
+  animation: glitch 0.27s steps(1) infinite;
 }
 
 /* 36. Retro 📺 */
@@ -980,7 +980,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-retro .animated-letter {
-  animation: retro 0.8s ease-in-out infinite;
+  animation: retro 1.07s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
   font-weight: 900;
 }
@@ -1007,7 +1007,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-comic .animated-letter {
-  animation: comic 0.5s ease-in-out infinite;
+  animation: comic 0.67s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.06s);
   font-family: "Comic Sans MS", cursive;
   font-weight: bold;
@@ -1030,7 +1030,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-graffiti .animated-letter {
-  animation: graffiti 0.6s ease-in-out infinite;
+  animation: graffiti 0.8s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.08s);
   font-weight: 900;
   font-style: italic;
@@ -1060,7 +1060,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-psychedelic .animated-letter {
-  animation: psychedelic 1s linear infinite;
+  animation: psychedelic 1.33s linear infinite;
   animation-delay: calc(var(--letter-index) * 0.1s);
   color: #ff00ff;
   text-shadow: 0 0 10px currentColor;
@@ -1078,7 +1078,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-vaporwave .animated-letter {
-  animation: vaporwave 1.5s ease-in-out infinite;
+  animation: vaporwave 2s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.12s);
   font-style: italic;
 }
@@ -1087,7 +1087,7 @@ a.wiki-link.unresolved {
 
 /* 41. Scramble (JS-driven) */
 .anim-scramble .animated-letter {
-  animation: shake 0.08s linear infinite;
+  animation: shake 0.11s linear infinite;
   font-family: monospace;
   color: #00ff00;
   background: #000;
@@ -1106,7 +1106,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-drip .animated-letter {
-  animation: drip 1s ease-in-out infinite;
+  animation: drip 1.33s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.12s);
   color: #4169e1;
   text-shadow: 0 5px 10px rgba(65, 105, 225, 0.5);
@@ -1132,7 +1132,7 @@ a.wiki-link.unresolved {
   }
 }
 .anim-balloon .animated-letter {
-  animation: balloon 1.5s ease-in-out infinite;
+  animation: balloon 2s ease-in-out infinite;
   animation-delay: calc(var(--letter-index) * 0.15s);
 }
 
@@ -1151,6 +1151,6 @@ a.wiki-link.unresolved {
   87.5% { color: #ff00ff; transform: translateY(-5px) rotate(45deg); }
 }
 .anim-confetti .animated-letter {
-  animation: confetti 0.8s linear infinite;
+  animation: confetti 1.07s linear infinite;
   animation-delay: calc(var(--letter-index) * 0.08s);
 }

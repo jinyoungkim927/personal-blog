@@ -258,7 +258,7 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, fullPa
         padding: fullPage ? "6px 12px" : 0,
         borderRadius: fullPage ? "6px" : 0,
       }}>
-        {graphData.nodes.length} nodes · {graphData.links.length} links
+        {graphData?.nodes?.length ?? 0} nodes · {graphData?.links?.length ?? 0} links
       </div>
     </div>
   )
