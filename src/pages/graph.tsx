@@ -1,6 +1,9 @@
-import { HeadFC, Link } from "gatsby"
+/** @jsx jsx */
+import { jsx } from "theme-ui"
+import { HeadFC } from "gatsby"
 import * as React from "react"
 import { useEffect, useState } from "react"
+import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import GraphView from "../components/GraphView"
 
 const GraphPage: React.FC = () => {
@@ -9,9 +12,12 @@ const GraphPage: React.FC = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const updateDimensions = () => {
+        // Account for the layout padding
+        const container = document.querySelector('main')
+        const containerWidth = container ? container.clientWidth : window.innerWidth - 48
         setDimensions({
-          width: window.innerWidth,
-          height: window.innerHeight,
+          width: Math.min(containerWidth, 1400),
+          height: Math.max(window.innerHeight - 300, 500),
         })
       }
       updateDimensions()
@@ -21,78 +27,26 @@ const GraphPage: React.FC = () => {
   }, [])
 
   return (
-    <div style={{ 
-      minHeight: "100vh", 
-      background: "#faf8f3",
-      fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-      position: "relative",
-    }}>
-      {/* Graph fills entire viewport */}
-      <div style={{ 
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+    <Layout>
+      <div sx={{ 
+        borderRadius: "12px", 
+        overflow: "hidden", 
+        boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+        border: "1px solid",
+        borderColor: "divide",
+        background: "#faf9f7",
       }}>
         <GraphView 
           width={dimensions.width} 
           height={dimensions.height} 
-          fullPage={true}
+          fullPage={false}
         />
       </div>
 
-      {/* Transparent floating header */}
-      <header style={{ 
-        display: "flex", 
-        alignItems: "center", 
-        justifyContent: "space-between",
-        padding: "16px 24px",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        background: "transparent",
-      }}>
-        <Link 
-          to="/" 
-          style={{ 
-            color: "#2d1f14", 
-            textDecoration: "none", 
-            fontWeight: 600, 
-            fontSize: 18,
-            fontFamily: "inherit",
-          }}
-        >
-          More Useless
-        </Link>
-        <nav style={{ display: "flex", gap: 20, fontSize: 14, fontFamily: "inherit" }}>
-          <Link to="/blog/" style={{ color: "#7a6b5a", textDecoration: "none" }}>Posts</Link>
-          <Link to="/graph/" style={{ color: "#8b6f47", textDecoration: "none", fontWeight: 500 }}>Graph</Link>
-          <Link to="/about/" style={{ color: "#7a6b5a", textDecoration: "none" }}>About</Link>
-        </nav>
-      </header>
-
-      {/* Instructions - bottom right */}
-      <div style={{
-        position: "fixed",
-        bottom: 24,
-        right: 24,
-        fontSize: 11,
-        color: "#888",
-        background: "rgba(255,255,255,0.92)",
-        padding: "10px 14px",
-        borderRadius: 8,
-        boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
-        lineHeight: 1.5,
-        maxWidth: 200,
-        zIndex: 50,
-        fontFamily: "inherit",
-      }}>
+      <div sx={{ mt: 3, color: "secondary", fontSize: 1 }}>
         Drag to move · Scroll to zoom · Click nodes to navigate
       </div>
-    </div>
+    </Layout>
   )
 }
 
