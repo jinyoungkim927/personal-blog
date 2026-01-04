@@ -21,10 +21,12 @@ const Math: React.FC<MathProps> = ({ children, display = false }) => {
     }
   }, [children, display])
 
+  // Use span with display:block to avoid DOM nesting issues in MDX paragraphs
+  // (div cannot be inside p, but span with display:block can)
   return display ? (
-    <div style={{ textAlign: "center", margin: "1.5em 0", overflowX: "auto" }}>
+    <span style={{ display: "block", textAlign: "center", margin: "1.5em 0", overflowX: "auto" }}>
       <span ref={ref} />
-    </div>
+    </span>
   ) : (
     <span ref={ref} />
   )
