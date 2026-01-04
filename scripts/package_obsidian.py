@@ -459,7 +459,51 @@ def convert_to_mdx(
     # Match lines that are only hashtags at the start
     converted_content = re.sub(r'^(\s*#[a-zA-Z][a-zA-Z0-9_-]*\s*)+\n', '', converted_content)
     
-    return f"{frontmatter}\n\n{converted_content}"
+    # Convert LaTeX to Math component syntax for MDX compatibility
+    # This prevents $...$ from being interpreted as JSX expressions
+    has_math = '$' in converted_content
+    converted_content = convert_latex_for_mdx(converted_content)
+    
+    # Add Math component import if content has math
+    math_import = ""
+    if has_math:
+        math_import = 'import Math from "../../../src/components/Math"\n\n'
+    
+    return f"{frontmatter}\n\n{math_import}{converted_content}"
+
+
+def convert_latex_for_mdx(content: str) -> str:
+    """
+    Convert LaTeX $...$ and $$...$$ syntax to use the Math component.
+    This is necessary because MDX interprets $ as JSX expression delimiters.
+    
+    Converts:
+    - $inline$ -> <Math>{"inline"}</Math>
+    - $$display$$ -> <Math display>{"display"}</Math>
+    """
+    # First, handle display math ($$...$$) - must come before inline
+    # Match $$ on its own line or inline
+    def replace_display_math(match):
+        latex = match.group(1).strip()
+        # Escape special characters for JSX string
+        latex = latex.replace('\\', '\\\\').replace('"', '\\"').replace('\n', ' ')
+        return f'<Math display>{{"{latex}"}}</Math>'
+    
+    # Display math: $$...$$ (can span multiple lines)
+    content = re.sub(r'\$\$([\s\S]*?)\$\$', replace_display_math, content)
+    
+    # Then handle inline math ($...$)
+    def replace_inline_math(match):
+        latex = match.group(1).strip()
+        # Escape special characters for JSX string
+        latex = latex.replace('\\', '\\\\').replace('"', '\\"')
+        return f'<Math>{{"{latex}"}}</Math>'
+    
+    # Inline math: $...$ (not starting/ending with space, single line)
+    # Negative lookbehind/lookahead to avoid matching $$
+    content = re.sub(r'(?<!\$)\$(?!\$)([^\$\n]+?)(?<!\$)\$(?!\$)', replace_inline_math, content)
+    
+    return content
 
 
 # ============================================================

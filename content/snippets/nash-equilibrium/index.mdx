@@ -5,19 +5,20 @@ tags:
   - game-theory
 ---
 
-A Nash Equilibrium is a Strategy Profile **a ∈ A** such that no player can improve their utility by unilaterally deviating. Every finite game has at least one mixed strategy Nash equilibrium. This is the most fundamental concept in Game Theory, and yields a "consistent prediction" for what players will do. 
+import Math from "../../../src/components/Math"
+
+A Nash Equilibrium is a Strategy Profile <Math>{"a \\in A"}</Math> such that no player can improve their utility by unilaterally deviating. Every finite game has at least one mixed strategy Nash equilibrium. This is the most fundamental concept in Game Theory, and yields a “consistent prediction” for what players will do. 
 
 **Formal Definition**  
-A strategy profile **a ∈ A** is a Nash Equilibrium if: 
-
-> uᵢ(a) ≥ uᵢ(aᵢ', a₋ᵢ), ∀ aᵢ' ∈ Aᵢ, ∀ i
+A strategy profile <Math>{"a \\in A"}</Math> is a Nash Equilibrium if: 
+<Math display>{"u_i(a) \\geq u_i(a_i', a_{-i}), \\quad \\forall a_i' \\in A_i, \\forall i"}</Math>
 
 where:  
-- **Aᵢ** is the Strategy Set for player i,  
-- **a₋ᵢ** is the Strategy Profile of all players except i,  
-- **uᵢ** is the utility Function for player i.
+- <Math>{"A_i"}</Math> is the Strategy Set for player <Math>{"i"}</Math>,  
+- <Math>{"a_{-i}"}</Math>is the Strategy Profile of all players except <Math>{"i"}</Math>,  
+- <Math>{"u_i"}</Math> is the utility Function for player <Math>{"i"}</Math>.
 
 For examples, check out Nash Equilibrium Examples
 
 **Properties**
-- For a Mixed Strategy Nash, every pure action **aᵢ** that is played with positive probability in σᵢ (i.e., every action in the support of σᵢ) must be Individually Rational for all players.
+- For a Mixed Strategy Nash, every pure action <Math>{"a_i"}</Math> that is played with positive probability in <Math>{"\\sigma_i"}</Math> (i.e., every action in the support of <Math>{"\\sigma_i"}</Math>) and be Individually Rational for all players.
