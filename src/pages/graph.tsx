@@ -1,20 +1,16 @@
 /** @jsx jsx */
-import { jsx, Flex, Container } from "theme-ui"
-import { HeadFC, Link } from "gatsby"
+import { jsx } from "theme-ui"
+import { HeadFC } from "gatsby"
 import * as React from "react"
 import { useEffect, useState } from "react"
 import { Global } from "@emotion/react"
-import useMinimalBlogConfig from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-minimal-blog-config"
-import useSiteMetadata from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-site-metadata"
-import Navigation from "@lekoarts/gatsby-theme-minimal-blog/src/components/navigation"
-import HeaderExternalLinks from "@lekoarts/gatsby-theme-minimal-blog/src/components/header-external-links"
-import replaceSlashes from "@lekoarts/gatsby-theme-minimal-blog/src/utils/replaceSlashes"
+import { MDXProvider } from "@mdx-js/react"
+import { Container } from "theme-ui"
+import Header from "../@lekoarts/gatsby-theme-minimal-blog/components/header"
 import GraphView from "../components/GraphView"
 
 const GraphPage: React.FC = () => {
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
-  const { siteTitle } = useSiteMetadata()
-  const { navigation: nav, basePath } = useMinimalBlogConfig()
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -31,7 +27,7 @@ const GraphPage: React.FC = () => {
   }, [])
 
   return (
-    <React.Fragment>
+    <MDXProvider components={{}}>
       <Global
         styles={{
           "*": { boxSizing: `inherit` },
@@ -47,6 +43,7 @@ const GraphPage: React.FC = () => {
         right: 0,
         bottom: 0,
         zIndex: 0,
+        bg: "background",
       }}>
         <GraphView 
           width={dimensions.width} 
@@ -55,39 +52,9 @@ const GraphPage: React.FC = () => {
         />
       </div>
 
-      {/* Floating header - same structure as theme header */}
+      {/* Floating header - uses the same shadowed Header component */}
       <Container sx={{ position: "relative", zIndex: 10 }}>
-        <header sx={{ 
-          pt: 4,
-          pb: 3,
-        }}>
-          <Flex sx={{ alignItems: `center`, justifyContent: `space-between` }}>
-            <Link
-              to={replaceSlashes(`/${basePath}`)}
-              aria-label={`${siteTitle} - Back to home`}
-              sx={{ color: `heading`, textDecoration: `none` }}
-            >
-              <div sx={{ my: 0, fontWeight: `semibold`, fontSize: [3, 4] }}>{siteTitle}</div>
-            </Link>
-          </Flex>
-          <div
-            sx={{
-              boxSizing: `border-box`,
-              display: `flex`,
-              variant: `dividers.bottom`,
-              alignItems: `center`,
-              justifyContent: `space-between`,
-              mt: 3,
-              color: `secondary`,
-              a: { color: `secondary`, ":hover": { color: `heading` } },
-              flexFlow: `wrap`,
-              borderColor: `rgba(0,0,0,0.1)`,
-            }}
-          >
-            <Navigation nav={nav} />
-            <HeaderExternalLinks />
-          </div>
-        </header>
+        <Header />
       </Container>
 
       {/* Instructions - bottom right */}
@@ -106,7 +73,7 @@ const GraphPage: React.FC = () => {
       }}>
         Drag to move · Scroll to zoom · Click nodes to navigate
       </div>
-    </React.Fragment>
+    </MDXProvider>
   )
 }
 
