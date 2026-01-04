@@ -1,0 +1,11 @@
+# Obsidian Blog Packager Dependencies
+
+# Environment variable loading
+python-dotenv>=1.0.0
+
+# YAML parsing for frontmatter
+PyYAML>=6.0
+
+# OpenAI API for quality checks
+openai>=1.0.0
+
