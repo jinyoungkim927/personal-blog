@@ -39,9 +39,11 @@ MIN_QUALITY_SCORE = 6
 # POSTS TO PACKAGE - Add your document titles here
 # ============================================================
 POSTS_TO_PACKAGE = [
-    # "Eigendecomposition",
-    # "Before and After Superintelligence",
+    "Before and After Superintelligence Part I",
 ]
+
+# Logging directory for AI checks
+LOGS_DIR = Path(__file__).parent / 'logs'
 
 
 # ============================================================
@@ -235,17 +237,23 @@ Only return the JSON object, no other text."""
         )
         result['passes'] = passes
         
+        # Log the result
+        log_ai_check(title, result, check_content)
+        
         return result
         
     except Exception as e:
         print(f"  ⚠️  Quality check error for '{title}': {e}")
-        return {
+        error_result = {
             "appropriate": True,
             "technically_sound": True,
             "quality_score": 7,
             "passes": True,
-            "reason": f"Error during check: {e} - auto-passed"
+            "reason": f"Error during check: {e} - auto-passed",
+            "error": str(e)
         }
+        log_ai_check(title, error_result, "")
+        return error_result
 
 
 # ============================================================
@@ -377,6 +385,44 @@ def save_snippet_metadata(metadata: Dict[str, Any], snippets_dir: Path = SNIPPET
     snippets_dir.mkdir(parents=True, exist_ok=True)
     meta_path = snippets_dir / '_metadata.json'
     meta_path.write_text(json.dumps(metadata, indent=2), encoding='utf-8')
+
+
+def log_ai_check(title: str, result: Dict[str, Any], content_preview: str = "") -> None:
+    """Log AI quality check results with timestamp."""
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+    
+    timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    date_str = datetime.now().strftime('%Y-%m-%d')
+    
+    # Create date-based log file
+    log_file = LOGS_DIR / f'ai_checks_{date_str}.json'
+    
+    # Load existing logs for today
+    logs = []
+    if log_file.exists():
+        try:
+            logs = json.loads(log_file.read_text(encoding='utf-8'))
+        except:
+            logs = []
+    
+    # Add new log entry
+    log_entry = {
+        'timestamp': timestamp,
+        'title': title,
+        'result': result,
+        'content_preview': content_preview[:500] if content_preview else ''
+    }
+    logs.append(log_entry)
+    
+    # Save updated logs
+    log_file.write_text(json.dumps(logs, indent=2), encoding='utf-8')
+    
+    # Also create individual log file for easy debugging
+    safe_title = slugify(title)
+    individual_log = LOGS_DIR / f'{timestamp}_{safe_title}.json'
+    individual_log.write_text(json.dumps(log_entry, indent=2), encoding='utf-8')
+    
+    print(f"     📝 Logged to: {log_file.name}")
 
 
 def create_snippet(

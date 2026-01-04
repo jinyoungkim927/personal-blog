@@ -1,0 +1,237 @@
+---
+title: "Dynamic Programming (DP)"
+date: 2026-01-04
+---
+
+#computer-science #interview 
+### What is it: 
+- Dynamic programming is the efficient solving of recursion. 
+	- Break problems down into subproblems often with memoiztion
+	- Not practical when problems don't really overlap
+### Common Code Modules Called: 
+- lru_cache
+## Common DP Subproblems: 
+1. Given input sequence of length $n$, want ordered sequence of length $i$
+2. Sequence of length $n$, but you need to sort into the right order then you get $i$ length sequence
+3. Expand from the middle outwards
+4. Given 2D Matrix, and then submatrix is the subproblem. 
+### Approach 1: Top Down
+- Employ answers to the problem's subproblems. 
+- If answers to subproblems overlap, they can be memoized or kept in a table for later use
+- Top down approach follows 'memoization' strategy
+- Remember: 
+	- Difference between *recursion* and *caching* is that recursion requires calling the function directly whereas caching requires preserving intermediate results 
+- Benefits: 
+	- Easy to understand and implement
+	- Subproblems solved on request. Users query solutions for each part 
+	- Easier to debug. Segmenting problems into small parts allow users to follow solution quickly, determine where an error occurs 
+- Bad things: 
+	- Recursion is used. More memory in call stack. Worse overall performance -> potentially stack overflow
+
+### Approach 2: Bottom Up
+- Solution is written in terms of subproblems in a way that loops on itself
+- Users can rewrite problem by solving subproblems first, then use solutions for larger subproblems. 
+- Saves memory as a result
+- Disadvantages: 
+	- Makes decisions about small reusable subproblems and decides how they will be put together to create a larger problem
+
+### Example #1: Climbing Stairs
+- You can either climb stairs with one step or two steps. How many ways are there to climb the n stairs? 
+- **Brute force recursive:** 
+```python
+class Solution: 
+	def climbStairs(self, n: int) -> int:
+		if n == 0 or n == 1:
+			return 1
+		return self.climbStairs(n - 1) + self.climbStairs(n - 2)
+```
+
+
+- **Memoization**
+
+```python
+class Solution: 
+	def climbStairs(self, n: int) -> int: 
+		memo = {}
+		return self.helper(n, memo)
+
+	def helper(self, n: int, memo: dict[int, int]) -> int: 
+		if n == 0 or n == 1: 
+			return 1
+		else: 
+			return self.helper(n - 1, memo) + self.helper(n - 2, memo)
+```
+
+
+```python
+def climbStairs(n):
+	memo = {}
+	return helper(n, memo)
+
+def helper(n, memo): 
+	if n == 0 or n == 1: 
+		return 1
+	else: 
+		return helper(n - 1, memo) + helper(n - 2, memo)
+```
+
+- **Tabulation**
+	- Eliminate recursion, use bottom up to solve problem iteratively
+	- Creates DP table of size n + 1 to store ways to reach each step. 
+	- Iterates from 2 to n filling in DP table by summing up values in previous steps, returns last cell of DP table
+```python
+class Solution: 
+	def climbStairs(self, n: int) -> int:
+		if n == 0 or n == 1:
+			return 1
+		dp = [0] (n + 1)
+		dp[0] = dp[1] = 1
+
+		for i in range(2, n + 1)
+			dp[i] = dp[i - 1] + dp[i - 2]
+		return dp[n]
+```
+- **Space optimised solution**
+	- Reduce space complexity by using only two variables `prev` and `curr` instead of DP table
+```python
+class Solution: 
+	def climbStairs(self, n: int) -> int:
+		if n == 0 or n ==1:
+			return 1
+		prev, curr = 1, 1
+		for in range(2, n + 1):
+			temp = curr
+			curr = prev + curr
+			prev = temp
+		return curr
+```
+### Example #2: Coin Change
+
+**Example 1:**
+
+**Input:** coins = [1,2,5], amount = 11
+**Output:** 3
+**Explanation:** 11 = 5 + 5 + 1
+
+```python
+class solution: 
+	def coinChange(self, coins: List[int], amount:int) -> int:
+		if amount < coin for coin in coins:
+			return -1
+		elif amount == coin for coin in coins:
+			return 1
+		else: 
+			return coinChange(self)
+```
+
+- **Bottom up recursion (DP) approach**
+	- Compute the least number of coins to make `<index>` amount. 
+	- ex) We have 1, 3 as coins
+	- 0 is 0
+	- 1 is 0
+	- 2 is 2
+	- 3 is 3 coins. However, we check 3 coins. So it is 1. (3 is 1)
+	- 4. Try subtracting 1. Then we refer to the value we computed for 3. Also try subtracting 3, then we refer to our value for 1. 
+
+```python
+def coinChange(coins, amount):
+	dp = [0] + ([float('inf')] * amount)
+	for i in range(1, amount + 1):
+		for coin in co ins:
+			if coin <= i:
+				dp[i] = min(dp[i], dp[i - coin] + 1)
+
+	if dp[-1] == float('inf'):
+		return -1
+	return dp[-1]
+```
+
+### Example 3: Longest Increasing Subsequence 
+- DP + binary searhc
+
+```python
+class Solution: 
+	def lengthofLIS(self, nums):
+		n = len(nums)
+		if n == 0: 
+			return 0
+		dp = [0] * n # This creates an array of the last element of current LIS
+		length = 1
+		dp[0] = nums[0]
+
+		for i in range(1, n):
+			if nums[i] > dp[length-1]: # Nums is greater than last element of current LIS. Extends this by addings nums[i] to dp array at length position. 
+				dp[length] = nums[i]
+				length += 1
+			else: 
+				index = self.binary_search(dp, 0, length - 1, nums[i])
+				dp[index] = nums[i]
+
+	# Point of this search is to find first position in dp list where elemnt is greater or equal to target. 
+	def binary_search(self, dp, left, right, target):
+		while left < right: 
+			mid = left + (right - left) // 2
+			if dp[mid] < target: 
+				left = mid + 1
+			else: 
+				right = mid
+
+		return left 
+```
+
+
+### 4. Box Stacking: 
+
+!*[Image: Screenshot 2024-08-20 at 3.42.59 pm.png]*
+
+```python
+def tallestStack(boxes):
+	boxes.sort(key=lambda x: x[0])
+	heights = {box:box[2] for box in boxes}
+
+	for i in range(1, len(boxes)):
+		box = boxes[i]
+		S = [boxes[j] for j in range(i) if canBeStacked(boxes[j], box)]
+		heights[box] = box[2] + max([heights[box] for box in S], default=0)
+	return max(heights.values(), default=0)
+
+def canBeStacked(top, bottom):
+	return top[0] < bottom[0] and top[1] < bottom[1]
+```
+
+
+
+
+### Constructing DP Matrix
+
+```python
+
+dp = [0 for _ in range(len(words))]
+
+adj_matrix = [[0] * len(words) for _ in range(len(words))]
+```
+
+
+### Longest String Chain
+
+
+
+
+```python
+import numpy as np
+
+
+class Solution:
+	def numSquares(self, n: int) -> int:
+		# Initialize dp array with a large number (infinity) except for dp[0] = 0
+		dp = [float('inf')] * (n + 1)
+		dp[0] = 0
+		
+		# Iterate through all possible perfect squares
+		for num in range(1, int(np.sqrt(n)) + 1):
+			square = num * num
+			for targetIdx in range(square, n + 1):
+				dp[targetIdx] = min(dp[targetIdx], dp[targetIdx - square] + 1)
+
+		return dp[n]
+```
