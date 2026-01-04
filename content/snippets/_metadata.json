@@ -1,44 +1,44 @@
 {
   "game-theory": {
     "title": "Game Theory",
-    "passes": true,
-    "quality_score": 7,
-    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
+    "passes": false,
+    "quality_score": 4,
+    "reason": "The content is appropriate for public viewing and technically sound, but it lacks depth and clarity, making it difficult for readers to fully understand the concept of game theory and its applications."
   },
   "radical-or-knightean-uncertainty": {
     "title": "Radical or Knightean Uncertainty",
     "passes": true,
     "quality_score": 7,
-    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
+    "reason": "The document presents a philosophical discussion on uncertainty and risk, which is suitable for a public blog. It is technically sound, with no apparent errors, but could benefit from clearer explanations and more context for readers unfamiliar with the concepts."
   },
   "ishita": {
     "title": "Ishita",
     "passes": true,
     "quality_score": 7,
-    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
+    "reason": "The content is respectful and presents a positive view of the individual. It references a relevant topic (AI) and encourages thought. However, the writing could benefit from more context and detail to enhance clarity and information density."
   },
   "simulations": {
     "title": "Simulations",
     "passes": true,
     "quality_score": 7,
-    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
+    "reason": "The content is suitable for public viewing as it discusses a professional perspective on simulations in AI without personal information. It is technically sound, presenting valid concepts in reinforcement learning and simulation techniques. The writing quality is good, but could benefit from improved clarity and structure for a broader audience."
   },
   "nash-equilibrium": {
     "title": "Nash Equilibrium",
     "passes": true,
     "quality_score": 7,
-    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
+    "reason": "The document provides a clear and concise explanation of Nash Equilibrium, including a formal definition and relevant properties. However, it could benefit from improved clarity and structure, such as more examples or explanations for terms like 'mixed strategy' and 'individually rational.'"
   },
   "dynamic-programming-dp": {
     "title": "Dynamic Programming (DP)",
-    "passes": true,
-    "quality_score": 7,
-    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
+    "passes": false,
+    "quality_score": 6,
+    "reason": "The document provides a good overview of dynamic programming concepts and examples, but it contains several technical errors (e.g., incorrect syntax in code snippets) and lacks clarity in some explanations. Additionally, the formatting and organization could be improved for better readability."
   },
   "doc-2fcc119d": {
     "title": "\ucd08\uc9c0\ub2a5 \uc804\ud6c4 (\ud55c\uad6d\uc5b4)",
     "passes": true,
-    "quality_score": 7,
-    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
+    "quality_score": 8,
+    "reason": "The document presents thoughtful insights on AGI and superintelligence, with a clear structure and logical arguments. It avoids overly personal content and maintains a professional tone. However, some sections could benefit from clearer explanations for broader accessibility."
   }
 }
