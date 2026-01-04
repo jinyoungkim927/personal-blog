@@ -68,4 +68,5 @@ public
 .vscode
 .DS_Store# Trigger rebuild
 scripts/.env
+scripts/logs/
 __pycache__/
