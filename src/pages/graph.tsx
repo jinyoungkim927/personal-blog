@@ -53,7 +53,7 @@ const GraphPage: React.FC = () => {
       </div>
 
       {/* Floating header - uses the same shadowed Header component */}
-      <Container sx={{ position: "relative", zIndex: 10 }}>
+      <Container sx={{ position: "relative", zIndex: 10, pt: 4 }}>
         <Header />
       </Container>
 

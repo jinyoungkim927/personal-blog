@@ -26,7 +26,7 @@ const config: GatsbyConfig = {
         navigation: [
           {
             title: `Posts`,
-            slug: `/blog`,
+            slug: `/`,
           },
           {
             title: `Graph`,
