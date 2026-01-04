@@ -111,16 +111,108 @@ function processContentDir(dirPath, isSnippet = false, snippetMeta = {}) {
   return { nodes, titleToSlug }
 }
 
-// Extend schema to add displayDate field to MdxPost
-exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions
+// Extend schema to add displayDate field to MdxPost and create MdxSnippet type
+exports.createSchemaCustomization = ({ actions, schema }) => {
+  const { createTypes, createFieldExtension } = actions
   
-  // Add displayDate field to MdxPost
+  // Create mdxpassthrough extension for snippet fields
+  createFieldExtension({
+    name: `snippetMdxPassthrough`,
+    args: {
+      fieldName: `String!`,
+    },
+    extend({ fieldName }) {
+      return {
+        async resolve(source, args, context, info) {
+          const type = info.schema.getType(`Mdx`)
+          const mdxNode = context.nodeModel.getNodeById({ id: source.parent })
+          const resolver = type.getFields()[fieldName].resolve
+          return resolver(mdxNode, args, context, info)
+        },
+      }
+    },
+  })
+
   createTypes(`
     type MdxPost implements Node {
       displayDate: String
     }
+    
+    type SnippetTag {
+      name: String
+      slug: String
+    }
+    
+    type MdxSnippet implements Node {
+      id: ID!
+      slug: String!
+      title: String!
+      date: Date! @dateformat
+      displayDate: String
+      contentFilePath: String!
+      excerpt(pruneLength: Int = 140): String! @snippetMdxPassthrough(fieldName: "excerpt")
+      tags: [SnippetTag]
+    }
   `)
+}
+
+// Create MdxSnippet nodes from MDX files in snippets directory
+exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDigest }) => {
+  const { createNode, createParentChildLink } = actions
+  
+  // Only process MDX nodes
+  if (node.internal.type !== `Mdx`) return
+  
+  // Check if this is from the snippets source
+  const fileNode = getNode(node.parent)
+  if (!fileNode || fileNode.sourceInstanceName !== `snippets`) return
+  
+  // Skip _metadata.json and other non-mdx files
+  if (!fileNode.absolutePath.endsWith('.mdx') && !fileNode.absolutePath.endsWith('.md')) return
+  
+  // Extract slug from the file path
+  const pathParts = fileNode.absolutePath.split('/')
+  const snippetDir = pathParts[pathParts.length - 2]
+  
+  // Skip if this is the root index.mdx (shouldn't exist anymore but just in case)
+  if (snippetDir === 'snippets') return
+  
+  // Process tags
+  let modifiedTags = null
+  if (node.frontmatter && node.frontmatter.tags) {
+    modifiedTags = node.frontmatter.tags
+      .filter(tag => tag && !FILTERED_TAGS.includes(tag.toLowerCase()))
+      .map((tag) => ({
+        name: tag,
+        slug: slugify(tag),
+      }))
+  }
+  
+  const fieldData = {
+    slug: `/snippets/${snippetDir}/`,
+    title: node.frontmatter?.title || snippetDir,
+    date: node.frontmatter?.date || new Date().toISOString(),
+    displayDate: node.frontmatter?.displayDate || null,
+    contentFilePath: fileNode.absolutePath,
+    tags: modifiedTags,
+  }
+  
+  const mdxSnippetId = createNodeId(`${node.id} >>> MdxSnippet`)
+  
+  createNode({
+    ...fieldData,
+    id: mdxSnippetId,
+    parent: node.id,
+    children: [],
+    internal: {
+      type: `MdxSnippet`,
+      contentDigest: createContentDigest(fieldData),
+      content: JSON.stringify(fieldData),
+      description: `Mdx implementation of the Snippet interface`,
+    },
+  })
+  
+  createParentChildLink({ parent: node, child: getNode(mdxSnippetId) })
 }
 
 // Gatsby API: Filter out unwanted tags from MdxPost and adjust timeToRead
@@ -179,65 +271,58 @@ function loadHiddenSnippets() {
   return { hidden: [] }
 }
 
-// Create pages for snippets
-exports.createPages = async ({ actions, graphql }) => {
+// Create pages for snippets using GraphQL query for proper MDX processing
+exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
-  const snippetsDir = path.join(__dirname, "content", "snippets")
   const snippetTemplate = path.resolve("./src/templates/snippet.tsx")
-  
-  if (!fs.existsSync(snippetsDir)) return
   
   // Load hidden snippets config
   const hiddenConfig = loadHiddenSnippets()
   const hiddenSlugs = new Set(hiddenConfig.hidden || [])
   
-  const snippetDirs = fs.readdirSync(snippetsDir).filter(f => {
-    const fullPath = path.join(snippetsDir, f)
-    return fs.statSync(fullPath).isDirectory() && !f.startsWith('_')
-  })
-  
-  for (const dir of snippetDirs) {
-    // Skip hidden snippets
-    if (hiddenSlugs.has(dir)) {
-      console.log(`Skipping hidden snippet: ${dir}`)
-      continue
-    }
-    
-    const mdxPath = path.join(snippetsDir, dir, "index.mdx")
-    const mdPath = path.join(snippetsDir, dir, "index.md")
-    const contentFilePath = fs.existsSync(mdxPath) ? mdxPath : fs.existsSync(mdPath) ? mdPath : null
-    
-    if (contentFilePath) {
-      // Read the file to get title and body
-      const content = fs.readFileSync(contentFilePath, "utf-8")
-      const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/i)
-      const title = titleMatch ? titleMatch[1].trim() : dir
-      
-      // Check for displayDate
-      const displayDateMatch = content.match(/displayDate:\s*["']?([^"'\n]+)["']?/i)
-      const displayDate = displayDateMatch ? displayDateMatch[1].trim() : null
-      
-      // Extract body content (after frontmatter)
-      let body = content
-      if (content.startsWith('---')) {
-        const parts = content.split('---')
-        if (parts.length >= 3) {
-          body = parts.slice(2).join('---').trim()
+  // Query for all MdxSnippet nodes
+  const result = await graphql(`
+    {
+      allMdxSnippet {
+        nodes {
+          id
+          slug
+          title
+          displayDate
+          contentFilePath
         }
       }
-      
-      createPage({
-        path: `/snippets/${dir}/`,
-        component: snippetTemplate,
-        context: {
-          slug: dir,
-          title: title,
-          displayDate: displayDate,
-          body: body,
-        },
-      })
     }
+  `)
+  
+  if (result.errors) {
+    reporter.panicOnBuild(`Error loading snippets`, result.errors)
+    return
   }
+  
+  const snippets = result.data?.allMdxSnippet?.nodes || []
+  
+  snippets.forEach((snippet) => {
+    // Extract slug from path (e.g., "/snippets/game-theory/" -> "game-theory")
+    const slugParts = snippet.slug.split('/').filter(Boolean)
+    const dirName = slugParts[slugParts.length - 1]
+    
+    // Skip hidden snippets
+    if (hiddenSlugs.has(dirName)) {
+      console.log(`Skipping hidden snippet: ${dirName}`)
+      return
+    }
+    
+    createPage({
+      path: snippet.slug,
+      component: `${snippetTemplate}?__contentFilePath=${snippet.contentFilePath}`,
+      context: {
+        slug: snippet.slug,
+        title: snippet.title,
+        displayDate: snippet.displayDate,
+      },
+    })
+  })
 }
 
 exports.onPostBuild = async () => {
@@ -279,7 +364,7 @@ exports.onPostBuild = async () => {
     // Wiki links - only create for non-snippet nodes (posts)
     // This connects posts TO snippets
     if (!node.isSnippet) {
-      wikiLinks.forEach((linkTitle) => {
+    wikiLinks.forEach((linkTitle) => {
         let targetSlug, targetId, displayTitle
         
         // Check if this is a converted snippet link (snippet:slug format)
@@ -300,7 +385,7 @@ exports.onPostBuild = async () => {
         
         // Only add link if target exists (valid link)
         if (targetSlug && targetSlug.length > 0) {
-          links.push({
+      links.push({
             source: node.id,
             target: targetId,
             targetTitle: displayTitle,
