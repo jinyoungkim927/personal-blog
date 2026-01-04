@@ -5,12 +5,22 @@ const path = require("path")
 const FILTERED_TAGS = ['personal', 'insights']
 
 function extractWikiLinks(content) {
-  const wikiLinkRegex = /\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g
   const links = []
+  
+  // Extract Obsidian-style wiki-links: [[Target]] or [[Target|Display]]
+  const wikiLinkRegex = /\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g
   let match
   while ((match = wikiLinkRegex.exec(content)) !== null) {
     links.push(match[1].trim())
   }
+  
+  // Also extract converted markdown links to snippets: [text](/snippets/slug/)
+  const snippetLinkRegex = /\[[^\]]+\]\(\/snippets\/([^/)]+)\/?\)/g
+  while ((match = snippetLinkRegex.exec(content)) !== null) {
+    // Convert slug back to a rough title match (we'll resolve by slug)
+    links.push(`snippet:${match[1]}`)
+  }
+  
   return [...new Set(links)]
 }
 
@@ -49,10 +59,10 @@ function loadSnippetMetadata() {
 // Process a content directory (posts or snippets)
 function processContentDir(dirPath, isSnippet = false, snippetMeta = {}) {
   if (!fs.existsSync(dirPath)) return { nodes: [], titleToSlug: new Map() }
-  
+
   const nodes = []
   const titleToSlug = new Map()
-  
+
   const contentDirs = fs.readdirSync(dirPath).filter(f => {
     const fullPath = path.join(dirPath, f)
     return fs.statSync(fullPath).isDirectory() && !f.startsWith('_')
@@ -72,7 +82,7 @@ function processContentDir(dirPath, isSnippet = false, snippetMeta = {}) {
     
     const wikiLinks = extractWikiLinks(content)
     const tags = extractTags(content)
-    
+
     // For snippets, check if accessible (quality passed)
     let accessible = true
     if (isSnippet) {
@@ -101,7 +111,19 @@ function processContentDir(dirPath, isSnippet = false, snippetMeta = {}) {
   return { nodes, titleToSlug }
 }
 
-// Gatsby API: Filter out unwanted tags from MdxPost
+// Extend schema to add displayDate field to MdxPost
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  
+  // Add displayDate field to MdxPost
+  createTypes(`
+    type MdxPost implements Node {
+      displayDate: String
+    }
+  `)
+}
+
+// Gatsby API: Filter out unwanted tags from MdxPost and adjust timeToRead
 exports.createResolvers = ({ createResolvers }) => {
   createResolvers({
     MdxPost: {
@@ -115,16 +137,59 @@ exports.createResolvers = ({ createResolvers }) => {
           )
         },
       },
+      // Reduce timeToRead by 1/3 (multiply by 2/3)
+      timeToRead: {
+        resolve: (source) => {
+          if (!source.timeToRead) return null
+          return Math.max(1, Math.round(source.timeToRead * 0.67))
+        },
+      },
+      // Add displayDate from frontmatter
+      displayDate: {
+        resolve: (source, args, context, info) => {
+          // Try to get displayDate from the parent MDX node's frontmatter
+          if (source.contentFilePath) {
+            try {
+              const content = fs.readFileSync(source.contentFilePath, 'utf-8')
+              const match = content.match(/displayDate:\s*["']?([^"'\n]+)["']?/i)
+              if (match) {
+                return match[1].trim()
+              }
+            } catch (e) {
+              // Fall back to null if file can't be read
+            }
+          }
+          return null
+        },
+      },
     },
   })
+}
+
+// Load hidden snippets config
+function loadHiddenSnippets() {
+  const configPath = path.join(__dirname, "scripts", "hidden_snippets.json")
+  if (fs.existsSync(configPath)) {
+    try {
+      return JSON.parse(fs.readFileSync(configPath, "utf-8"))
+    } catch (e) {
+      console.warn("Failed to load hidden_snippets.json:", e)
+    }
+  }
+  return { hidden: [] }
 }
 
 // Create pages for snippets
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
   const snippetsDir = path.join(__dirname, "content", "snippets")
+  const snippetTemplate = path.resolve("./src/templates/snippet.tsx")
   
   if (!fs.existsSync(snippetsDir)) return
+  
+  // Load hidden snippets config
+  const hiddenConfig = loadHiddenSnippets()
+  const hiddenSlugs = new Set(hiddenConfig.hidden || [])
   
   const snippetDirs = fs.readdirSync(snippetsDir).filter(f => {
     const fullPath = path.join(snippetsDir, f)
@@ -132,15 +197,34 @@ exports.createPages = async ({ actions, graphql }) => {
   })
   
   for (const dir of snippetDirs) {
+    // Skip hidden snippets
+    if (hiddenSlugs.has(dir)) {
+      console.log(`Skipping hidden snippet: ${dir}`)
+      continue
+    }
+    
     const mdxPath = path.join(snippetsDir, dir, "index.mdx")
     const mdPath = path.join(snippetsDir, dir, "index.md")
+    const contentFilePath = fs.existsSync(mdxPath) ? mdxPath : fs.existsSync(mdPath) ? mdPath : null
     
-    if (fs.existsSync(mdxPath) || fs.existsSync(mdPath)) {
+    if (contentFilePath) {
+      // Read the file to get title
+      const content = fs.readFileSync(contentFilePath, "utf-8")
+      const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/i)
+      const title = titleMatch ? titleMatch[1].trim() : dir
+      
+      // Check for displayDate
+      const displayDateMatch = content.match(/displayDate:\s*["']?([^"'\n]+)["']?/i)
+      const displayDate = displayDateMatch ? displayDateMatch[1].trim() : null
+      
       createPage({
         path: `/snippets/${dir}/`,
-        component: require.resolve("./src/templates/snippet.tsx"),
+        // Use Gatsby 5's MDX page creation with contentFilePath
+        component: `${snippetTemplate}?__contentFilePath=${contentFilePath}`,
         context: {
           slug: dir,
+          title: title,
+          displayDate: displayDate,
         },
       })
     }
@@ -152,16 +236,21 @@ exports.onPostBuild = async () => {
   const snippetsDir = path.join(__dirname, "content", "snippets")
   
   const snippetMeta = loadSnippetMetadata()
+  const hiddenConfig = loadHiddenSnippets()
+  const hiddenSlugs = new Set(hiddenConfig.hidden || [])
   
   // Process posts and snippets
   const { nodes: postNodes, titleToSlug: postTitleToSlug } = processContentDir(postsDir, false)
   const { nodes: snippetNodes, titleToSlug: snippetTitleToSlug } = processContentDir(snippetsDir, true, snippetMeta)
   
+  // Filter out hidden snippets from nodes
+  const visibleSnippetNodes = snippetNodes.filter(n => !hiddenSlugs.has(n.id.replace('snippet-', '')))
+  
   // Merge title maps
   const titleToSlug = new Map([...postTitleToSlug, ...snippetTitleToSlug])
   
   // Combine all nodes
-  const allContentNodes = [...postNodes, ...snippetNodes]
+  const allContentNodes = [...postNodes, ...visibleSnippetNodes]
   
   const nodes = []
   const links = []
@@ -174,22 +263,43 @@ exports.onPostBuild = async () => {
     
     // Count tags
     tags.forEach(tag => {
-      const slug = slugify(tag)
-      if (slug) allTags.set(tag, (allTags.get(tag) || 0) + 1)
+      const tagSlug = slugify(tag)
+      if (tagSlug) allTags.set(tag, (allTags.get(tag) || 0) + 1)
     })
     
-    // Wiki links
-    wikiLinks.forEach((linkTitle) => {
-      const targetSlug = titleToSlug.get(linkTitle.toLowerCase()) || slugify(linkTitle)
-      // Check if target is a snippet
-      const isSnippetTarget = snippetTitleToSlug.has(linkTitle.toLowerCase())
-      links.push({
-        source: node.id,
-        target: isSnippetTarget ? `snippet-${targetSlug}` : targetSlug,
-        targetTitle: linkTitle,
+    // Wiki links - only create for non-snippet nodes (posts)
+    // This connects posts TO snippets
+    if (!node.isSnippet) {
+      wikiLinks.forEach((linkTitle) => {
+        let targetSlug, targetId, displayTitle
+        
+        // Check if this is a converted snippet link (snippet:slug format)
+        if (linkTitle.startsWith('snippet:')) {
+          targetSlug = linkTitle.replace('snippet:', '')
+          targetId = `snippet-${targetSlug}`
+          displayTitle = targetSlug // Will be resolved to title if exists
+        } else {
+          targetSlug = titleToSlug.get(linkTitle.toLowerCase()) || slugify(linkTitle)
+          // Check if target is a snippet
+          const isSnippetTarget = snippetTitleToSlug.has(linkTitle.toLowerCase())
+          targetId = isSnippetTarget ? `snippet-${targetSlug}` : targetSlug
+          displayTitle = linkTitle
+        }
+        
+        // Skip hidden snippets
+        if (hiddenSlugs.has(targetSlug)) return
+        
+        // Only add link if target exists (valid link)
+        if (targetSlug && targetSlug.length > 0) {
+          links.push({
+            source: node.id,
+            target: targetId,
+            targetTitle: displayTitle,
+          })
+        }
       })
-    })
-    
+    }
+
     // Tag links
     tags.forEach((tag) => {
       const tagSlug = slugify(tag)
@@ -202,7 +312,7 @@ exports.onPostBuild = async () => {
       }
     })
   }
-  
+
   // Add tag nodes
   allTags.forEach((count, tag) => {
     const tagSlug = slugify(tag)
@@ -221,19 +331,24 @@ exports.onPostBuild = async () => {
       })
     }
   })
-  
-  // Add unresolved wiki-link nodes (pages that don't exist)
+
+  // Add unresolved wiki-link nodes (pages that don't exist yet)
   const existingIds = new Set(nodes.map(n => n.id))
   links.forEach((link) => {
     if (!existingIds.has(link.target) && !link.target.startsWith('tag-')) {
-      const slug = link.target.replace('snippet-', '')
+      const isSnippet = link.target.startsWith('snippet-')
+      const slug = isSnippet ? link.target.replace('snippet-', '') : link.target
+      
+      // Skip adding nodes for hidden snippets
+      if (hiddenSlugs.has(slug)) return
+      
       nodes.push({
         id: link.target,
         title: link.targetTitle,
-        slug: null,
+        slug: isSnippet ? `/snippets/${slug}/` : null,
         exists: false,
         isTag: false,
-        isSnippet: link.target.startsWith('snippet-'),
+        isSnippet: isSnippet,
         accessible: false,
         linkCount: 0,
         incomingLinks: 0,
@@ -252,12 +367,17 @@ exports.onPostBuild = async () => {
     }
   })
   
-  // Filter out links with empty targets
-  const validLinks = links.filter(l => l.target && l.target.length > 0)
+  // Filter out links with empty targets or to hidden nodes
+  const validLinks = links.filter(l => {
+    if (!l.target || l.target.length === 0) return false
+    const slug = l.target.replace('snippet-', '').replace('tag-', '')
+    if (hiddenSlugs.has(slug)) return false
+    return true
+  })
   
   fs.writeFileSync(
     path.join(__dirname, "public", "graph-data.json"),
     JSON.stringify({ nodes, links: validLinks })
   )
-  console.log(`Graph: ${nodes.length} nodes (${postNodes.length} posts, ${snippetNodes.length} snippets), ${validLinks.length} links`)
+  console.log(`Graph: ${nodes.length} nodes (${postNodes.length} posts, ${visibleSnippetNodes.length} snippets), ${validLinks.length} links`)
 }

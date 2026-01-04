@@ -13,6 +13,7 @@ export type MBPostProps = {
     slug: string
     title: string
     date: string
+    displayDate?: string
     tags?: {
       name: string
       slug: string
@@ -40,7 +41,7 @@ const Post: React.FC<React.PropsWithChildren<PageProps<MBPostProps>>> = ({ data:
       {post.title}
     </Heading>
     <p sx={{ color: `secondary`, mt: 3, a: { color: `secondary` }, fontSize: [1, 1, 2] }}>
-      <time>{post.date}</time>
+      <time>{post.displayDate || post.date}</time>
       {post.tags && (
         <React.Fragment>
           {` — `}

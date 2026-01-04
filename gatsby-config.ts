@@ -19,6 +19,14 @@ const config: GatsbyConfig = {
   },
   trailingSlash: `always`,
   plugins: [
+    // Source snippets directory for MDX processing
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `snippets`,
+        path: `${__dirname}/content/snippets`,
+      },
+    },
     {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options

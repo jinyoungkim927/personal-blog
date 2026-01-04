@@ -1,1 +1,2 @@
-// No wrapPageElement for SSR - GraphButton only renders on client
+// Import KaTeX CSS for SSR
+import "katex/dist/katex.min.css"

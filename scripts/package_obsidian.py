@@ -17,6 +17,8 @@ import os
 import re
 import json
 import shutil
+import hashlib
+import unicodedata
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, Tuple, List, Dict, Any
@@ -53,8 +55,17 @@ LOGS_DIR = Path(__file__).parent / 'logs'
 # Pattern: [[Target]] or [[Target|Display]]
 WIKI_LINK_PATTERN = re.compile(r'\[\[([^\]|]+)(?:\|([^\]]+))?\]\]')
 
+# Pattern for Obsidian image embeds: ![[image.png]]
+IMAGE_EMBED_PATTERN = re.compile(r'!\[\[([^\]]+)\]\]')
+
+# Pattern for hashtags in body text: #tag (not inside links or code)
+HASHTAG_PATTERN = re.compile(r'(?:^|\s)#([a-zA-Z][a-zA-Z0-9_-]*)', re.MULTILINE)
+
 # Image extensions
 IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp'}
+
+# Tags to filter out (in addition to FILTERED_TAGS in gatsby-node.js)
+FILTERED_TAGS = {'personal', 'insights'}
 
 
 def parse_wiki_links(content: str) -> List[Dict[str, Any]]:
@@ -87,6 +98,51 @@ def parse_wiki_links(content: str) -> List[Dict[str, Any]]:
         })
     
     return links
+
+
+def extract_body_hashtags(content: str) -> List[str]:
+    """
+    Extract hashtags from body text (e.g., #AI #philosophy).
+    Returns list of tag names (without the # prefix).
+    Filters out personal/insights tags.
+    """
+    # Find all hashtags
+    matches = HASHTAG_PATTERN.findall(content)
+    
+    # Normalize and filter
+    tags = []
+    seen = set()
+    for tag in matches:
+        tag_lower = tag.lower()
+        if tag_lower not in seen and tag_lower not in FILTERED_TAGS:
+            tags.append(tag)
+            seen.add(tag_lower)
+    
+    return tags
+
+
+def extract_display_date(content: str) -> Optional[str]:
+    """
+    Extract a display date from content like 'Date: Written 20th Feb 2025'.
+    Returns the custom date string if found, None otherwise.
+    """
+    # Look for patterns like "Date: Written 20th Feb 2025" or "Date: 2025-02-20"
+    patterns = [
+        r'Date:\s*(.+?)(?:\n|$)',  # "Date: anything until newline"
+        r'Written:?\s*(.+?)(?:\n|$)',  # "Written: date" or "Written date"
+    ]
+    
+    for pattern in patterns:
+        match = re.search(pattern, content, re.IGNORECASE)
+        if match:
+            date_str = match.group(1).strip()
+            # Clean up common artifacts
+            date_str = re.sub(r'\s*Status:.*$', '', date_str)  # Remove "Status: ..."
+            date_str = date_str.strip()
+            if date_str and len(date_str) > 3:
+                return date_str
+    
+    return None
 
 
 def extract_frontmatter(content: str) -> Tuple[Dict[str, Any], str]:
@@ -261,10 +317,32 @@ Only return the JSON object, no other text."""
 # ============================================================
 
 def slugify(text: str) -> str:
-    """Convert text to URL-friendly slug."""
-    slug = text.lower()
+    """
+    Convert text to URL-friendly slug.
+    Handles non-ASCII characters by:
+    1. Trying to transliterate/normalize
+    2. Falling back to a hash-based slug if result would be empty
+    """
+    # First, try to normalize unicode (e.g., accented chars -> ascii)
+    normalized = unicodedata.normalize('NFKD', text)
+    ascii_text = normalized.encode('ascii', 'ignore').decode('ascii')
+    
+    # Convert to lowercase and replace non-alphanumeric with hyphens
+    slug = ascii_text.lower()
     slug = re.sub(r'[^a-z0-9]+', '-', slug)
     slug = slug.strip('-')
+    
+    # If slug is empty (e.g., all Korean characters), use hash-based fallback
+    if not slug:
+        # Create a short hash from the original text
+        text_hash = hashlib.md5(text.encode('utf-8')).hexdigest()[:8]
+        # Try to extract any alphanumeric prefix from original
+        prefix_match = re.search(r'[a-zA-Z0-9]+', text)
+        if prefix_match:
+            slug = f"{prefix_match.group().lower()}-{text_hash}"
+        else:
+            slug = f"doc-{text_hash}"
+    
     return slug
 
 
@@ -272,6 +350,7 @@ def convert_to_mdx(
     content: str,
     title: str,
     date: Optional[str] = None,
+    display_date: Optional[str] = None,
     tags: Optional[List[str]] = None,
     description: Optional[str] = None,
     linked_snippets: Optional[Dict[str, Dict]] = None,
@@ -284,6 +363,7 @@ def convert_to_mdx(
         content: The markdown body (without frontmatter)
         title: Document title
         date: Date string (YYYY-MM-DD), defaults to today
+        display_date: Optional custom display date string (e.g., "Written Feb 20, 2025")
         tags: List of tags
         description: Post description
         linked_snippets: Dict mapping link target to {slug, passes} for linked pages
@@ -311,6 +391,11 @@ def convert_to_mdx(
         f'date: {date}',
     ]
     
+    # Add display date if provided
+    if display_date:
+        display_date_escaped = display_date.replace('"', '\\"')
+        frontmatter_lines.append(f'displayDate: "{display_date_escaped}"')
+    
     if description:
         # Escape quotes in description
         desc_escaped = description.replace('"', '\\"')
@@ -324,43 +409,55 @@ def convert_to_mdx(
     frontmatter_lines.append('---')
     frontmatter = '\n'.join(frontmatter_lines)
     
-    # Convert wiki-links in content
+    # First, convert Obsidian image embeds ![[image.png]] to standard markdown
+    # This must happen BEFORE processing wiki-links to avoid double processing
     converted_content = content
     
+    def replace_image_embed(match):
+        img_name = match.group(1).strip()
+        if img_name in images_map:
+            local_name = images_map[img_name]
+            return f'![{img_name}](./{local_name})'
+        else:
+            return f'*[Image: {img_name}]*'
+    
+    converted_content = IMAGE_EMBED_PATTERN.sub(replace_image_embed, converted_content)
+    
+    # Now process wiki-links (non-image)
+    # Re-parse since content has changed
+    links = parse_wiki_links(converted_content)
+    
     # Process links in reverse order to maintain positions
-    links = parse_wiki_links(content)
     for link in reversed(links):
         target = link['target']
         display = link['display'] or target
-        full_match = link['full_match']
         
+        # Skip if this is an image (shouldn't happen since we converted them above)
         if link['is_image']:
-            # Image link
-            if target in images_map:
-                local_name = images_map[target]
-                replacement = f'![{display}](./{local_name})'
+            continue
+        
+        # Document link
+        if target in linked_snippets:
+            snippet_info = linked_snippets[target]
+            if snippet_info['passes']:
+                # Accessible snippet
+                replacement = f'[{display}](/snippets/{snippet_info["slug"]}/)'
             else:
-                # Image not found, leave as text
-                replacement = f'*[Image: {target}]*'
+                # Inaccessible snippet - gray text
+                replacement = f'<span style={{{{color: "#999", cursor: "not-allowed"}}}}>{display}</span>'
         else:
-            # Document link
-            if target in linked_snippets:
-                snippet_info = linked_snippets[target]
-                if snippet_info['passes']:
-                    # Accessible snippet
-                    replacement = f'[{display}](/snippets/{snippet_info["slug"]}/)'
-                else:
-                    # Inaccessible snippet - gray text
-                    replacement = f'<span style={{{{color: "#999", cursor: "not-allowed"}}}}>{display}</span>'
-            else:
-                # Link to unknown page - just use text
-                replacement = display
+            # Link to unknown page - just use text
+            replacement = display
         
         converted_content = (
             converted_content[:link['start']] + 
             replacement + 
             converted_content[link['end']:]
         )
+    
+    # Remove hashtag lines from the beginning of content (they're now in frontmatter)
+    # Match lines that are only hashtags at the start
+    converted_content = re.sub(r'^(\s*#[a-zA-Z][a-zA-Z0-9_-]*\s*)+\n', '', converted_content)
     
     return f"{frontmatter}\n\n{converted_content}"
 
@@ -450,14 +547,31 @@ def create_snippet(
     if isinstance(date, datetime):
         date = date.strftime('%Y-%m-%d')
     
-    tags = frontmatter.get('tags', [])
+    # Extract and merge tags from body + frontmatter
+    body_tags = extract_body_hashtags(content)
+    frontmatter_tags = frontmatter.get('tags', []) or []
+    
+    all_tags = list(frontmatter_tags)
+    seen_tags = {t.lower() for t in all_tags}
+    for tag in body_tags:
+        if tag.lower() not in seen_tags:
+            all_tags.append(tag)
+            seen_tags.add(tag.lower())
+    
+    # Filter out personal/insights
+    all_tags = [t for t in all_tags if t.lower() not in FILTERED_TAGS]
+    
+    # Extract display date
+    display_date = extract_display_date(content)
+    
     description = frontmatter.get('description', '')
     
     mdx_content = convert_to_mdx(
         content=content,
         title=title,
         date=str(date),
-        tags=tags,
+        display_date=display_date,
+        tags=all_tags,
         description=description
     )
     
@@ -513,24 +627,51 @@ def package_post(
     post_dir = output_dir / slug
     post_dir.mkdir(parents=True, exist_ok=True)
     
-    # Parse links
+    # Extract hashtags from body and merge with frontmatter tags
+    body_tags = extract_body_hashtags(body)
+    frontmatter_tags = frontmatter.get('tags', []) or []
+    
+    # Merge tags (body tags + frontmatter tags, deduplicated)
+    all_tags = list(frontmatter_tags)
+    seen_tags = {t.lower() for t in all_tags}
+    for tag in body_tags:
+        if tag.lower() not in seen_tags:
+            all_tags.append(tag)
+            seen_tags.add(tag.lower())
+    
+    # Filter out personal/insights
+    all_tags = [t for t in all_tags if t.lower() not in FILTERED_TAGS]
+    print(f"  🏷️  Tags: {all_tags}")
+    
+    # Extract display date from body
+    display_date = extract_display_date(body)
+    if display_date:
+        print(f"  📅 Display date: {display_date}")
+    
+    # Find all image embeds (![[image.png]])
+    image_embeds = IMAGE_EMBED_PATTERN.findall(body)
+    
+    # Also check wiki-links for images
     links = parse_wiki_links(body)
-    print(f"  🔗 Found {len(links)} wiki-links")
+    image_links = [l['target'] for l in links if l['is_image']]
+    
+    # Combine all image references
+    all_images = list(set(image_embeds + image_links))
+    print(f"  🔗 Found {len(links)} wiki-links, {len(all_images)} images")
     
     # Process images
     images_map = {}
-    for link in links:
-        if link['is_image']:
-            img_name = link['target']
-            img_path = find_image(img_name, vault_path)
-            if img_path:
-                # Copy image to post directory
-                dest_path = post_dir / img_name
-                shutil.copy2(img_path, dest_path)
-                images_map[img_name] = img_name
-                print(f"  🖼️  Copied image: {img_name}")
-            else:
-                print(f"  ⚠️  Image not found: {img_name}")
+    for img_name in all_images:
+        img_path = find_image(img_name, vault_path)
+        if img_path:
+            # Sanitize filename for filesystem (replace spaces with underscores)
+            safe_name = img_name.replace(' ', '_')
+            dest_path = post_dir / safe_name
+            shutil.copy2(img_path, dest_path)
+            images_map[img_name] = safe_name
+            print(f"  🖼️  Copied image: {img_name} -> {safe_name}")
+        else:
+            print(f"  ⚠️  Image not found: {img_name}")
     
     # Process linked documents as snippets
     linked_snippets = {}
@@ -574,17 +715,14 @@ def package_post(
     if isinstance(date, datetime):
         date = date.strftime('%Y-%m-%d')
     
-    tags = frontmatter.get('tags', [])
-    # Filter out personal/insights tags
-    tags = [t for t in tags if t.lower() not in ['personal', 'insights']]
-    
     description = frontmatter.get('description', '')
     
     mdx_content = convert_to_mdx(
         content=body,
         title=title,
         date=str(date),
-        tags=tags,
+        display_date=display_date,
+        tags=all_tags,  # Use merged tags from body + frontmatter
         description=description,
         linked_snippets=linked_snippets,
         images_map=images_map
