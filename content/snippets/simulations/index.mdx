@@ -1,12 +1,13 @@
 ---
 title: "Simulations"
 date: 2026-01-04
+tags:
+  - computer-science
+  - AI
 ---
-
-#insights #computer-science #AI 
-
 
 Jim Fan (Nvidia) view on simulations (thanks Andy Xu): 
 - You do not create one extremely high fidelity simulation. 
 - Instead you create multiple low fidelity simulations that focus on one characteristic of the environment, and train your RL agent in multiple of these simulations. 
+	- One interesting aspect of simulations is the 'averaging aspect' of where you simply take the average of random gravity parameters that you tweak for instance, and then run it.
 - One viewpoint is additional Regularization on your trained model, another viewpoint that is equivalent is one of Robustness. 

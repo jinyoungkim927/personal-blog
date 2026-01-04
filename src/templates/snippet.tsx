@@ -9,25 +9,84 @@ type SnippetPageContext = {
   slug: string
   title: string
   displayDate?: string
+  body?: string
 }
 
-// Client-only wrapper to avoid SSR issues with KaTeX
-const ClientOnly: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [hasMounted, setHasMounted] = React.useState(false)
+// Simple markdown-to-JSX converter for basic content
+const renderMarkdown = (text: string) => {
+  if (!text) return null
   
-  React.useEffect(() => {
-    setHasMounted(true)
-  }, [])
+  // Split into paragraphs
+  const paragraphs = text.split(/\n\n+/)
   
-  if (!hasMounted) {
-    return <div style={{ minHeight: "200px" }}>Loading...</div>
-  }
-  
-  return <>{children}</>
+  return paragraphs.map((para, i) => {
+    // Skip empty paragraphs and hashtag-only lines
+    const trimmed = para.trim()
+    if (!trimmed || /^#[a-zA-Z]/.test(trimmed)) return null
+    
+    // Handle headers
+    if (trimmed.startsWith('### ')) {
+      return <h3 key={i} sx={{ mt: 4, mb: 2 }}>{trimmed.replace(/^###\s*\*?\*?/, '').replace(/\*?\*?$/, '')}</h3>
+    }
+    if (trimmed.startsWith('## ')) {
+      return <h2 key={i} sx={{ mt: 4, mb: 2 }}>{trimmed.replace(/^##\s*\*?\*?/, '').replace(/\*?\*?$/, '')}</h2>
+    }
+    if (trimmed.startsWith('# ')) {
+      return <h1 key={i} sx={{ mt: 4, mb: 2 }}>{trimmed.replace(/^#\s*/, '')}</h1>
+    }
+    
+    // Handle blockquotes
+    if (trimmed.startsWith('>')) {
+      return (
+        <blockquote key={i} sx={{ 
+          borderLeft: '4px solid', 
+          borderColor: 'primary', 
+          pl: 3, 
+          ml: 0,
+          my: 3,
+          fontStyle: 'italic',
+          color: 'secondary'
+        }}>
+          {trimmed.replace(/^>\s*/, '')}
+        </blockquote>
+      )
+    }
+    
+    // Handle lists
+    if (/^[-*]\s/.test(trimmed) || /^\d+\.\s/.test(trimmed)) {
+      const lines = trimmed.split('\n')
+      const isOrdered = /^\d+\./.test(lines[0])
+      const ListComponent = isOrdered ? 'ol' : 'ul'
+      return (
+        <ListComponent key={i} sx={{ my: 2, pl: 4 }}>
+          {lines.map((line, j) => (
+            <li key={j} sx={{ mb: 1 }}>
+              {line.replace(/^[-*\d.]+\s*/, '')}
+            </li>
+          ))}
+        </ListComponent>
+      )
+    }
+    
+    // Handle horizontal rules
+    if (/^[-_*]{3,}$/.test(trimmed)) {
+      return <hr key={i} sx={{ my: 4, border: 0, borderTop: '1px solid', borderColor: 'muted' }} />
+    }
+    
+    // Regular paragraph - handle bold/italic
+    let processed = trimmed
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/`(.+?)`/g, '<code>$1</code>')
+    
+    return (
+      <p key={i} sx={{ my: 2, lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: processed }} />
+    )
+  }).filter(Boolean)
 }
 
-const SnippetTemplate: React.FC<PageProps<{}, SnippetPageContext>> = ({ children, pageContext }) => {
-  const { title, displayDate, slug } = pageContext
+const SnippetTemplate: React.FC<PageProps<{}, SnippetPageContext>> = ({ pageContext }) => {
+  const { title, displayDate, slug, body } = pageContext
   
   return (
     <Layout>
@@ -56,12 +115,9 @@ const SnippetTemplate: React.FC<PageProps<{}, SnippetPageContext>> = ({ children
       </p>
       <section sx={{
         my: 5,
-        ".gatsby-resp-image-wrapper": { my: 4 },
         variant: "layout.content",
       }}>
-        <ClientOnly>
-          {children}
-        </ClientOnly>
+        {renderMarkdown(body || '')}
       </section>
     </Layout>
   )

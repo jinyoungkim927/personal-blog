@@ -208,7 +208,7 @@ exports.createPages = async ({ actions, graphql }) => {
     const contentFilePath = fs.existsSync(mdxPath) ? mdxPath : fs.existsSync(mdPath) ? mdPath : null
     
     if (contentFilePath) {
-      // Read the file to get title
+      // Read the file to get title and body
       const content = fs.readFileSync(contentFilePath, "utf-8")
       const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/i)
       const title = titleMatch ? titleMatch[1].trim() : dir
@@ -217,14 +217,23 @@ exports.createPages = async ({ actions, graphql }) => {
       const displayDateMatch = content.match(/displayDate:\s*["']?([^"'\n]+)["']?/i)
       const displayDate = displayDateMatch ? displayDateMatch[1].trim() : null
       
+      // Extract body content (after frontmatter)
+      let body = content
+      if (content.startsWith('---')) {
+        const parts = content.split('---')
+        if (parts.length >= 3) {
+          body = parts.slice(2).join('---').trim()
+        }
+      }
+      
       createPage({
         path: `/snippets/${dir}/`,
-        // Use Gatsby 5's MDX page creation with contentFilePath
-        component: `${snippetTemplate}?__contentFilePath=${contentFilePath}`,
+        component: snippetTemplate,
         context: {
           slug: dir,
           title: title,
           displayDate: displayDate,
+          body: body,
         },
       })
     }

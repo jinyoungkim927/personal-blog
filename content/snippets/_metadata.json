@@ -3,36 +3,42 @@
     "title": "Game Theory",
     "passes": true,
     "quality_score": 7,
-    "reason": "Auto-passed"
+    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
   },
   "radical-or-knightean-uncertainty": {
     "title": "Radical or Knightean Uncertainty",
     "passes": true,
     "quality_score": 7,
-    "reason": "Auto-passed"
+    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
   },
   "ishita": {
     "title": "Ishita",
     "passes": true,
     "quality_score": 7,
-    "reason": "Auto-passed"
+    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
   },
   "simulations": {
     "title": "Simulations",
     "passes": true,
     "quality_score": 7,
-    "reason": "Auto-passed"
+    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
   },
   "nash-equilibrium": {
     "title": "Nash Equilibrium",
     "passes": true,
     "quality_score": 7,
-    "reason": "Auto-passed"
+    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
   },
   "dynamic-programming-dp": {
     "title": "Dynamic Programming (DP)",
     "passes": true,
     "quality_score": 7,
-    "reason": "Auto-passed"
+    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
+  },
+  "doc-2fcc119d": {
+    "title": "\ucd08\uc9c0\ub2a5 \uc804\ud6c4 (\ud55c\uad6d\uc5b4)",
+    "passes": true,
+    "quality_score": 7,
+    "reason": "Error during check: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}} - auto-passed"
   }
 }
