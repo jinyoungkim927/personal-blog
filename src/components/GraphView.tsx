@@ -202,7 +202,7 @@ const GraphView: React.FC<GraphViewProps> = ({ width = 800, height = 600, fullPa
       {/* Stats - top right for full page, top left for modal */}
       <div style={{ 
         position: "absolute", 
-        top: fullPage ? 80 : 12, 
+        top: fullPage ? 120 : 12, 
         right: fullPage ? 24 : undefined,
         left: fullPage ? undefined : 12, 
         fontSize: "11px", 

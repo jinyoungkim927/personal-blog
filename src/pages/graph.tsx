@@ -1,23 +1,27 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { HeadFC } from "gatsby"
+import { jsx, Flex, Container } from "theme-ui"
+import { HeadFC, Link } from "gatsby"
 import * as React from "react"
 import { useEffect, useState } from "react"
-import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
+import { Global } from "@emotion/react"
+import useMinimalBlogConfig from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-minimal-blog-config"
+import useSiteMetadata from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-site-metadata"
+import Navigation from "@lekoarts/gatsby-theme-minimal-blog/src/components/navigation"
+import HeaderExternalLinks from "@lekoarts/gatsby-theme-minimal-blog/src/components/header-external-links"
+import replaceSlashes from "@lekoarts/gatsby-theme-minimal-blog/src/utils/replaceSlashes"
 import GraphView from "../components/GraphView"
 
 const GraphPage: React.FC = () => {
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
+  const { siteTitle } = useSiteMetadata()
+  const { navigation: nav, basePath } = useMinimalBlogConfig()
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const updateDimensions = () => {
-        // Account for the layout padding
-        const container = document.querySelector('main')
-        const containerWidth = container ? container.clientWidth : window.innerWidth - 48
         setDimensions({
-          width: Math.min(containerWidth, 1400),
-          height: Math.max(window.innerHeight - 300, 500),
+          width: window.innerWidth,
+          height: window.innerHeight,
         })
       }
       updateDimensions()
@@ -27,26 +31,82 @@ const GraphPage: React.FC = () => {
   }, [])
 
   return (
-    <Layout>
-      <div sx={{ 
-        borderRadius: "12px", 
-        overflow: "hidden", 
-        boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-        border: "1px solid",
-        borderColor: "divide",
-        background: "#faf9f7",
+    <React.Fragment>
+      <Global
+        styles={{
+          "*": { boxSizing: `inherit` },
+          body: { margin: 0, padding: 0 },
+        }}
+      />
+      
+      {/* Full-page graph as background */}
+      <div sx={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 0,
       }}>
         <GraphView 
           width={dimensions.width} 
           height={dimensions.height} 
-          fullPage={false}
+          fullPage={true}
         />
       </div>
 
-      <div sx={{ mt: 3, color: "secondary", fontSize: 1 }}>
+      {/* Floating header - same structure as theme header */}
+      <Container sx={{ position: "relative", zIndex: 10 }}>
+        <header sx={{ 
+          pt: 4,
+          pb: 3,
+        }}>
+          <Flex sx={{ alignItems: `center`, justifyContent: `space-between` }}>
+            <Link
+              to={replaceSlashes(`/${basePath}`)}
+              aria-label={`${siteTitle} - Back to home`}
+              sx={{ color: `heading`, textDecoration: `none` }}
+            >
+              <div sx={{ my: 0, fontWeight: `semibold`, fontSize: [3, 4] }}>{siteTitle}</div>
+            </Link>
+          </Flex>
+          <div
+            sx={{
+              boxSizing: `border-box`,
+              display: `flex`,
+              variant: `dividers.bottom`,
+              alignItems: `center`,
+              justifyContent: `space-between`,
+              mt: 3,
+              color: `secondary`,
+              a: { color: `secondary`, ":hover": { color: `heading` } },
+              flexFlow: `wrap`,
+              borderColor: `rgba(0,0,0,0.1)`,
+            }}
+          >
+            <Navigation nav={nav} />
+            <HeaderExternalLinks />
+          </div>
+        </header>
+      </Container>
+
+      {/* Instructions - bottom right */}
+      <div sx={{
+        position: "fixed",
+        bottom: 24,
+        right: 24,
+        fontSize: 0,
+        color: "secondary",
+        bg: "rgba(255,255,255,0.92)",
+        px: 3,
+        py: 2,
+        borderRadius: 8,
+        boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
+        zIndex: 50,
+      }}>
         Drag to move · Scroll to zoom · Click nodes to navigate
       </div>
-    </Layout>
+    </React.Fragment>
   )
 }
 
