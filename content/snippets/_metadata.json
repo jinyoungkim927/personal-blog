@@ -2,43 +2,43 @@
   "game-theory": {
     "title": "Game Theory",
     "passes": false,
-    "quality_score": 5,
-    "reason": "The content is suitable for public viewing and technically sound, but it lacks depth and clarity, making it somewhat vague and less informative."
+    "quality_score": 4,
+    "reason": "The content is suitable for public viewing and technically sound, but it lacks depth and clarity. The writing is somewhat vague and could benefit from more detailed explanations and examples to enhance understanding."
   },
   "radical-or-knightean-uncertainty": {
     "title": "Radical or Knightean Uncertainty",
     "passes": true,
     "quality_score": 7,
-    "reason": "The document presents a philosophical discussion on uncertainty and risk, referencing notable thinkers and concepts. It is suitable for public viewing and contains no personal information or technical errors. The writing is clear but could benefit from more elaboration on key concepts for better accessibility."
+    "reason": "The document presents a philosophical discussion on uncertainty and risk, suitable for a public blog. It is technically sound with no apparent errors, though it could benefit from clearer explanations and more context for some readers."
   },
   "ishita": {
     "title": "Ishita",
     "passes": true,
-    "quality_score": 6,
-    "reason": "The content is respectful and provides a personal perspective on Ishita's thoughts, which is suitable for public viewing. However, the writing could benefit from more context and clarity regarding the references made, and the image placeholders suggest incomplete content."
+    "quality_score": 7,
+    "reason": "The content is respectful and reflects positively on the subject, while also engaging with relevant ideas about AI. However, it lacks depth and context, which affects clarity and information density."
   },
   "simulations": {
     "title": "Simulations",
     "passes": true,
     "quality_score": 6,
-    "reason": "The content is suitable for public viewing and presents a technical perspective on simulations in AI. However, it could benefit from improved clarity and structure, as well as more context for readers unfamiliar with the topic."
+    "reason": "The content is suitable for public viewing, contains no personal information, and is technically sound. However, the writing lacks clarity and structure, making it somewhat difficult to follow. More context and explanation would improve the overall quality."
   },
   "nash-equilibrium": {
     "title": "Nash Equilibrium",
     "passes": true,
     "quality_score": 7,
-    "reason": "The document provides a clear and concise explanation of Nash Equilibrium in game theory, with a formal definition and relevant properties. However, it could benefit from improved clarity and flow, particularly for readers unfamiliar with the topic, and the use of more examples would enhance understanding."
+    "reason": "The document provides a clear and concise explanation of Nash Equilibrium, including a formal definition and relevant properties. However, the writing could benefit from improved clarity and flow, particularly for readers who may not be familiar with game theory terminology."
   },
   "dynamic-programming-dp": {
     "title": "Dynamic Programming (DP)",
     "passes": false,
     "quality_score": 6,
-    "reason": "The document covers dynamic programming concepts and examples, but it contains several coding errors and typos, such as incorrect syntax in the Python code snippets and unclear explanations in some sections. Additionally, the formatting could be improved for better readability."
+    "reason": "The document provides a good overview of dynamic programming concepts and examples, but it contains several technical errors (e.g., incorrect syntax in code snippets, unclear explanations) that could confuse readers. Additionally, some sections lack clarity and coherence, impacting overall quality."
   },
   "doc-2fcc119d": {
     "title": "\ucd08\uc9c0\ub2a5 \uc804\ud6c4 (\ud55c\uad6d\uc5b4)",
     "passes": true,
     "quality_score": 8,
-    "reason": "The document presents thoughtful insights on AGI and superintelligence, with a clear structure and relevant definitions. It avoids overly personal content, making it suitable for public viewing. The writing is generally clear and informative, though some sections could benefit from more concise language."
+    "reason": "The document presents thoughtful insights on AGI and superintelligence, with a clear structure and well-defined ideas. It avoids overly personal content and maintains a professional tone. The writing is generally clear, though some sections could benefit from more concise expression. Overall, it is suitable for public viewing and contains no apparent technical errors."
   }
 }

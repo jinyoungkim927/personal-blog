@@ -135,12 +135,30 @@ No environment variables are required for the basic setup. If you add features t
 GATSBY_API_KEY=your_api_key_here
 ```
 
+## 📚 Content Workflow
+
+### Obsidian Integration
+
+Blog posts are authored in Obsidian and imported using the packaging script:
+
+- **Obsidian Vault Path**: `/Users/jinyoungkim/Documents/Obsidian Vault`
+- **Import Script**: `python3 scripts/package_obsidian.py`
+
+The script handles:
+- Converting wiki-links (`[[Page]]`) to MDX links
+- Processing linked documents as snippets with LLM quality filtering
+- Copying images to the post directory
+- Converting LaTeX math to the Math component
+
+To import/update posts, edit `POSTS_TO_PACKAGE` in `scripts/package_obsidian.py` and run the script.
+
 ## 🎨 Customization
 
 ### Changing Content
 
 - Blog posts: `/content/posts/`
 - Pages: `/content/pages/`
+- Snippets: `/content/snippets/`
 - Hero text: `/src/@lekoarts/gatsby-theme-minimal-blog/texts/hero.mdx`
 - Bottom section: `/src/@lekoarts/gatsby-theme-minimal-blog/texts/bottom.mdx`
 
