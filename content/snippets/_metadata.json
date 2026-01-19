@@ -44,67 +44,67 @@
   "before-and-after-superintelligence-part-i": {
     "title": "Before and After Superintelligence Part I",
     "passes": true,
-    "quality_score": 7,
-    "reason": "The content is insightful and discusses relevant topics related to AGI and ASI without being overly personal. It presents well-structured arguments and ideas, though some sections could benefit from clearer organization and transitions."
+    "quality_score": 8,
+    "reason": "The document provides thoughtful insights on the implications of AGI and ASI, with actionable ideas and a personal perspective. It is well-structured and contains substantial content, making it suitable for publication in a digital garden style."
   },
   "synthetic-data": {
     "title": "Synthetic Data",
     "passes": true,
     "quality_score": 8,
-    "reason": "The document provides a comprehensive overview of synthetic data in the context of AI and data science, with clear explanations and relevant examples. It is suitable for public viewing, though some technical jargon may require background knowledge for full comprehension."
+    "reason": "The document provides a comprehensive overview of synthetic data, including trends, methods, and applications, with a clear structure and valuable insights. It appears to be written in a personal voice suitable for a digital garden style."
   },
   "grpo": {
     "title": "GRPO",
     "passes": true,
     "quality_score": 8,
-    "reason": "The document presents a technical overview of GRPO in a clear and structured manner, suitable for a public blog. It avoids personal information and maintains a professional tone. The writing quality is high, though some sections could benefit from further simplification for broader accessibility."
+    "reason": "The document provides a detailed and technical overview of Group Relative Policy Optimization (GRPO), including its innovations, features, and comparisons with Proximal Policy Optimization (PPO). It is well-structured, informative, and appears to be written in a personal note style suitable for a digital garden."
   },
   "monte-carlo-tree-search": {
     "title": "Monte Carlo Tree Search",
     "passes": true,
     "quality_score": 8,
-    "reason": "The document provides a clear and concise explanation of Monte Carlo Tree Search, including its definition, steps, advantages, and challenges. It is suitable for a public blog and free from personal or sensitive information. The writing is mostly clear, though it could benefit from minor improvements in flow and engagement."
+    "reason": "The document provides a clear and informative overview of Monte Carlo Tree Search, including definitions, steps, advantages, and challenges. It is well-structured and contains valuable content suitable for a digital garden style blog."
   },
   "commodity-futures": {
     "title": "Commodity Futures",
     "passes": true,
     "quality_score": 7,
-    "reason": "The document provides a clear overview of commodity futures, their purpose, and trading logistics. It is suitable for public viewing and contains no personal information. However, some sections could benefit from improved clarity and organization for better readability."
+    "reason": "The document provides a solid overview of commodity futures, including key concepts, trading logistics, and practical examples. It is suitable for public viewing and reflects a personal understanding of the topic."
   },
   "oil-refinery": {
     "title": "Oil Refinery",
     "passes": true,
-    "quality_score": 6,
-    "reason": "The document provides a comprehensive overview of oil refineries, covering various technical aspects and economic factors. However, the writing lacks clarity in some areas, and the use of images without context may confuse readers. Additionally, the structure could be improved for better flow."
+    "quality_score": 7,
+    "reason": "The document provides a comprehensive overview of oil refineries, including their processes, economics, and recent events. It is well-structured with relevant content and appears to be written in a personal style suitable for a digital garden format."
   },
   "gradient-boosted-models": {
     "title": "Gradient Boosted Models",
     "passes": true,
     "quality_score": 7,
-    "reason": "The document provides a clear overview of gradient boosted models, including definitions, pros and cons, and an example code snippet. However, it could benefit from improved organization and clarity in some sections, as well as a more polished writing style."
+    "reason": "The document provides a solid overview of gradient boosted models, including definitions, pros and cons, and a practical example. It is well-structured and contains valuable insights for readers interested in data science and machine learning."
   },
   "p-value": {
     "title": "p-value",
     "passes": true,
     "quality_score": 8,
-    "reason": "The document provides a comprehensive overview of p-values and their implications in statistical testing, using appropriate terminology and concepts. It is well-structured, though it could benefit from clearer explanations for a broader audience. Overall, it is suitable for publication."
+    "reason": "The document provides a comprehensive overview of p-values in statistical testing, including definitions, common test statistics, motivations for choices, and considerations for interpretation. It is well-structured and contains valuable insights, making it suitable for publication in a digital garden format."
   },
   "multiple-hypothesis-testing": {
     "title": "Multiple Hypothesis Testing",
     "passes": true,
     "quality_score": 6,
-    "reason": "The document is appropriate for public viewing and contains technically sound information about multiple hypothesis testing. However, it lacks clarity in some areas, such as the explanation of the 'Closure Procedure' which is incomplete, and could benefit from more context and examples to enhance understanding."
+    "reason": "The document provides a concise overview of multiple hypothesis testing, including relevant concepts and methods. While it lacks some detail and completeness, it offers valuable insights suitable for a digital garden style blog."
   },
   "e-value": {
     "title": "e-value",
     "passes": true,
     "quality_score": 8,
-    "reason": "The document presents a clear and informative comparison between e-values and p-values, with well-structured sections on advantages, weaknesses, and applications. It uses appropriate technical language for a data science audience, though some sections may benefit from additional context for broader accessibility."
+    "reason": "The document provides a detailed and informative comparison of e-values and p-values, discussing their advantages, weaknesses, and applications. It includes technical explanations and references to notable contributors, making it suitable for publication in a digital garden style."
   },
   "bayes-theorem": {
     "title": "Bayes Theorem",
     "passes": false,
-    "quality_score": 4,
-    "reason": "The document lacks substantial content explaining Bayes Theorem and relies on a screenshot that is not visible. This affects both the technical soundness and the overall quality of the writing."
+    "quality_score": 3,
+    "reason": "The document lacks substantial content, as it contains only a screenshot and tags without any explanatory text or insights on Bayes Theorem."
   }
 }

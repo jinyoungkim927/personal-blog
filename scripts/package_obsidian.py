@@ -41,7 +41,6 @@ MIN_QUALITY_SCORE = 6
 # POSTS TO PACKAGE - Add your document titles here
 # ============================================================
 POSTS_TO_PACKAGE = [
-    "Before and After Superintelligence Part I",
     "Before and After Superintelligence Part II",
 ]
 
@@ -254,18 +253,34 @@ def check_quality(content: str, title: str, api_key: str = OPENAI_API_KEY) -> Di
         max_chars = 8000
         check_content = content[:max_chars] if len(content) > max_chars else content
         
-        prompt = f"""Evaluate this document for publication on a public blog. 
-        
+        prompt = f"""Evaluate this document for publication as a knowledge snippet on a personal blog. The blog uses a "digital garden" style where notes and ideas are shared in various stages of completeness.
+
 Document Title: {title}
 
 Document Content:
 {check_content}
 
 Return a JSON object with these fields:
-- "appropriate": true if the content is not too personal, not TMI, and suitable for public viewing
-- "technically_sound": true if there are no obvious technical or factual errors
-- "quality_score": integer 1-10 rating for writing quality (grammar, clarity, information density)
-- "reason": brief explanation of your assessment
+
+- "appropriate": true if the content is suitable for public viewing. Fail ONLY if:
+  * Contains deeply personal/private information (diary entries, relationship details)
+  * Contains sensitive financial or health information
+  * Would be embarrassing or harmful if made public
+
+- "technically_sound": true unless there are MAJOR factual errors that would mislead readers. Minor simplifications or informal explanations are fine.
+
+- "has_substance": true if the document has actual content to share. Fail ONLY if:
+  * It's essentially empty (just tags/images with no text)
+  * It's just a placeholder or stub with no useful information
+
+- "not_ai_generated": true if the content appears to be genuine human writing. Fail ONLY if it reads like generic ChatGPT output with no personal voice, specific examples, or unique perspective. Bullet-point notes, technical explanations, and informal writing are all fine - these are signs of authentic human notes.
+
+- "quality_score": integer 1-10 rating:
+  * 7-10: Good content, ready to share
+  * 5-6: Rough but has value, acceptable for a digital garden
+  * 1-4: Too incomplete, empty, or problematic
+
+- "reason": brief explanation
 
 Only return the JSON object, no other text."""
 
@@ -286,10 +301,12 @@ Only return the JSON object, no other text."""
         
         result = json.loads(result_text)
         
-        # Determine overall pass/fail
+        # Determine overall pass/fail (all criteria must pass)
         passes = (
             result.get('appropriate', False) and 
             result.get('technically_sound', False) and 
+            result.get('has_substance', True) and  # New: must have actual content
+            result.get('not_ai_generated', True) and  # New: must be authentic
             result.get('quality_score', 0) >= MIN_QUALITY_SCORE
         )
         result['passes'] = passes
