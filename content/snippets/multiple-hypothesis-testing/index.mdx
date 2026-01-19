@@ -1,0 +1,28 @@
+---
+title: "Multiple Hypothesis Testing"
+date: 2026-01-19
+tags:
+  - data-science
+---
+
+import Math from "../../../src/components/Math"
+
+Goal: Assess individual hypotheses <Math>{"H_1, \\dots, H_n"}</Math> (e.g., for each feature/variable).  
+
+Procedures aim to control metrics like False Discovery Rate (FDR), FWER, etc.  
+Result: Accept some hypotheses, reject others.  
+Output: A decision vector <Math>{"(\\text{accept}, \\text{reject}, \\dots)"}</Math> across hypotheses.  
+
+Bonferroni's method controls FWER at level <Math>{"\\alpha"}</Math> in the strong sense.
+
+Weak control:
+- 2 Step procedure
+	- Global test like Bonferroni's method
+	- Then test each hypothesis at level <Math>{"\\alpha"}</Math> 
+
+Strong control:
+
+Closure Procedure
+- 
+
+

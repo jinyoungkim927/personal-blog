@@ -1,0 +1,58 @@
+---
+title: "Monte Carlo Tree Search"
+date: 2026-01-19
+tags:
+  - computer-science
+  - optimization
+  - reinforcement-learning
+---
+
+import Math from "../../../src/components/Math"
+
+*[Image: Screenshot 2025-01-23 at 4.15.19 pm.png]*
+
+**Definition (Monte Carlo Tree Search).**  
+MCTS is a search algorithm that incrementally builds a *search tree* by simulating many plays. It balances *exploitation* of known good moves with *exploration* of moves that have not been tried as often. It is particularly effective in large or complex decision spaces (e.g., Go, chess, and certain planning problems).
+
+---
+
+**High-Level Steps of MCTS.**  
+
+1. **Selection.** Starting from the root node (the current state), traverse the existing tree by choosing child nodes that maximize an *upper confidence bound* formula. This step repeats until reaching a *leaf node* (a node with no children or a node representing a terminal state).
+
+2. **Expansion.** If the selected leaf node is *not* terminal, create one or more new child nodes by *expanding* possible actions/states.
+
+3. **Simulation (Rollout).** From the newly expanded node, run a simulation (or “playout”) to the end of the game or to a fixed depth, using *random moves* or a *fast policy* to estimate the outcome.
+
+4. **Backpropagation.** After the simulation, *propagate* the resulting outcome (win/loss, score, etc.) up the tree, updating relevant statistics in each ancestor node.  
+
+---
+
+**Upper Confidence Bound (UCB).**  
+When choosing which child node to explore during **Selection**, MCTS often uses a UCB formula that trades off *exploitation* and *exploration*. A common version is:
+
+<Math display>{"UCB_i = \\frac{w_i}{n_i} + C_p \\sqrt{\\frac{\\ln N}{n_i}},"}</Math>
+
+where  
+- <Math>{"w_i"}</Math> is the total *reward* (e.g., number of wins) at child <Math>{"i"}</Math>,  
+- <Math>{"n_i"}</Math> is the number of visits to child <Math>{"i"}</Math>,  
+- <Math>{"N"}</Math> is the total number of visits to the *parent* node,  
+- <Math>{"C_p > 0"}</Math> is a constant tuning parameter that controls exploration.
+
+The term <Math>{"\\frac{w_i}{n_i}"}</Math> encourages choosing children with high average reward so far (exploitation), while the second term <Math>{"C_p \\sqrt{\\frac{\\ln N}{n_i}}"}</Math> encourages exploring children with fewer visits (exploration).
+
+---
+
+**Advantages.**  
+- Can handle large state spaces because it does *selective* search rather than exploring every branch exhaustively.  
+- No domain-specific heuristic needed, only a playout policy.  
+- Any time spent searching typically improves the estimates of which moves are best.
+
+**Disadvantages / Challenges.**  
+- Quality depends on the playout policy: naive random playouts may lead to poor results if the domain is complicated.  
+- Requires careful tuning of parameters (like <Math>{"C_p"}</Math>) and strategies for rollout.
+
+---
+
+**Summary.**  
+MCTS is a flexible and powerful algorithm that iteratively grows a search tree. By alternating between exploration and exploitation through a UCB-based selection, and by constantly refining outcome estimates via random simulations, MCTS can outperform classical search algorithms in many complex decision-making tasks.

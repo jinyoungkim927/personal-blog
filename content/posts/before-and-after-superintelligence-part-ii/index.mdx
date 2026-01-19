@@ -1,0 +1,100 @@
+---
+title: "Before and After Superintelligence Part II"
+date: 2026-01-19
+displayDate: "4 November 2025"
+tags:
+  - AI
+---
+
+import Math from "../../../src/components/Math"
+
+Date: 4 November 2025
+
+Almost a year ago ([Before and After Superintelligence Part I](/snippets/before-and-after-superintelligence-part-i/)), I committed to some life changes to make before the dawn of Artificial Superintelligence, meaning 'AI smarter than the smartest human for every evaluable dimension of intelligence'. 
+ 
+This one's different. It's a bat-signal on long term problems that are interesting, tractable and meaningful for me.
+
+**1. Data Ownership** 
+**2. Automating Scientific Hypothesis Testing**
+**3. Redefine Social Welfare**
+
+# 1. Data Ownership
+
+Two things go into making AI smarter: [compute and data](https://www.cs.utexas.edu/~eunsol/courses/data/bitter_lesson.pdf). Most public market and private market investment is focused on the compute market. But scaling laws suggests that even a marginal improvement in compute should proportionally be matched by data. Specifically, the [Chinchilla scaling laws](https://arxiv.org/abs/2203.15556) cite the relationship between model loss <Math>{"L"}</Math>, data <Math>{"D"}</Math> and parameters <Math>{"N"}</Math> to be: <Math display>{"L(N, D) = E + \\frac{A}{N^\\alpha} + \\frac{B}{D^{\\beta}}"}</Math>
+Above, <Math>{"A"}</Math> and <Math>{"B"}</Math> are empirical constants to represent difficulty of reducing loss via model size vs data size, <Math>{"E"}</Math> is irreducible loss. For compute optimal training, the conclusion has been that model size and data should scale equally, <Math>{"N_\\text{opt} \\propto C^{0.5}"}</Math>  and <Math>{"D_\\text{opt} \\propto C^{0.5}"}</Math>, meaning we are hitting both compute and data walls. This is despite the staggering amount of existing data consumption such as the 300 trillion (<Math>{"10^{14}"}</Math>) high quality tokens exist on surface internet that have been trained.
+
+I have a couple personal views that I think go against consensus views regarding what is 'valuable data' going into the future, and what we should do about it: 
+
+- i) All data is useful, including the long tail of 'garbage'.
+	- The shift in [Synthetic Data](/snippets/synthetic-data/) has so far been towards more specialised data - through post training processes like [GRPO](/snippets/grpo/) or [Monte Carlo Tree Search](/snippets/monte-carlo-tree-search/), an intuition is higher signal to noise ratio has been unlocked. However, I think in the same way mass pretraining was critical for LLMs, I think mass pretraining of the world will be important for world models. 
+	- Another reason more data will become useful is because LLMs themselves are unprecedentedly good at cleaning and processing data - both through more efficient data engineering pipelines and manually spot-checking and understanding data nuances. This enables dirty data to be in half-clean, usable states, increasing the sheer quantity of data dramatically.  
+- ii) Eventually, a data marketplace will form. 
+	- As demand for data increases, so will the demand for a marketplace. There are strong analogies to how the global commodities marketplace became consolidated. 
+	- Specifically, while commodities markets previously had deeply fractured liquidity, all assets march toward liquidity and futures became more standardized. Similarly, I believe more 'data contracts' will be sold as [Commodity Futures](/snippets/commodity-futures/) on guarantee of delivery. Also, in the way an [oil refinery](/snippets/oil-refinery/) is a gangantuan facility of tremendous energy consumption and complexity to process data into its most useful state, data will get to the same level.
+	- To address the fact that oil is rivalrous and data is not, making pricing purely based on scarcity difficult (marginal cost of replicating data is zero), *artificial scarcity* could be introduced as a solution. For example, using blockchains to verify that data has been correctly deleted on  both sides once data has been transferred would be valuable. This is important for me, as it addresses my concern that (spoiler) foundation model training is mass theft. 
+	- Also, metrics like what 'data Shapley values' are for [Gradient Boosted Models](/snippets/gradient-boosted-models/), or a way to measure the marginal contribution of a single data point to model performance, will become key. For the same reason, academic work needs to be done to produce similar kinds of values for LLMs.
+- iii) Foundation Model Pre-Training is the Largest Theft in Jistory
+	- AI models can do a lot of good. For example, I think discovering new drugs, progressing scientific research is generally good under the right hands. But we can't ignore that the way they're trained is very, very wrong. 
+	- First off, note that for the entire existence of the internet's duration, the terms and conditions on which people passed over their data is a scam - 'consented' or not. Nobody understands where their data is going, how its is used, what data even means in most cases, and yet to access services companies have been able to harvest their data, hiding behind a wall of text. This is much worse than standard 'T's and C's because of how frequent and ubiquitous these web pop-ups have been. 
+	- This hasn't been a problem so far. But right now, we have a model that (from one perspective) has simply compressed the scale of human knowledge, and bundled it in a black box transformer that prevents it from being prosecutable on the basis of theft. And when it does take most human jobs, there will be absolutely no redress on the theft of the collective intellectual and emotional labour of billions of people. 
+	- One cynical way of viewing mass pre-training is that you are performing a legal arbitrage. The speed at which litigation happens is always going to be lower than the progression of AI models and valuations of the cost legal fights, and the speed at which collective action takes to galvanize is too low (political pressure or grassroots movements). 
+	- That is why I view Mercor's model of paying for specialized workers better than nothing, since there is clearer attribution for the monetary value of labour contribution. But a Math PhD being paid $100> an hour is a far cry from fair compensation. I hope that for world models, we have a clearer framework and set of regulations in which model providers are only able to train from data that has been actively collected for the purposes of monitoring, and that there can be clear federal audits made into the use of data for training. 
+	- There is the age-long question of tech governance and geopolitics - would we rather China do it? It is a genuinely fair argument. But man, is it a useful Bogeyman for Sam Altman to point to as he does absolutely *anything* to hoard power. 
+
+# 2. Automating Scientific Hypothesis Testing
+
+According to Karl Popper, science is about i) constructing hypotheses and ii) failing to falsify the hypothesis ([the anti-inductivist view](https://sites.pitt.edu/~jdnorton/papers/Popper_anti-inductivism.pdf)). But hypothesis generation - Popper viewed this as within the realm of human creativity. 
+
+My belief is that LLMs can do this, enabling an end to end pipeline of automated science, leading my belief in the flavour of efforts my companies such as [Project Prometheus](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://en.wikipedia.org/wiki/Project_Prometheus_(company)&ved=2ahUKEwj8rvOYr5WSAxWzq4kEHWl9PdoQFnoECB0QAQ&usg=AOvVaw3XK0SKDGKh2NGQLEk1_0b1) and [Periodic Labs](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://periodic.com/&ved=2ahUKEwjQt-ntr5WSAxWznokEHYDNN9sQFnoECBkQAQ&usg=AOvVaw364h8E02nlHPB6sRxJNJUa). 
+
+They give us the ability to: 
+1. Produce high quality hypotheses at mass scale
+2. Pipeline in which LLMs can attempt at falsifying or running statistical tests. 
+
+The key challenges I think are three-fold: 
+1. How do we experiment in this automated way without having the False Discovery Rate (FDR) explode? 
+	- Standard [p-value](/snippets/p-value/) < 0.05 thresholds become meaningless with stringent corrections, meaning each experiments need higher power, i.e. more data, i.e. more resources. This could lead to industralized p-hacking at levels we've never seen. 
+	- [Multiple Hypothesis Testing](/snippets/multiple-hypothesis-testing/) is going to become even more critical. Through fields like genomics, finance, this has become a deeply relevant domain of progress in statistics, with tools like [e-value](/snippets/e-value/)s becoming more powerful - but there is generally not good research infrastructure for incorporating them. 
+2. Can AI scientists perform paradigm shifts (Mode 1), rather than Kuhnian normal science which is puzzle solving within a paradigm (Mode 2)? 
+	- So far, this is a deep question about transformers. Why haven't they discovered new scientific discoveries or insights amidst the huge amount of data they have stored within themselves? 
+	- A recent worldview update in early 2026 for me was that Terence Tao recently posted about the [first non-trivial discovery in mathematics made by AI](https://mathstodon.xyz/@tao/115855840223258103). Pure science progression vs. applied experimental discoveries is more Mode 1. However, the discovery was more Mode 2 in flavour according to Tao. 
+3. How do we get AI scientists to know what experiments to run or what ideas to use? 
+	- Running a single experiment is only the beginning. The best scientists have multi-month planning horizons that evolve in a <span style={{color: "#999", cursor: "not-allowed"}}>Bayesian</span> fashion. 
+	- Some outstanding statistical challenges include work in post selection inference, high dimensional simultaneous testing with power, and Bayesian experimental design. 
+
+Some reflections on what a world with said automated science would look like: 
+1. Governments and companies invest in 'science on demand' 
+	- This would be a continuation, but acceleration nonetheless, of increasing <Math>{"R^2"}</Math> between 'funding spent in science' and 'scientific progress'. Science as a rag tag group of intellectuals in a delicate ecosystem is always going to be true when humans are involved - the environment is critical. But increasingly, we are moving away from Gregor Mendel the monk discovering genetics and statistics through growing plants and thinking hard. 
+	- That is, if there is less randomness between R&D spending and scientific insights, there will be 2 large effects: 
+		1. Geopolitically, science becomes a direct toggle for 'empire competition'. This is the Cold War and the Chips Act 2022 on steroids. Like (in the great board game 7 Wonders), there will be some countries (China for example) that attempt to achieve 'civilisational victory/domination' through pouring resources into AGI and scientific victory. 
+		2. Science becomes closed. Pay to win incentives less collaboration since each nation state or company at a medium large scale has an incentive hoard scientific knowledge to accumulate power. This can be seen in the development of the top language models. 
+2. We might be able to help end the replicability crisis
+	- A world of AI scientists might obviously seem to spur on the replicability crisis. An optimistic view is that (conditioned on a world with continued open science), AI authors unlike human authors are able to publish failed experiments without pinning the blame on anyone or being worried that their career is a failure. This is a huge source of selection bias in science that could help in removing the pesky human feeling of blame and shame. 
+# 3. Preventing Plutocracy
+
+Through a friend, I recently learned of a mind-blowing statistic regarding Apple in China. 
+
+> ... Demand from China’s 1.4 billion people indirectly supports, across all industries, between 1 million and 2.6 million jobs in America; whereas, by Tim Cook’s estimate, Apple alone supports 5 million jobs in China—3 million in manufacturing and another 1.8 million in app development? ... one super-corporation has more of an impact on job creation in China than all of China has on America.
+
+How do we ensure that all AI wealth does not get concentrated in the prosperous American city of San Francisco? Before, as we see above, wealth had real trickle down effects in this way on a global scale. But there is no need for this to be the case in a world with AI. 
+
+Increasing wealth inequality is the strongest single prediction I have regarding AI progress. Both domestically, and (forgotten but more crucial) internationally. That's because the invisible hand rests on a false assumption: there is always some comparative advantage people can gravitate towards. AI will eventually not just automate tasks - it will eliminate the concept of human comparative advantage. 
+
+I have a couple ideas on what we can do to try and fight inequality in this new era. 
+
+1. Improve Scientific Literacy
+	- The world will progress at an incredibly fast rate, and ChatGPT and AI gives us information at a rate we have never accessed before. Understanding and interpreting quantitative figures, the explosion of social science and research that will follow, depends on having an educated citizenry. 
+	- However, the value of education and science is simultaneously being eroded because there are no viable paths to employment through this path. 
+	- This is the only way politicians will not be able to manipulate the people through culture wars and distractions, and ensure people vote on approving things like Universal Basic Income to guarantee a standard of living. 
+2. Rewrite loss function of social welfare
+	- So much of social welfare today revolves around employment numbersm, and to 'get people back on their feet' and find them a job. 
+	- This model is going to be desperately obsolete in a world where over half of humans are unemployed systematically. Most voting citizens will not pay tax, many adults globally are going to lose a sense of pride, self, and purpose as they realise they do not pay tax, and have no way of contributing towards the future. 
+	- Social welfare needs to be redesigned around pure wealth equality, but beyond wealth, a measure of happiness and satisfaction that is well documented and measured. I think happiness is too superficial too, because econometric literature on happiness is deeply flawed. There should be some notion of agency, optionality encoded into how we evaluate happiness so we don't wirehead on living as 'happy' consumers of AI content. 
+3. Prevent political capture
+	- We are entering Rockefeller, baron like levels of wealth and power. Without intervention, we get techno-feudalism, where corporate entities lobby and consolidate power. 
+	- This includes ensuring people are robust and defended against AI-generated propaganda.
+
+
+
+
+

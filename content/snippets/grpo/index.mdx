@@ -1,0 +1,123 @@
+---
+title: "GRPO"
+date: 2026-01-19
+tags:
+  - reinforcement-learning
+  - data-science
+  - AI
+---
+
+import Math from "../../../src/components/Math"
+
+- **Group Relative Policy Optimization GRPO:** A RLalgorithm designed to improve reasoning in large language models (LLMs).  
+- **Key Innovation:** Unlike traditional RL methods like Proximal Policy Optimization (PPO), GRPO eliminates the need for a critic model by leveraging **relative evaluation within groups of responses**.
+- GRPO is a scalable standard for improving reasoning in LLMs without supervised data, and was key to the success in Deepseek. 
+- Intuition: why is group relative better? 
+	- Instead of group of outputs, success in absolute sense vs. relative sense. Local way of nudging the world in the better. 
+	- Analogous to how humans learn. Measuring not just by your grade, but by how well you're doing vs your pupil
+	- PPO requires critic. Think about quadcopter dynamics as an example. 
+		- A critic model - given a quadcopter is in state <Math>{"x"}</Math> and a goal position it's trying to get to. Value function is given I take an action from this state, expected future rewards to get to another state. Certain actions are better than others. Future horizon. Model is more inclined to get higher future rewards. PPO is sample inefficient. In a task like text generation/code generation, reward to go function is extremely complex and unintuitive. 
+		- By scrapping the critic model, assess outputs compared to other outputs I'm generating. Reward to go function is ambiguous, arbitrary thing. 
+		- Andy's view: Because you don't have value model, a lot more efficient in training. GRPO, practical standpoint - PPO has been optimized for them. 
+
+---
+
+### **Key Features and Innovations**  
+1. **Critic-Free Optimization:**  
+   - Evaluates responses relative to others in the same group, simplifying the RL pipeline and reducing computational overhead.  
+2. **Relative Evaluation:**  
+   - Rewards are based on a response's **advantage** over the group average, fostering internal competition.  
+3. **Efficient Training:**  
+   - By avoiding absolute reward evaluations, GRPO scales effectively for complex reasoning tasks.  
+4. **Reward Dynamics:**  
+   - Rewards are determined by criteria such as:  
+     - **Accuracy** (correctness of responses).  
+     - **Format Consistency** (structural adherence).  
+     - **Language Coherence** (avoiding incoherence or mixed-language outputs).  
+5. **Stability via KL Regularization and Clipping:**  
+   - **Kullback–Leibler (KL) Divergence Regularization:** Penalizes large deviations from the baseline policy.  
+   - **Clipping:** Ensures stable optimization by preventing overemphasis on outlier responses.
+
+---
+
+### **GRPO Objective Function**  
+1. **Input Query:** A query <Math>{"q"}</Math> is sampled from the dataset <Math>{"P(Q)"}</Math>.  
+2. **Response Generation:** A group <Math>{"G"}</Math> of responses is generated for <Math>{"q"}</Math>.  
+3. **Reward Assignment:** Each response <Math>{"o_i \\in G"}</Math> receives a reward <Math>{"r_i"}</Math> based on defined criteria.  
+4. **Group Advantage Calculation:**  <Math display>{"A_i = r_i - \\frac{1}{|G|} \\sum_{j \\in G} r_j"}</Math>
+   - Responses above the group average get positive advantages; below-average responses get negative ones.  
+5. **Policy Update:**  <Math display>{"\\mathcal{L}_{\\text{GRPO}} = \\mathbb{E} \\left[ \\min \\left( \\frac{\\pi(o_i|q)}{\\pi_{\\text{old}}(o_i|q)} A_i, \\text{clip}\\left(\\frac{\\pi(o_i|q)}{\\pi_{\\text{old}}(o_i|q)}, 1 - \\epsilon, 1 + \\epsilon \\right) A_i \\right) \\right]"}</Math>
+6. **Regularization:** KL divergence ensures the updated policy remains close to the baseline policy.
+
+---
+
+### **Comparison: GRPO vs PPO**  
+
+| **Feature**           | **GRPO**                                     | **PPO**                                |
+|-----------------------|----------------------------------------------|----------------------------------------|
+| **Critic Model**      | Not required (group-based evaluation).       | Required (value estimation per response). |
+| **Reward Evaluation** | Relative (within group).                     | Absolute (from critic).                |
+| **Computational Cost**| Lower (no critic).                           | Higher (due to critic training).       |
+| **Scalability**       | Ideal for large LLMs.                        | Less scalable for reasoning tasks.     |
+| **Domain Generalization** | Effective for reasoning tasks.               | Struggles in diverse reasoning domains. |
+
+---
+
+### **Why GRPO Excels in Reasoning Tasks**  
+1. **Emergent Behaviors:** Enables advanced reasoning abilities such as **self-verification** and **reflection**, excelling in tasks requiring long reasoning chains.  
+2. **Scalability:** Group-based evaluation reduces computational costs, enabling large-scale training.  
+3. **Stability:** Clipping and KL regularization ensure robust policy updates.  
+4. **Efficiency:** Simplifies the RL training pipeline compared to methods requiring critic models.  #AI 
+
+- **Group Relative Policy Optimization GRPO:** A RLalgorithm designed to improve reasoning in large language models (LLMs).  
+- **Key Innovation:** Unlike traditional RL methods like Proximal Policy Optimization (PPO), GRPO eliminates the need for a critic model by leveraging **relative evaluation within groups of responses**.
+- GRPO is a scalable standard for improving reasoning in LLMs without supervised data, and was key to the success in Deepseek. 
+
+---
+
+### **Key Features and Innovations**  
+1. **Critic-Free Optimization:**  
+   - Evaluates responses relative to others in the same group, simplifying the RL pipeline and reducing computational overhead.  
+2. **Relative Evaluation:**  
+   - Rewards are based on a response's **advantage** over the group average, fostering internal competition.  
+3. **Efficient Training:**  
+   - By avoiding absolute reward evaluations, GRPO scales effectively for complex reasoning tasks.  
+4. **Reward Dynamics:**  
+   - Rewards are determined by criteria such as:  
+     - **Accuracy** (correctness of responses).  
+     - **Format Consistency** (structural adherence).  
+     - **Language Coherence** (avoiding incoherence or mixed-language outputs).  
+5. **Stability via KL Regularization and Clipping:**  
+   - **Kullback–Leibler (KL) Divergence Regularization:** Penalizes large deviations from the baseline policy.  
+   - **Clipping:** Ensures stable optimization by preventing overemphasis on outlier responses.
+
+---
+
+### **GRPO Objective Function**  
+1. **Input Query:** A query <Math>{"q"}</Math> is sampled from the dataset <Math>{"P(Q)"}</Math>.  
+2. **Response Generation:** A group <Math>{"G"}</Math> of responses is generated for <Math>{"q"}</Math>.  
+3. **Reward Assignment:** Each response <Math>{"o_i \\in G"}</Math> receives a reward <Math>{"r_i"}</Math> based on defined criteria.  
+4. **Group Advantage Calculation:**  <Math display>{"A_i = r_i - \\frac{1}{|G|} \\sum_{j \\in G} r_j"}</Math>
+   - Responses above the group average get positive advantages; below-average responses get negative ones.  
+5. **Policy Update:**  <Math display>{"\\mathcal{L}_{\\text{GRPO}} = \\mathbb{E} \\left[ \\min \\left( \\frac{\\pi(o_i|q)}{\\pi_{\\text{old}}(o_i|q)} A_i, \\text{clip}\\left(\\frac{\\pi(o_i|q)}{\\pi_{\\text{old}}(o_i|q)}, 1 - \\epsilon, 1 + \\epsilon \\right) A_i \\right) \\right]"}</Math>
+6. **Regularization:** KL divergence ensures the updated policy remains close to the baseline policy.
+
+---
+
+### **Comparison: GRPO vs PPO**  
+
+| **Feature**           | **GRPO**                                     | **PPO**                                |
+|-----------------------|----------------------------------------------|----------------------------------------|
+| **Critic Model**      | Not required (group-based evaluation).       | Required (value estimation per response). |
+| **Reward Evaluation** | Relative (within group).                     | Absolute (from critic).                |
+| **Computational Cost**| Lower (no critic).                           | Higher (due to critic training).       |
+| **Scalability**       | Ideal for large LLMs.                        | Less scalable for reasoning tasks.     |
+| **Domain Generalization** | Effective for reasoning tasks.               | Struggles in diverse reasoning domains. |
+
+---
+
+### **Why GRPO Excels in Reasoning Tasks**  
+1. **Emergent Behaviors:** Enables advanced reasoning abilities such as **self-verification** and **reflection**, excelling in tasks requiring long reasoning chains.  
+2. **Scalability:** Group-based evaluation reduces computational costs, enabling large-scale training.  
+3. **Stability:** Clipping and KL regularization ensure robust policy updates.  
+4. **Efficiency:** Simplifies the RL training pipeline compared to methods requiring critic models.  

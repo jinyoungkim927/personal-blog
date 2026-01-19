@@ -2,43 +2,109 @@
   "game-theory": {
     "title": "Game Theory",
     "passes": false,
-    "quality_score": 4,
-    "reason": "The content is suitable for public viewing and technically sound, but it lacks depth and clarity. The writing is somewhat vague and could benefit from more detailed explanations and examples to enhance understanding."
+    "quality_score": 5,
+    "reason": "The content is suitable for public viewing and technically sound, but it lacks depth and clarity, making it less informative and engaging."
   },
   "radical-or-knightean-uncertainty": {
     "title": "Radical or Knightean Uncertainty",
     "passes": true,
     "quality_score": 7,
-    "reason": "The document presents a philosophical discussion on uncertainty and risk, suitable for a public blog. It is technically sound with no apparent errors, though it could benefit from clearer explanations and more context for some readers."
+    "reason": "The document presents a philosophical discussion on uncertainty and risk, which is suitable for public viewing. It is technically sound, with no apparent errors, but could benefit from clearer explanations and examples to enhance clarity and engagement."
   },
   "ishita": {
     "title": "Ishita",
     "passes": true,
     "quality_score": 7,
-    "reason": "The content is respectful and reflects positively on the subject, while also engaging with relevant ideas about AI. However, it lacks depth and context, which affects clarity and information density."
+    "reason": "The content is respectful and thought-provoking, suitable for public viewing. It lacks excessive personal details and maintains a focus on the subject's ideas. The writing is clear, but could benefit from more context or depth."
   },
   "simulations": {
     "title": "Simulations",
     "passes": true,
     "quality_score": 6,
-    "reason": "The content is suitable for public viewing, contains no personal information, and is technically sound. However, the writing lacks clarity and structure, making it somewhat difficult to follow. More context and explanation would improve the overall quality."
+    "reason": "The content is suitable for public viewing and presents a technical perspective on simulations in AI. However, it lacks depth and context, making it less accessible to a broader audience. The writing could benefit from clearer explanations and more structured formatting."
   },
   "nash-equilibrium": {
     "title": "Nash Equilibrium",
     "passes": true,
     "quality_score": 7,
-    "reason": "The document provides a clear and concise explanation of Nash Equilibrium, including a formal definition and relevant properties. However, the writing could benefit from improved clarity and flow, particularly for readers who may not be familiar with game theory terminology."
+    "reason": "The document presents a clear and concise explanation of Nash Equilibrium with appropriate technical definitions and properties. However, it could benefit from more examples and a smoother flow for broader audience engagement."
   },
   "dynamic-programming-dp": {
     "title": "Dynamic Programming (DP)",
     "passes": false,
     "quality_score": 6,
-    "reason": "The document provides a good overview of dynamic programming concepts and examples, but it contains several technical errors (e.g., incorrect syntax in code snippets, unclear explanations) that could confuse readers. Additionally, some sections lack clarity and coherence, impacting overall quality."
+    "reason": "The document contains useful information on dynamic programming but has several technical errors, such as syntax issues in code snippets and unclear explanations. Additionally, some sections could benefit from better organization and clarity."
   },
   "doc-2fcc119d": {
     "title": "\ucd08\uc9c0\ub2a5 \uc804\ud6c4 (\ud55c\uad6d\uc5b4)",
     "passes": true,
     "quality_score": 8,
-    "reason": "The document presents thoughtful insights on AGI and superintelligence, with a clear structure and well-defined ideas. It avoids overly personal content and maintains a professional tone. The writing is generally clear, though some sections could benefit from more concise expression. Overall, it is suitable for public viewing and contains no apparent technical errors."
+    "reason": "The document presents thoughtful insights on AGI and superintelligence, with a clear structure and logical arguments. It avoids overly personal content and maintains a professional tone suitable for a public blog. The writing quality is high, though some sections could benefit from clearer explanations for broader accessibility."
+  },
+  "before-and-after-superintelligence-part-i": {
+    "title": "Before and After Superintelligence Part I",
+    "passes": true,
+    "quality_score": 7,
+    "reason": "The content is insightful and discusses relevant topics related to AGI and ASI without being overly personal. It presents well-structured arguments and ideas, though some sections could benefit from clearer organization and transitions."
+  },
+  "synthetic-data": {
+    "title": "Synthetic Data",
+    "passes": true,
+    "quality_score": 8,
+    "reason": "The document provides a comprehensive overview of synthetic data in the context of AI and data science, with clear explanations and relevant examples. It is suitable for public viewing, though some technical jargon may require background knowledge for full comprehension."
+  },
+  "grpo": {
+    "title": "GRPO",
+    "passes": true,
+    "quality_score": 8,
+    "reason": "The document presents a technical overview of GRPO in a clear and structured manner, suitable for a public blog. It avoids personal information and maintains a professional tone. The writing quality is high, though some sections could benefit from further simplification for broader accessibility."
+  },
+  "monte-carlo-tree-search": {
+    "title": "Monte Carlo Tree Search",
+    "passes": true,
+    "quality_score": 8,
+    "reason": "The document provides a clear and concise explanation of Monte Carlo Tree Search, including its definition, steps, advantages, and challenges. It is suitable for a public blog and free from personal or sensitive information. The writing is mostly clear, though it could benefit from minor improvements in flow and engagement."
+  },
+  "commodity-futures": {
+    "title": "Commodity Futures",
+    "passes": true,
+    "quality_score": 7,
+    "reason": "The document provides a clear overview of commodity futures, their purpose, and trading logistics. It is suitable for public viewing and contains no personal information. However, some sections could benefit from improved clarity and organization for better readability."
+  },
+  "oil-refinery": {
+    "title": "Oil Refinery",
+    "passes": true,
+    "quality_score": 6,
+    "reason": "The document provides a comprehensive overview of oil refineries, covering various technical aspects and economic factors. However, the writing lacks clarity in some areas, and the use of images without context may confuse readers. Additionally, the structure could be improved for better flow."
+  },
+  "gradient-boosted-models": {
+    "title": "Gradient Boosted Models",
+    "passes": true,
+    "quality_score": 7,
+    "reason": "The document provides a clear overview of gradient boosted models, including definitions, pros and cons, and an example code snippet. However, it could benefit from improved organization and clarity in some sections, as well as a more polished writing style."
+  },
+  "p-value": {
+    "title": "p-value",
+    "passes": true,
+    "quality_score": 8,
+    "reason": "The document provides a comprehensive overview of p-values and their implications in statistical testing, using appropriate terminology and concepts. It is well-structured, though it could benefit from clearer explanations for a broader audience. Overall, it is suitable for publication."
+  },
+  "multiple-hypothesis-testing": {
+    "title": "Multiple Hypothesis Testing",
+    "passes": true,
+    "quality_score": 6,
+    "reason": "The document is appropriate for public viewing and contains technically sound information about multiple hypothesis testing. However, it lacks clarity in some areas, such as the explanation of the 'Closure Procedure' which is incomplete, and could benefit from more context and examples to enhance understanding."
+  },
+  "e-value": {
+    "title": "e-value",
+    "passes": true,
+    "quality_score": 8,
+    "reason": "The document presents a clear and informative comparison between e-values and p-values, with well-structured sections on advantages, weaknesses, and applications. It uses appropriate technical language for a data science audience, though some sections may benefit from additional context for broader accessibility."
+  },
+  "bayes-theorem": {
+    "title": "Bayes Theorem",
+    "passes": false,
+    "quality_score": 4,
+    "reason": "The document lacks substantial content explaining Bayes Theorem and relies on a screenshot that is not visible. This affects both the technical soundness and the overall quality of the writing."
   }
 }

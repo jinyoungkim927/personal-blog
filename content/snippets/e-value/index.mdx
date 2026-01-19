@@ -1,0 +1,77 @@
+---
+title: "e-value"
+date: 2026-01-19
+tags:
+  - data-science
+---
+
+import Math from "../../../src/components/Math"
+
+e-values vs p-values
+
+The key is to constructing e-values well. 
+
+* A **p-variable** for testing <Math>{"\\mathcal{H}_0"}</Math>: a random variable <Math>{"P(X)"}</Math> satisfying
+  <Math>{"\\sup_{P_0 \\in \\mathcal{H}_0} \\mathbb{P}_{P_0}(P(X) \\leq \\alpha) \\leq \\alpha, \\quad \\forall \\alpha \\in (0,1)"}</Math>
+  Realized values = p-values.
+* An **e-variable** for testing <Math>{"\\mathcal{H}_0"}</Math>: a non-negative random variable <Math>{"E(X)"}</Math> such that
+  <Math>{"\\sup_{P_0 \\in \\mathcal{H}_0} \\mathbb{E}_{P_0}[E(X)] \\leq 1"}</Math>
+  Realized values = **e-values**.
+
+**Advantages of E-values**
+* Safe under optional stopping (cf. time-to-event data).
+* Naturally suited for **sequential testing**, **online inference**, and **gradual evidence accumulation**.
+* Easily **combined across studies** or time (e.g., via multiplication).
+* Useful in **high-dimensional** and **composite/irregular models**, where computing exact <Math>{"p"}</Math>-values is hard.
+* No need for fixed sample size or pre-specified analysis plans.
+
+**Weaknesses**
+* Generally **less powerful** than Neyman–Pearson (fixed-<Math>{"n"}</Math>) tests.
+* Require more data to reach traditional thresholds like 0.05-equivalent.
+
+---
+
+**Optional Continuation Problem & p-hacking**
+
+* Repeated trials (e.g., groups A, B, C testing a treatment sequentially) usually lead to:
+	* Improper reuse or pooling of <Math>{"p"}</Math>-values.
+	* Inflated Type I error (p-hacking).
+* **E-values solve this**: test martingales allow continual evidence monitoring without inflating error.
+
+---
+
+**Construction Example**
+
+* Place a prior <Math>{"w(\\mu)"}</Math> over the alternative <Math>{"\\mu"}</Math>.
+* Define an e-variable via likelihood ratio or Bayes factor-like object (e.g., test supermartingale).
+* Often of the form:
+  <Math>{"E_n = \\frac{f(X_1, \\dots, X_n)}{g(X_1, \\dots, X_n)}"}</Math>
+  where <Math>{"f"}</Math> is under the alternative, <Math>{"g"}</Math> under the null.
+
+---
+
+**Connections**
+
+* **Bayes Factors**: a type of e-variable when null and alternative are fully specified.
+* **Test Martingales**: a sequence <Math>{"(E_n)"}</Math> where each <Math>{"E_n"}</Math> is an e-variable, and <Math>{"E_n"}</Math> is a non-negative martingale under <Math>{"P_0 \\in \\mathcal{H}_0"}</Math>.
+* **FDR Control**: e-Benjamini–Hochberg (e-BH) provides valid FDR procedures using e-values.
+
+---
+
+**Notable Contributors**
+
+* **Peter Grünwald**: "E is the new P" — formalizes safe testing under optional stopping.
+* **Aditya Ramdas**: key work on sequential testing, e-BH, martingales.
+* **Ruodu Wang**: connects e-values to game-theoretic probability and robust inference.
+* **Brian Scheffer**: applied presentations and tutorials.
+
+---
+
+**Applications**
+
+* Sequential A/B testing.
+* Automated hypothesis validation (e.g., **POPPER** framework).
+* High-dimensional inference (e.g., genomics).
+* Robust meta-analysis.
+
+You can connnect Knockoffs and e-values. You can define e-values based on knockoff statistics. Pull them out of the hat. You can derandomise knockoff procedure by taking the averages. 

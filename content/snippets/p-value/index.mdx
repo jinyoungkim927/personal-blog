@@ -1,0 +1,62 @@
+---
+title: "p-value"
+date: 2026-01-19
+tags:
+  - data-science
+---
+
+import Math from "../../../src/components/Math"
+
+The probability of seeing the data given the null hypothesis is true, under specific Test Statistic. This is a Fisher's Approach. 
+
+Important tension to fully understand between using p-values and the Neyman Pearson Approach. It's not fixed as a decision threshold, but as a continuous measure of evidence against <Math>{"H_0"}</Math>, it is used to judge the strength of evidence. That is, a p-value of 0.06 isn't fundamentally different from 0.05—it’s just slightly weaker evidence, so it's a continuous standard of evidence. 
+
+In the Gaussian setting, the p-value is computed via the Survival Function. 
+
+In short, the p-value is a Random Variable that is *stochastically dominated* by the uniform distribution. i.e. you get Type 1 Error (Alpha) control, i.e. you won't falsely reject <Math>{"H_0"}</Math> more often than your <Math>{"\\alpha"}</Math> level). Let <Math>{"P"}</Math> be a p-value computed from a Test Statistic under the null hypothesis <Math>{"H_0"}</Math>. Then under certain conditions (e.g. continuous test statistic), the distribution of <Math>{"P"}</Math> **under <Math>{"H_0"}</Math>** satisfies:<Math display>{"\\mathbb{P}(P \\leq p) \\leq p \\quad \\text{for all } p \\in [0,1]"}</Math>This says that the CDF of <Math>{"P"}</Math> lies below or equal to the CDF of the uniform distribution on <Math>{"[0,1]"}</Math>, i.e., <Math>{"F_P(p) \\leq F_U(p) = p"}</Math>. 
+
+**Common Choices of Test Statistics**  
+- Linear Regression: Under <Math>{"H_0: \\beta_j = 0"}</Math>, test statistic <Math display>{"t = \\frac{\\hat{\\beta}_j}{\\text{SE}(\\hat{\\beta}_j)}"}</Math> follows a t-distribution (asymptotically Normal).
+- Generalized Linear Models (GLM) (e.g. Logistic Regresion): Typically use Wald Test; sometimes Likelihood Ratio Test (LR) or Score Tests.
+- Essential property: The Test Statistic must have a known distribution under <Math>{"H_0"}</Math> to compute p-values.
+
+**Motivations for Choices**  
+- Wald Test, t-test: computationally simple, widely used.
+- Likelihood Ratio Test: more powerful when models are nested.
+- Score Tests: useful when fitting the full model is computationally difficult.
+
+**Lower Bound on p-value**  
+- Extremely low p-value (<Math>{"p \\ll \\alpha"}</Math>) could indicate:
+	- Real effect (<Math>{"H_0"}</Math> false).
+	- Overfitting or multiple testing (inflated false positives).
+	- Violation of test assumptions (invalid inference).
+	- Large sample size (<Math>{"n"}</Math>), causing negligible effects to appear statistically significant.
+- Better practice:
+	- Report effect sizes <Math>{"\\hat\\beta"}</Math> (not just p-values).
+	- Provide Confidence Intervals.
+	- Correct for multiple comparisons (Bonferroni's method, BH-FDR).
+	- Explore Bayesian alternatives (e.g., Posterior Inclusion Probability).
+
+**Independent p-value**
+- Common situations that violate this:
+	- Shared data, variables (p values likely to be correlated)
+	- Multiple regressions on the same response, p values become correlated because tests are not independent samples 
+	- Different subsets of data. 
+		- ex) Effectiveness of drug on subgroups of patients. If patients overlap or share characteristics, not independent
+	- Hierarchical testing
+		- ex) First test for general effect, then subgroup effects after
+	- Correlation in errors
+		- If tests have correlated error terms, p values won't be independent
+
+**For non-linear models**
+- Essentially, you used resampling (permutation/bootstrap) to simulate the null distribution of a test statistic. 
+	- Example choices are difference in prediction accuracy, cross-entropy loss/MSE, feature importance score, AUC, precision, recall. 
+- Classical <Math>{"t"}</Math>-tests/<Math>{"F"}</Math>-tests rely on closed form distributions. In nonlinear models, these aren't available. Instead: 
+	- The Permutation Test gives you an empirical p value: <Math display>{"p = \\frac{1 + \\#\\{\\text{permuted stats } \\geq \\text{observed stat}\\}}{1 + \\text{\\# permutations}}"}</Math>
+- Model-Agnostic Feature Importance
+	- **SHAP values**: Approximates Shapley Values (from Game Theory) for feature attribution <Math>{"p"}</Math>-values can be derived via permutation or bootstrap on SHAP scores
+	- **LIME / Integrated Gradients**: Estimate feature contribution locally; empirical testing over perturbations yields significance
+**5. Bayesian Inference (e.g. Bayesian Neural Networks)**
+- Place priors on weights <Math>{"\\Rightarrow"}</Math> posterior distributions over predictions
+- Use credible intervals (e.g., 95%) for hypothesis testing: If 0 not in CI for feature's effect → statistically significant
+

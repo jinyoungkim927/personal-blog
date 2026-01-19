@@ -42,6 +42,7 @@ MIN_QUALITY_SCORE = 6
 # ============================================================
 POSTS_TO_PACKAGE = [
     "Before and After Superintelligence Part I",
+    "Before and After Superintelligence Part II",
 ]
 
 # Logging directory for AI checks
