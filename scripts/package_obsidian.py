@@ -253,7 +253,7 @@ def check_quality(content: str, title: str, api_key: str = OPENAI_API_KEY) -> Di
         max_chars = 8000
         check_content = content[:max_chars] if len(content) > max_chars else content
         
-        prompt = f"""Evaluate this document for publication as a knowledge snippet on a personal blog. The blog uses a "digital garden" style where notes and ideas are shared in various stages of completeness.
+        prompt = f"""Evaluate this document for publication as a knowledge snippet on a personal blog. Be moderately strict - only pass content that provides genuine standalone value to readers.
 
 Document Title: {title}
 
@@ -262,25 +262,34 @@ Document Content:
 
 Return a JSON object with these fields:
 
-- "appropriate": true if the content is suitable for public viewing. Fail ONLY if:
-  * Contains deeply personal/private information (diary entries, relationship details)
-  * Contains sensitive financial or health information
-  * Would be embarrassing or harmful if made public
+- "appropriate": true if suitable for public viewing (not too personal/private).
 
-- "technically_sound": true unless there are MAJOR factual errors that would mislead readers. Minor simplifications or informal explanations are fine.
+- "technically_sound": true unless there are major factual errors.
 
-- "has_substance": true if the document has actual content to share. Fail ONLY if:
-  * It's essentially empty (just tags/images with no text)
-  * It's just a placeholder or stub with no useful information
+- "has_substance": true ONLY if the document provides real educational value. FAIL if:
+  * Content relies heavily on embedded images (like ![[image.png]]) without substantial text explanation
+  * Just brief bullet points without context or explanation
+  * Heavily references other pages ([[wiki-links]]) without providing standalone value
+  * Too short or fragmented to be useful on its own
 
-- "not_ai_generated": true if the content appears to be genuine human writing. Fail ONLY if it reads like generic ChatGPT output with no personal voice, specific examples, or unique perspective. Bullet-point notes, technical explanations, and informal writing are all fine - these are signs of authentic human notes.
+- "not_ai_generated": true if the writing has authentic human voice (not generic AI output).
 
-- "quality_score": integer 1-10 rating:
-  * 7-10: Good content, ready to share
-  * 5-6: Rough but has value, acceptable for a digital garden
-  * 1-4: Too incomplete, empty, or problematic
+- "quality_score": integer 1-10. Be strict:
+  * 8-10: Substantial content with clear explanations, definitions, or insights
+  * 6-7: Has value but rough - only pass if it still teaches something meaningful
+  * 5 and below: Too brief, fragmented, image-heavy, or lacking standalone value
 
-- "reason": brief explanation
+  Examples of what should score 6+:
+  - Clear definitions with explanation (like explaining an algorithm)
+  - Mathematical concepts with formulas AND context
+  - Substantive notes that explain WHY, not just WHAT
+  
+  Examples of what should score 5 or below:
+  - Lists of bullet points without explanation
+  - Content that's mostly image embeds
+  - Notes that only make sense if you follow the wiki-links
+
+- "reason": brief explanation of score
 
 Only return the JSON object, no other text."""
 
