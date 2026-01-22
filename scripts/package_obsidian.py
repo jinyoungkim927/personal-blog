@@ -139,6 +139,15 @@ def extract_display_date(content: str) -> Optional[str]:
             # Clean up common artifacts
             date_str = re.sub(r'\s*Status:.*$', '', date_str)  # Remove "Status: ..."
             date_str = date_str.strip()
+            
+            # Skip if it looks like LaTeX or code (contains $, \, or other markers)
+            if '$' in date_str or '\\' in date_str or '[[' in date_str:
+                continue
+                
+            # Skip if too long (likely not a date)
+            if len(date_str) > 50:
+                continue
+                
             if date_str and len(date_str) > 3:
                 return date_str
     
