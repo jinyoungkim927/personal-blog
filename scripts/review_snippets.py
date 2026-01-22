@@ -35,8 +35,9 @@ LOGS_DIR = Path(__file__).parent / 'logs'
 # Review threshold - generate reviews for snippets scoring at or below this
 REVIEW_THRESHOLD = 7
 
-# Model to use (most expensive/capable)
-REVIEW_MODEL = "gpt-4o"  # or "gpt-4-turbo" for even more capability
+# Model to use (most expensive/capable reasoning model)
+# o1 is OpenAI's most capable model (~$15/M input, $60/M output tokens)
+REVIEW_MODEL = "o1"
 
 
 def find_document(title: str, vault_path: str = OBSIDIAN_VAULT_PATH) -> Optional[Path]:
@@ -152,11 +153,11 @@ Any concepts, examples, or sections that would significantly enhance the documen
 
 Remember: Preserve the author's voice and style. These are personal notes being shared, not academic papers. The goal is clarity and value, not perfection."""
 
+        # o1 models don't support temperature parameter
         response = client.chat.completions.create(
             model=REVIEW_MODEL,
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.7,
-            max_tokens=4000
+            max_completion_tokens=16000  # o1 uses max_completion_tokens instead of max_tokens
         )
         
         review_text = response.choices[0].message.content.strip()
