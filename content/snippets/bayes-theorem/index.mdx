@@ -5,5 +5,38 @@ tags:
   - data-science
 ---
 
-*[Image: Screenshot 2024-08-22 at 10.23.46 am.png]*
+import Math from "../../../src/components/Math"
 
+Bayes' theorem tells you how to update your beliefs when you get new evidence. It's the mathematically correct way to learn from data.
+
+<Math display>{"P(H|E) = \\frac{P(E|H) \\cdot P(H)}{P(E)}"}</Math>
+
+In words: your updated belief in a hypothesis given evidence equals how likely the evidence is if the hypothesis is true, times your prior belief, divided by the overall probability of seeing that evidence.
+
+### The Intuition
+
+Imagine you're a doctor and a patient tests positive for a rare disease. The test is 99% accurate. What's the chance they actually have the disease?
+
+Your instinct might say 99%. But if the disease affects only 1 in 10,000 people, most positive tests are false positives. You need to weight the test result against the base rate.
+
+Let's work through it:
+- Prior probability of disease: 0.0001
+- P(positive | disease): 0.99
+- P(positive | no disease): 0.01
+- P(positive) = 0.99 × 0.0001 + 0.01 × 0.9999 ≈ 0.01
+
+So P(disease | positive) = (0.99 × 0.0001) / 0.01 ≈ 0.01, or about 1%.
+
+The test result raised your estimate 100-fold (from 0.01% to 1%), but you still probably don't have the disease.
+
+### Why Base Rates Matter
+
+The prior <Math>{"P(H)"}</Math> is crucial. Strong evidence for a very unlikely hypothesis often still leaves the hypothesis unlikely. Extraordinary claims require extraordinary evidence.
+
+### Updating vs. Replacing
+
+Bayes tells you to *update* beliefs, not replace them. New evidence shifts your probability—it doesn't determine it entirely. This is why two people can see the same evidence and reach different conclusions if they started with different priors.
+
+### The Practical Takeaway
+
+When evaluating any claim or test result, always ask: what's the base rate? How likely is this evidence under different hypotheses? The answer is rarely as simple as the headline suggests.

@@ -1,9 +1,9 @@
 {
   "game-theory": {
     "title": "Game Theory",
-    "passes": false,
-    "quality_score": 5,
-    "reason": "The content is suitable for public viewing and technically sound, but it lacks depth and clarity, making it less informative and engaging."
+    "passes": true,
+    "quality_score": 8,
+    "reason": "Comprehensive overview of game theory with key concepts, practical applications (currency attack model), and clear explanations of Nash Equilibrium, dominant strategies, and strategic thinking."
   },
   "radical-or-knightean-uncertainty": {
     "title": "Radical or Knightean Uncertainty",
@@ -31,9 +31,9 @@
   },
   "dynamic-programming-dp": {
     "title": "Dynamic Programming (DP)",
-    "passes": false,
-    "quality_score": 6,
-    "reason": "The document contains useful information on dynamic programming but has several technical errors, such as syntax issues in code snippets and unclear explanations. Additionally, some sections could benefit from better organization and clarity."
+    "passes": true,
+    "quality_score": 7,
+    "reason": "Comprehensive coverage of dynamic programming with corrected Python syntax. Includes top-down vs bottom-up approaches, memoization, tabulation, and multiple examples (climbing stairs, coin change, LIS, box stacking)."
   },
   "doc-2fcc119d": {
     "title": "\ucd08\uc9c0\ub2a5 \uc804\ud6c4 (\ud55c\uad6d\uc5b4)",
@@ -57,7 +57,7 @@
     "title": "GRPO",
     "passes": true,
     "quality_score": 8,
-    "reason": "The document provides a comprehensive overview of the GRPO algorithm, including its innovations, objective function, and comparisons with PPO. It offers clear explanations and context, making it educational and valuable for readers interested in reinforcement learning and AI."
+    "reason": "Comprehensive overview of GRPO algorithm with intuitive explanations, mathematical formulation, and comparison to PPO. Duplicated content removed."
   },
   "monte-carlo-tree-search": {
     "title": "Monte Carlo Tree Search",
@@ -73,9 +73,9 @@
   },
   "oil-refinery": {
     "title": "Oil Refinery",
-    "passes": false,
-    "quality_score": 4,
-    "reason": "The document relies heavily on embedded images without substantial text explanations and consists of brief bullet points without adequate context or depth, making it lack standalone educational value."
+    "passes": true,
+    "quality_score": 8,
+    "reason": "Comprehensive standalone explanation of oil refinery operations, crude oil properties, refinery complexity levels, crack spreads, and investment considerations. No longer relies on image placeholders."
   },
   "gradient-boosted-models": {
     "title": "Gradient Boosted Models",
@@ -91,9 +91,9 @@
   },
   "multiple-hypothesis-testing": {
     "title": "Multiple Hypothesis Testing",
-    "passes": false,
-    "quality_score": 4,
-    "reason": "The document is too brief and fragmented, lacking sufficient context and explanations for the concepts mentioned. It primarily consists of bullet points and references to methods without elaboration, making it difficult for readers to gain standalone educational value."
+    "passes": true,
+    "quality_score": 8,
+    "reason": "Complete explanation of multiple hypothesis testing with intuitive examples, error metrics (FWER, FDR), correction methods (Bonferroni, Benjamini-Hochberg), and practical guidance."
   },
   "e-value": {
     "title": "e-value",
@@ -103,14 +103,14 @@
   },
   "bayes-theorem": {
     "title": "Bayes Theorem",
-    "passes": false,
-    "quality_score": 3,
-    "reason": "The document lacks substantial text explanation and relies heavily on an embedded image without providing standalone value or context. It does not offer clear definitions or insights into Bayes Theorem."
+    "passes": true,
+    "quality_score": 8,
+    "reason": "Clear explanation of Bayes theorem with the formula, intuitive medical test example, discussion of base rates, and practical takeaways. No longer just an image placeholder."
   },
   "transformer": {
     "title": "Transformer",
-    "passes": false,
-    "quality_score": 4,
-    "reason": "The document consists of fragmented bullet points without sufficient context or explanation, lacking standalone educational value."
+    "passes": true,
+    "quality_score": 8,
+    "reason": "Comprehensive explanation of transformer architecture with attention mechanism, multi-head attention, encoder vs decoder, and discussion of why transformers scale. No longer fragmented bullet points."
   }
 }

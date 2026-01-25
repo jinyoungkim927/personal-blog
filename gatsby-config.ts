@@ -13,7 +13,7 @@ const config: GatsbyConfig = {
     siteHeadline: `More Useless`,
     siteUrl: `https://more-useless.com`,
     siteDescription: `A delightful collection of wonderfully useless things, random thoughts, and curious discoveries. Because sometimes the most interesting things are the least practical.`,
-    siteImage: `/banner.jpg`,
+    siteImage: `/og-image.png`,
     siteLanguage: `en`,
     author: `More Useless`,
   },

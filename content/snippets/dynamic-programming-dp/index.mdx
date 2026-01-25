@@ -89,10 +89,10 @@ class Solution:
 	def climbStairs(self, n: int) -> int:
 		if n == 0 or n == 1:
 			return 1
-		dp = [0] (n + 1)
+		dp = [0] * (n + 1)
 		dp[0] = dp[1] = 1
 
-		for i in range(2, n + 1)
+		for i in range(2, n + 1):
 			dp[i] = dp[i - 1] + dp[i - 2]
 		return dp[n]
 ```
@@ -104,7 +104,7 @@ class Solution:
 		if n == 0 or n ==1:
 			return 1
 		prev, curr = 1, 1
-		for in range(2, n + 1):
+		for i in range(2, n + 1):
 			temp = curr
 			curr = prev + curr
 			prev = temp
@@ -119,14 +119,14 @@ class Solution:
 **Explanation:** 11 = 5 + 5 + 1
 
 ```python
-class solution: 
-	def coinChange(self, coins: List[int], amount:int) -> int:
-		if amount < coin for coin in coins:
+class Solution:
+	def coinChange(self, coins: List[int], amount: int) -> int:
+		if amount < min(coins):
 			return -1
-		elif amount == coin for coin in coins:
+		elif amount in coins:
 			return 1
-		else: 
-			return coinChange(self)
+		else:
+			return self.coinChange(coins, amount)
 ```
 
 - **Bottom up recursion (DP) approach**
@@ -142,7 +142,7 @@ class solution:
 def coinChange(coins, amount):
 	dp = [0] + ([float('inf')] * amount)
 	for i in range(1, amount + 1):
-		for coin in co ins:
+		for coin in coins:
 			if coin <= i:
 				dp[i] = min(dp[i], dp[i - coin] + 1)
 

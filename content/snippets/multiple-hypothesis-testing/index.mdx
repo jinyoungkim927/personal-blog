@@ -7,22 +7,39 @@ tags:
 
 import Math from "../../../src/components/Math"
 
-Goal: Assess individual hypotheses <Math>{"H_1, \\dots, H_n"}</Math> (e.g., for each feature/variable).  
+When you test many hypotheses at once, the chance of at least one false positive becomes uncomfortably high. Test 20 things at p < 0.05, and you expect one false positive even if nothing is real.
 
-Procedures aim to control metrics like False Discovery Rate (FDR), FWER, etc.  
-Result: Accept some hypotheses, reject others.  
-Output: A decision vector <Math>{"(\\text{accept}, \\text{reject}, \\dots)"}</Math> across hypotheses.  
+### The Problem
 
-Bonferroni's method controls FWER at level <Math>{"\\alpha"}</Math> in the strong sense.
+You're testing <Math>{"H_1, H_2, \\dots, H_n"}</Math> hypotheses. Each test has some probability of a false positive (rejecting a true null). With enough tests, these add up.
 
-Weak control:
-- 2 Step procedure
-	- Global test like Bonferroni's method
-	- Then test each hypothesis at level <Math>{"\\alpha"}</Math> 
+If each test has a 5% false positive rate and tests are independent:
+- 1 test: 5% chance of at least one false positive
+- 20 tests: 64% chance (= 1 - 0.95^20)
+- 100 tests: 99.4% chance
 
-Strong control:
+This is why genome-wide association studies with millions of tests need very stringent thresholds.
 
-Closure Procedure
-- 
+### Error Metrics
 
+**Family-Wise Error Rate (FWER)**: Probability of at least one false positive. Very conservative—controls the worst case.
 
+**False Discovery Rate (FDR)**: Expected proportion of rejections that are false positives. More permissive—accepts that some discoveries will be wrong, but controls how many.
+
+### Common Corrections
+
+**Bonferroni**: Divide your significance threshold by the number of tests. If you want FWER ≤ 0.05 with 100 tests, use p < 0.0005 per test.
+
+Pros: Simple, valid under any dependence structure.
+Cons: Very conservative. Throws away statistical power.
+
+**Benjamini-Hochberg (BH)**: Controls FDR instead of FWER. Sort p-values, find the largest k where <Math>{"p_k \\leq \\frac{k}{n}\\alpha"}</Math>, reject all hypotheses up to k.
+
+More powerful than Bonferroni when you have many true effects mixed with nulls.
+
+### Practical Guidance
+
+- If a single false positive is catastrophic (drug approval), control FWER
+- If you can tolerate some false discoveries (exploratory analysis), control FDR
+- Always report how many tests you ran and what correction you used
+- Pre-registration helps: decide your tests before seeing the data

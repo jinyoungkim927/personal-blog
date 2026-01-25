@@ -14,28 +14,24 @@ const SubscribeButton: React.FC = () => {
     e.preventDefault()
     setIsSubmitting(true)
     setError(null)
-    
+
     const form = e.currentTarget
     const formData = new FormData(form)
     const email = formData.get("email") as string
-    
+
     try {
-      // Submit to Buttondown API
-      const response = await fetch(`https://api.buttondown.email/v1/subscribers`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          metadata: {
-            firstName: formData.get("firstName"),
-            lastName: formData.get("lastName"),
+      // Submit to Buttondown's public embed endpoint (no API key needed)
+      const response = await fetch(
+        `https://buttondown.email/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          referrer_url: window.location.href,
-        }),
-      })
-      
+          body: new URLSearchParams({ email }).toString(),
+        }
+      )
+
       if (response.ok || response.status === 201) {
         setIsSubmitted(true)
       } else {
@@ -126,41 +122,6 @@ const SubscribeButton: React.FC = () => {
           textAlign: "left",
         }}
       >
-        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First name"
-            required
-            style={{
-              flex: "1 1 120px",
-              padding: "10px 12px",
-              border: "1px solid #e8e0d5",
-              borderRadius: "6px",
-              fontSize: "14px",
-              background: "#faf8f3",
-              color: "#3d2817",
-              textAlign: "left",
-            }}
-          />
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last name"
-            required
-            style={{
-              flex: "1 1 120px",
-              padding: "10px 12px",
-              border: "1px solid #e8e0d5",
-              borderRadius: "6px",
-              fontSize: "14px",
-              background: "#faf8f3",
-              color: "#3d2817",
-              textAlign: "left",
-            }}
-          />
-        </div>
-        
         <input
           type="email"
           name="email"

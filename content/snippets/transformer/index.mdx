@@ -8,20 +8,35 @@ tags:
   - optimization
 ---
 
-### What is it
-- Sequece of transformer blocks, making them highly parallelisable
-- Key idea is Attention
-	- Encoder: unmasked self-attention
-	- Decoder: masked self-attention
-		- LLMs are only using this decoding part. Just predicting the next word in a sequence. Rather than translation. Given this sequence, predict the next one. 
+The Transformer architecture (introduced in "Attention Is All You Need", 2017) is the foundation of modern language models. Its key innovation was showing that attention alone—without recurrence or convolution—is sufficient for state-of-the-art sequence modeling.
 
-What are the outputs going in? Aren't we trying to produce the output? 
-- You feed in the sequence, can only attend to the tokens in the past. 
-- Operations in the past, at the top 
-- Argmax and sampling 
+### Why Attention Matters
 
-### History: 
-- GPT-1 shows the pre-training and the fine-tuning paradigm works **really well**
-### Computer Vision Version: CLIP
-- CLIP is agnostic to choice of architecutre. It groups similar text and image pairs, pushes apart text and image pairs that are different. 
-- Vision Transformer 
+Before transformers, models like RNNs processed sequences step by step. This was slow and made it hard to learn long-range dependencies—by the time you reached the end of a sentence, information from the beginning had faded.
+
+Attention lets every position look directly at every other position. Want to know what "it" refers to in a sentence? The model can directly attend to the relevant noun, even if it's far away.
+
+### The Architecture
+
+**Self-attention**: Given a sequence, each position computes:
+1. Query (Q): what am I looking for?
+2. Key (K): what do I contain?
+3. Value (V): what do I provide if matched?
+
+Attention scores = softmax(QK^T / √d). The output is these scores weighted sum of values.
+
+**Multi-head attention**: Run attention multiple times in parallel with different learned projections. This lets the model attend to information from different representation subspaces.
+
+**Feed-forward layers**: After attention, each position passes through a small neural network. This is where a lot of the "thinking" happens.
+
+**Encoder vs Decoder**:
+- Encoder: bidirectional (can see the whole sequence). Used for understanding tasks.
+- Decoder: causal/masked (can only see past tokens). Used for generation.
+
+Modern LLMs like GPT are decoder-only—they just predict the next token, one at a time.
+
+### Why It Scales
+
+Transformers are highly parallelizable. Unlike RNNs, all positions can be processed simultaneously during training. This made it practical to train on massive datasets.
+
+The scaling laws discovery (more compute, more data, more parameters = better performance) turned transformers from a neat architecture into the basis for GPT, Claude, and the rest of the current generation of AI systems.

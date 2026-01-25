@@ -81,7 +81,7 @@ export default GraphPage
 
 export const Head: HeadFC = () => (
   <>
-    <title>Knowledge Graph | More Useless</title>
-    <meta name="description" content="Interactive knowledge graph showing connections between posts" />
+    <title>Idea Graph | More Useless</title>
+    <meta name="description" content="Interactive idea graph showing connections between posts" />
   </>
 )

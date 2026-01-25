@@ -48,10 +48,10 @@ const GraphButton: React.FC = () => {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)} className="graph-button" aria-label="Open knowledge graph" title="View knowledge graph">
-        <img 
-          src="/favicon.svg" 
-          alt="Knowledge Graph" 
+      <button onClick={() => setIsOpen(true)} className="graph-button" aria-label="Open idea graph" title="View idea graph">
+        <img
+          src="/favicon.svg"
+          alt="Idea Graph" 
           style={{ 
             width: "100%", 
             height: "100%", 
@@ -68,7 +68,7 @@ const GraphButton: React.FC = () => {
                 <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
-            <div style={{ position: "absolute", top: 16, left: "50%", transform: "translateX(-50%)", fontWeight: 600, color: "#1a1815", fontSize: "16px", zIndex: 10 }}>Knowledge Graph</div>
+            <div style={{ position: "absolute", top: 16, left: "50%", transform: "translateX(-50%)", fontWeight: 600, color: "#1a1815", fontSize: "16px", zIndex: 10 }}>Idea Graph</div>
             <div style={{ paddingTop: 50, height: "calc(100% - 50px)", overflow: "visible" }}>
               <React.Suspense fallback={<div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "#888" }}>Loading graph...</div>}>
                 <GraphView 
