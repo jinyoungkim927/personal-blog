@@ -1,5 +1,6 @@
 const fs = require("fs")
 const path = require("path")
+const features = require("./src/config/features.js")
 
 // Tags to always filter out
 const FILTERED_TAGS = ['personal', 'insights']
@@ -479,10 +480,10 @@ function generateGraphData() {
 
 // Generate graph data during development (after bootstrap)
 exports.onPostBootstrap = async () => {
-  generateGraphData()
+  if (features.graphEnabled) generateGraphData()
 }
 
 // Also generate during production build
 exports.onPostBuild = async () => {
-  generateGraphData()
+  if (features.graphEnabled) generateGraphData()
 }

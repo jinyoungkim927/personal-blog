@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { HeadFC } from "gatsby"
+import { HeadFC, navigate } from "gatsby"
 import * as React from "react"
 import { useEffect, useState } from "react"
 import { Global } from "@emotion/react"
@@ -8,11 +8,16 @@ import { MDXProvider } from "@mdx-js/react"
 import { Container } from "theme-ui"
 import Header from "../@lekoarts/gatsby-theme-minimal-blog/components/header"
 import GraphView from "../components/GraphView"
+import features from "../config/features"
 
 const GraphPage: React.FC = () => {
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
 
   useEffect(() => {
+    if (!features.graphEnabled) {
+      navigate("/", { replace: true })
+      return
+    }
     if (typeof window !== "undefined") {
       const updateDimensions = () => {
         setDimensions({
@@ -25,6 +30,8 @@ const GraphPage: React.FC = () => {
       return () => window.removeEventListener("resize", updateDimensions)
     }
   }, [])
+
+  if (!features.graphEnabled) return null
 
   return (
     <MDXProvider components={{}}>

@@ -1,5 +1,6 @@
 import "dotenv/config"
 import type { GatsbyConfig, PluginRef } from "gatsby"
+import features from "./src/config/features"
 
 const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
@@ -32,18 +33,9 @@ const config: GatsbyConfig = {
       // See the theme's README for all available options
       options: {
         navigation: [
-          {
-            title: `Posts`,
-            slug: `/`,
-          },
-          {
-            title: `Graph`,
-            slug: `/graph`,
-          },
-          {
-            title: `About`,
-            slug: `/about`,
-          },
+          { title: `Posts`, slug: `/` },
+          ...(features.graphEnabled ? [{ title: `Graph`, slug: `/graph` }] : []),
+          { title: `About`, slug: `/about` },
         ],
         externalLinks: [],
       },
