@@ -1,5 +1,7 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
+import { navigate } from "gatsby"
+import features from "../config/features"
 
 // Lazy load GraphView to avoid SSR issues with d3
 const GraphView = React.lazy(() => import("./GraphView"))
@@ -9,12 +11,15 @@ const GraphButton: React.FC = () => {
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
   const [isMounted, setIsMounted] = useState(false)
   const [isGraphPage, setIsGraphPage] = useState(false)
+  const [isHomePage, setIsHomePage] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
-    // Check if we're on the graph page
+    // Check if we're on the graph page or home page
     if (typeof window !== "undefined") {
-      setIsGraphPage(window.location.pathname === "/graph/" || window.location.pathname === "/graph")
+      const path = window.location.pathname
+      setIsGraphPage(path === "/graph/" || path === "/graph")
+      setIsHomePage(path === "/" || path === "/blog/" || path === "/blog")
     }
   }, [])
 
@@ -43,12 +48,20 @@ const GraphButton: React.FC = () => {
 
   const closeModal = () => setIsOpen(false)
 
-  // Don't render anything during SSR or on graph page
-  if (!isMounted || isGraphPage) return null
+  // Don't render during SSR, on graph page, or on home page when graph disabled
+  if (!isMounted || isGraphPage || (!features.graphEnabled && isHomePage)) return null
+
+  const handleClick = () => {
+    if (features.graphEnabled) {
+      setIsOpen(true)
+    } else {
+      navigate("/")
+    }
+  }
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)} className="graph-button" aria-label="Open idea graph" title="View idea graph">
+      <button onClick={handleClick} className="graph-button" aria-label={features.graphEnabled ? "Open idea graph" : "Go to home"} title={features.graphEnabled ? "View idea graph" : "Go to home"}>
         <img
           src="/favicon.svg"
           alt="Idea Graph" 
