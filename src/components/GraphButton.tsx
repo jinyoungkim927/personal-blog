@@ -11,15 +11,13 @@ const GraphButton: React.FC = () => {
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
   const [isMounted, setIsMounted] = useState(false)
   const [isGraphPage, setIsGraphPage] = useState(false)
-  const [isHomePage, setIsHomePage] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
-    // Check if we're on the graph page or home page
+    // Check if we're on the graph page
     if (typeof window !== "undefined") {
       const path = window.location.pathname
       setIsGraphPage(path === "/graph/" || path === "/graph")
-      setIsHomePage(path === "/" || path === "/blog/" || path === "/blog")
     }
   }, [])
 
@@ -48,8 +46,8 @@ const GraphButton: React.FC = () => {
 
   const closeModal = () => setIsOpen(false)
 
-  // Don't render during SSR, on graph page, or on home page when graph disabled
-  if (!isMounted || isGraphPage || (!features.graphEnabled && isHomePage)) return null
+  // Don't render during SSR or on graph page
+  if (!isMounted || isGraphPage) return null
 
   const handleClick = () => {
     if (features.graphEnabled) {
