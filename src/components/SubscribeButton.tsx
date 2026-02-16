@@ -19,8 +19,22 @@ const SubscribeButton: React.FC = () => {
     const formData = new FormData(form)
     const email = formData.get("email") as string
 
+    // Save to Netlify Forms as backup (always works)
     try {
-      // Submit to Buttondown's public embed endpoint (no API key needed)
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": "newsletter",
+          email,
+        }).toString(),
+      })
+    } catch (err) {
+      // Netlify form submission failed, but continue anyway
+    }
+
+    try {
+      // Also submit to Buttondown (for when account is approved)
       const response = await fetch(
         `https://buttondown.email/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`,
         {
@@ -48,24 +62,30 @@ const SubscribeButton: React.FC = () => {
 
   if (!isOpen) {
     return (
-      <button
-        onClick={() => setIsOpen(true)}
-        style={{
-          background: "transparent",
-          border: "none",
-          color: "#8b6f47",
-          fontSize: "14px",
-          cursor: "pointer",
-          padding: "8px 0",
-          textDecoration: "underline",
-          textUnderlineOffset: "3px",
-          marginTop: "24px",
-          display: "block",
-          textAlign: "left",
-        }}
-      >
-        subscribe
-      </button>
+      <>
+        {/* Hidden form for Netlify to detect during build */}
+        <form name="newsletter" data-netlify="true" hidden>
+          <input type="email" name="email" />
+        </form>
+        <button
+          onClick={() => setIsOpen(true)}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "#8b6f47",
+            fontSize: "14px",
+            cursor: "pointer",
+            padding: "8px 0",
+            textDecoration: "underline",
+            textUnderlineOffset: "3px",
+            marginTop: "24px",
+            display: "block",
+            textAlign: "left",
+          }}
+        >
+          subscribe
+        </button>
+      </>
     )
   }
 
