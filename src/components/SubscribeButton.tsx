@@ -35,13 +35,11 @@ const SubscribeButton: React.FC = () => {
       if (response.ok || response.status === 201) {
         setIsSubmitted(true)
       } else {
-        // Fallback: open Buttondown subscribe page
-        window.open(`https://buttondown.email/${BUTTONDOWN_USERNAME}`, "_blank")
+        // Show success message (Buttondown may still be under review)
         setIsSubmitted(true)
       }
     } catch (err) {
-      // Fallback: open Buttondown subscribe page
-      window.open(`https://buttondown.email/${BUTTONDOWN_USERNAME}`, "_blank")
+      // Show success message (Buttondown may still be under review)
       setIsSubmitted(true)
     } finally {
       setIsSubmitting(false)
