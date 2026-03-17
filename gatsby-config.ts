@@ -20,6 +20,18 @@ const config: GatsbyConfig = {
   },
   trailingSlash: `always`,
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [
+          `G-DM2F02NZ37`,
+        ],
+        pluginConfig: {
+          head: true,
+          respectDNT: true,
+        },
+      },
+    },
     // Source snippets directory for MDX processing
     {
       resolve: `gatsby-source-filesystem`,

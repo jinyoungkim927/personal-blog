@@ -2,7 +2,7 @@ import * as React from "react"
 import { useState } from "react"
 
 // TODO: Replace with your Buttondown username after signing up at buttondown.email
-const BUTTONDOWN_USERNAME = "moreuseless"
+const BUTTONDOWN_USERNAME = "jinyoung"
 
 const SubscribeButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)

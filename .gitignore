@@ -70,3 +70,6 @@ public
 scripts/.env
 scripts/logs/
 __pycache__/
+
+# Local Netlify folder
+.netlify
