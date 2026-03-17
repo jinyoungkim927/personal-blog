@@ -28,7 +28,7 @@ const config: GatsbyConfig = {
         ],
         pluginConfig: {
           head: true,
-          respectDNT: true,
+          respectDNT: false,
         },
       },
     },
