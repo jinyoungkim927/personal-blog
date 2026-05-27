@@ -13,7 +13,7 @@ const config: GatsbyConfig = {
     siteTitleAlt: `More Useless`,
     siteHeadline: `More Useless`,
     siteUrl: `https://more-useless.com`,
-    siteDescription: `A delightful collection of wonderfully useless things, random thoughts, and curious discoveries. Because sometimes the most interesting things are the least practical.`,
+    siteDescription: ``,
     siteImage: `/og-image.png`,
     siteLanguage: `en`,
     author: `More Useless`,
@@ -47,6 +47,7 @@ const config: GatsbyConfig = {
         navigation: [
           { title: `Posts`, slug: `/` },
           ...(features.graphEnabled ? [{ title: `Graph`, slug: `/graph` }] : []),
+          { title: `Snippets`, slug: `/gallery` },
           { title: `About`, slug: `/about` },
         ],
         externalLinks: [],
@@ -63,12 +64,10 @@ const config: GatsbyConfig = {
       options: {
         name: `More Useless`,
         short_name: `More Useless`,
-        description: `A delightful collection of wonderfully useless things, random thoughts, and curious discoveries.`,
+        description: `A collection of curiosities`,
         start_url: `/`,
-        background_color: `#faf8f3`,
-        // This will impact how browsers show your PWA/website
-        // https://css-tricks.com/meta-theme-color-and-trickery/
-        theme_color: `#8b6f47`,
+        background_color: `#000000`,
+        theme_color: `#000000`,
         display: `standalone`,
         icons: [
           {

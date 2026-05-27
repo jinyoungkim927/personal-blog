@@ -4,8 +4,8 @@ import { Global } from "@emotion/react"
 import { Box, Container, jsx, get } from "theme-ui"
 import { MDXProvider } from "@mdx-js/react"
 import MdxComponents from "@lekoarts/gatsby-theme-minimal-blog/src/components/mdx-components"
-import Header from "./header"  // Uses our shadowed header
-import Footer from "./footer"  // Uses our shadowed footer
+import Header from "./header"
+import Footer from "./footer"
 import CodeStyles from "@lekoarts/gatsby-theme-minimal-blog/src/styles/code"
 import SkipNavLink from "@lekoarts/gatsby-theme-minimal-blog/src/components/skip-nav"
 
@@ -15,14 +15,22 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
   <MDXProvider components={MdxComponents}>
     <Global
       styles={(t) => ({
-        "*": {
-          boxSizing: `inherit`,
+        "*": { boxSizing: `inherit` },
+        "[hidden]": { display: `none` },
+        html: {
+          // black so the overscroll bounce at top/bottom is black, not painterly
+          backgroundColor: `#000`,
         },
-        "[hidden]": {
-          display: `none`,
+        body: {
+          margin: 0,
+          minHeight: `100vh`,
+          color: get(t, `colors.text`),
+          fontFamily: get(t, `fonts.body`),
+          WebkitFontSmoothing: `antialiased`,
+          backgroundColor: get(t, `colors.background`),
         },
         "::selection": {
-          backgroundColor: get(t, `colors.text`),
+          backgroundColor: get(t, `colors.primary`),
           color: get(t, `colors.background`),
         },
       })}
@@ -39,6 +47,3 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
 )
 
 export default Layout
-
-
-

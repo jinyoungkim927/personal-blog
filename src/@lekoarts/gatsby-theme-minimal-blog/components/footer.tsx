@@ -1,31 +1,40 @@
+/** @jsx jsx */
 import * as React from "react"
+import { jsx } from "theme-ui"
 import { Link } from "gatsby"
 
-const Footer = () => {
-  return (
-    <footer
-      style={{
-        boxSizing: "border-box",
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "64px",
-        paddingTop: "24px",
-        paddingBottom: "24px",
-        borderTop: "1px solid #e8e0d5",
+const Footer = () => (
+  <footer
+    sx={{
+      mt: 6,
+      pt: 4,
+      pb: 4,
+      borderTop: `1px solid`,
+      borderColor: `rgba(247,233,200,0.14)`,
+      display: `flex`,
+      justifyContent: `space-between`,
+      alignItems: `baseline`,
+      flexWrap: `wrap`,
+      gap: 2,
+      fontFamily: `monospace`,
+      fontSize: `11px`,
+      letterSpacing: `0.12em`,
+      color: `rgba(244,240,232,0.45)`,
+    }}
+  >
+    <span>© {new Date().getFullYear()} jinyoungkim</span>
+    <Link
+      to="/disclaimer/"
+      sx={{
+        color: `rgba(244,240,232,0.45)`,
+        textDecoration: `none`,
+        transition: `color 0.2s`,
+        "&:hover": { color: `ember` },
       }}
     >
-      <Link
-        to="/disclaimer/"
-        style={{
-          color: "#8b7a6f",
-          fontSize: "12px",
-          textDecoration: "none",
-        }}
-      >
-        Disclaimer
-      </Link>
-    </footer>
-  )
-}
+      disclaimer
+    </Link>
+  </footer>
+)
 
 export default Footer

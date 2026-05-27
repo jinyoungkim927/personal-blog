@@ -3,9 +3,10 @@ import * as React from "react"
 import { jsx } from "theme-ui"
 import { useState, useCallback, useRef, useEffect } from "react"
 
-// 40+ WILD animation effects - go crazy!
+// Pool of animation effects.
+// Motion-heavy: 33 motion + 4 color = ~11% chance of a color animation.
 const ANIMATION_EFFECTS = [
-  // Motion effects
+  // Original motion
   { name: "wave", className: "anim-wave" },
   { name: "bounce", className: "anim-bounce" },
   { name: "spin", className: "anim-spin" },
@@ -18,48 +19,35 @@ const ANIMATION_EFFECTS = [
   { name: "squish", className: "anim-squish" },
   { name: "tornado", className: "anim-tornado" },
   { name: "float", className: "anim-float" },
-  
-  // Color effects
-  { name: "rainbow", className: "anim-rainbow" },
-  { name: "neon", className: "anim-neon" },
-  { name: "disco", className: "anim-disco" },
+  { name: "balloon", className: "anim-balloon" },
+
+  // New pure-motion effects
+  { name: "wobble", className: "anim-wobble" },
+  { name: "swing", className: "anim-swing" },
+  { name: "pendulum", className: "anim-pendulum" },
+  { name: "shimmy", className: "anim-shimmy" },
+  { name: "hop", className: "anim-hop" },
+  { name: "levitate", className: "anim-levitate" },
+  { name: "plunge", className: "anim-plunge" },
+  { name: "stretch", className: "anim-stretch" },
+  { name: "squeeze", className: "anim-squeeze" },
+  { name: "tall", className: "anim-tall" },
+  { name: "short", className: "anim-short" },
+  { name: "flip-v", className: "anim-flip-v" },
+  { name: "mirror", className: "anim-mirror" },
+  { name: "ripple", className: "anim-ripple" },
+  { name: "sway", className: "anim-sway" },
+  { name: "corkscrew", className: "anim-corkscrew" },
+  { name: "cascade", className: "anim-cascade" },
+  { name: "zip", className: "anim-zip" },
+  { name: "lean", className: "anim-lean" },
+  { name: "quiver", className: "anim-quiver" },
+
+  // Color/texture — kept rare (~11% of the pool)
   { name: "fire", className: "anim-fire" },
   { name: "ice", className: "anim-ice" },
-  { name: "galaxy", className: "anim-galaxy" },
-  { name: "sunset", className: "anim-sunset" },
-  { name: "candy", className: "anim-candy" },
-  { name: "matrix", className: "anim-matrix" },
-  { name: "holographic", className: "anim-holographic" },
-  
-  // Pattern effects
-  { name: "zebra", className: "anim-zebra" },
-  { name: "leopard", className: "anim-leopard" },
-  { name: "tiger", className: "anim-tiger" },
-  { name: "cow", className: "anim-cow" },
-  { name: "glitter", className: "anim-glitter" },
   { name: "sparkle", className: "anim-sparkle" },
-  
-  // Texture effects
-  { name: "furry", className: "anim-furry" },
-  { name: "slime", className: "anim-slime" },
-  { name: "chrome", className: "anim-chrome" },
-  { name: "lava", className: "anim-lava" },
-  { name: "underwater", className: "anim-underwater" },
-  { name: "electric", className: "anim-electric" },
-  
-  // Style effects
-  { name: "glitch", className: "anim-glitch" },
-  { name: "retro", className: "anim-retro" },
-  { name: "comic", className: "anim-comic" },
-  { name: "graffiti", className: "anim-graffiti" },
-  { name: "psychedelic", className: "anim-psychedelic" },
-  { name: "vaporwave", className: "anim-vaporwave" },
-  
-  // Special effects
-  { name: "scramble", className: "anim-scramble" },
-  { name: "drip", className: "anim-drip" },
-  { name: "balloon", className: "anim-balloon" },
-  { name: "confetti", className: "anim-confetti" },
+  { name: "glitter", className: "anim-glitter" },
 ]
 
 // Shuffle array (Fisher-Yates)

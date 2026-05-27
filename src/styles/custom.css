@@ -1,184 +1,31 @@
 /* ===========================================
-   TAG STYLING - Consistent colors per tag
+   PAINTERLY DARK — overrides
+   Tag colors and sepia accents removed.
+   New tag styling lives inside React components (theme-ui sx).
+   Animation keyframes for AnimatedUseless preserved below.
    =========================================== */
 
-a[href*="/tags/"] {
-  display: inline-block;
-  padding: 2px 10px;
-  margin: 2px 4px 2px 0;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  /* Default fallback color */
-  background: rgba(139, 111, 71, 0.15);
-  color: #6b5435;
-}
-
-a[href*="/tags/"]::before {
-  content: "#";
-}
-
-a[href*="/tags/"]:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Philosophy - Deep purple/violet */
-a[href="/tags/philosophy/"],
-a[href*="/tags/philosophy/"] {
-  background: rgba(139, 92, 246, 0.2);
-  color: #5b21b6;
-}
-a[href="/tags/philosophy/"]:hover,
-a[href*="/tags/philosophy/"]:hover {
-  background: rgba(139, 92, 246, 0.35);
-}
-
-/* Mathematics - Deep blue */
-a[href="/tags/mathematics/"],
-a[href*="/tags/mathematics/"] {
-  background: rgba(59, 130, 246, 0.2);
-  color: #1e40af;
-}
-a[href="/tags/mathematics/"]:hover,
-a[href*="/tags/mathematics/"]:hover {
-  background: rgba(59, 130, 246, 0.35);
-}
-
-/* Linear Algebra - Teal/cyan */
-a[href="/tags/linear-algebra/"],
-a[href*="/tags/linear-algebra/"] {
-  background: rgba(20, 184, 166, 0.2);
-  color: #0f766e;
-}
-a[href="/tags/linear-algebra/"]:hover,
-a[href*="/tags/linear-algebra/"]:hover {
-  background: rgba(20, 184, 166, 0.35);
-}
-
-/* Aesthetics - Rose/pink */
-a[href="/tags/aesthetics/"],
-a[href*="/tags/aesthetics/"] {
-  background: rgba(244, 114, 182, 0.2);
-  color: #9d174d;
-}
-a[href="/tags/aesthetics/"]:hover,
-a[href*="/tags/aesthetics/"]:hover {
-  background: rgba(244, 114, 182, 0.35);
-}
-
-/* Theology - Warm amber/gold */
-a[href="/tags/theology/"],
-a[href*="/tags/theology/"] {
-  background: rgba(245, 158, 11, 0.2);
-  color: #92400e;
-}
-a[href="/tags/theology/"]:hover,
-a[href*="/tags/theology/"]:hover {
-  background: rgba(245, 158, 11, 0.35);
-}
-
-/* Technology - Slate/gray-blue */
-a[href="/tags/technology/"],
-a[href*="/tags/technology/"] {
-  background: rgba(100, 116, 139, 0.2);
-  color: #334155;
-}
-a[href="/tags/technology/"]:hover,
-a[href*="/tags/technology/"]:hover {
-  background: rgba(100, 116, 139, 0.35);
-}
-
-/* AI / Machine Learning - Electric indigo */
-a[href="/tags/ai/"],
-a[href*="/tags/ai/"],
-a[href="/tags/machine-learning/"],
-a[href*="/tags/machine-learning/"] {
-  background: rgba(99, 102, 241, 0.2);
-  color: #3730a3;
-}
-a[href="/tags/ai/"]:hover,
-a[href*="/tags/ai/"]:hover,
-a[href="/tags/machine-learning/"]:hover,
-a[href*="/tags/machine-learning/"]:hover {
-  background: rgba(99, 102, 241, 0.35);
-}
-
-/* Writing - Warm green */
-a[href="/tags/writing/"],
-a[href*="/tags/writing/"] {
-  background: rgba(34, 197, 94, 0.2);
-  color: #15803d;
-}
-a[href="/tags/writing/"]:hover,
-a[href*="/tags/writing/"]:hover {
-  background: rgba(34, 197, 94, 0.35);
-}
-
-/* Life - Coral/orange */
-a[href="/tags/life/"],
-a[href*="/tags/life/"] {
-  background: rgba(251, 146, 60, 0.2);
-  color: #c2410c;
-}
-a[href="/tags/life/"]:hover,
-a[href*="/tags/life/"]:hover {
-  background: rgba(251, 146, 60, 0.35);
-}
-
-/* Finance/Economics - Forest green */
-a[href="/tags/finance/"],
-a[href*="/tags/finance/"],
-a[href="/tags/economics/"],
-a[href*="/tags/economics/"] {
-  background: rgba(22, 163, 74, 0.2);
-  color: #166534;
-}
-a[href="/tags/finance/"]:hover,
-a[href*="/tags/finance/"]:hover,
-a[href="/tags/economics/"]:hover,
-a[href*="/tags/economics/"]:hover {
-  background: rgba(22, 163, 74, 0.35);
-}
-
-/* ===========================================
-   SPACING & TYPOGRAPHY
-   =========================================== */
-
-body {
-  padding: 0 20px;
-}
-
-/* Center the main content container */
+/* allow the page to breathe to ~1080px instead of 720px */
 main,
 [id="skip-nav"] {
-  max-width: 720px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 40px 24px;
+  padding: 0 24px;
 }
 
-/* Center blog post content when reading */
-article {
-  max-width: 680px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-}
-
-/* Ensure the outer wrapper is centered */
-[class*="css-"] > main,
-#___gatsby > div > div > main {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Post page specific centering */
 [data-gatsby-body-wrapper] {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* article content (post pages) — readable measure */
+article {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  line-height: 1.7;
 }
 
 article h2,
@@ -186,21 +33,21 @@ section h2 a {
   margin-bottom: 8px;
 }
 
-article,
-section > div {
-  line-height: 1.7;
-}
-
 article h1,
 article h2,
 article h3 {
   margin-top: 2em;
   margin-bottom: 0.75em;
+  color: #fdf8ec;
 }
 
-/* First h1 in article (the title) shouldn't have top margin */
 article > h1:first-of-type {
   margin-top: 0;
+}
+
+article p,
+article li {
+  color: #f4f0e8;
 }
 
 p {
@@ -219,9 +66,10 @@ li {
 blockquote {
   margin: 1.5em 0;
   padding: 1em 1.5em;
-  border-left: 3px solid #8b6f47;
-  background: rgba(139, 111, 71, 0.05);
+  border-left: 3px solid #d4a24e;
+  background: rgba(212, 162, 78, 0.06);
   font-style: italic;
+  color: #d6cfbb;
 }
 
 /* ===========================================
@@ -230,6 +78,7 @@ blockquote {
 
 .katex {
   font-size: 1.1em;
+  color: #f4f0e8;
 }
 
 .katex-display {
@@ -239,7 +88,7 @@ blockquote {
 }
 
 /* ===========================================
-   GRAPH BUTTON & MODAL
+   GRAPH BUTTON & MODAL — kept for post pages
    =========================================== */
 
 .graph-button {
@@ -248,7 +97,6 @@ blockquote {
   right: 24px;
   width: 56px;
   height: 56px;
-  border-radius: 0;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -272,11 +120,8 @@ blockquote {
 
 .graph-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.8);
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
   z-index: 1001;
   display: flex;
   align-items: center;
@@ -286,8 +131,9 @@ blockquote {
 .graph-modal {
   width: 90vw;
   height: 85vh;
-  background: #faf9f7;
-  border-radius: 12px;
+  background: #1c1812;
+  border: 1px solid rgba(247,233,200,0.18);
+  border-radius: 4px;
   overflow: hidden;
   position: relative;
 }
@@ -299,7 +145,8 @@ blockquote {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #e8e0d5;
+  background: rgba(247,233,200,0.12);
+  color: #f4f0e8;
   border: none;
   cursor: pointer;
   display: flex;
@@ -309,26 +156,7 @@ blockquote {
 }
 
 .graph-modal-close:hover {
-  background: #d4c9b9;
-}
-
-/* ===========================================
-   FOOTER
-   =========================================== */
-
-footer {
-  margin-top: 60px;
-  padding: 24px 0;
-  border-top: 1px solid #e8e0d5;
-}
-
-/* ===========================================
-   HEADER SPACING
-   =========================================== */
-
-header {
-  margin-bottom: 40px !important;
-  padding-top: 20px;
+  background: rgba(212,162,78,0.4);
 }
 
 /* ===========================================
@@ -336,29 +164,30 @@ header {
    =========================================== */
 
 a.wiki-link {
-  color: #8b6f47;
+  color: #ffd9a0;
   text-decoration: none;
-  border-bottom: 1px dashed #8b6f47;
+  border-bottom: 1px dashed #ffd9a0;
 }
 
 a.wiki-link:hover {
   border-bottom-style: solid;
+  color: #d4a24e;
+  border-bottom-color: #d4a24e;
 }
 
 a.wiki-link.unresolved {
-  color: #a09080;
-  border-bottom-color: #a09080;
+  color: #a89e8b;
+  border-bottom-color: #a89e8b;
 }
 
 /* ===========================================
-   🎨 ANIMATED USELESS TEXT - 44 WILD EFFECTS!
-   GO CRAZY! 🦓🔥✨🌈💫🎪🍭🌊⚡
+   ANIMATED USELESS — 44 effects, preserved
    =========================================== */
 
 .animated-useless {
   cursor: pointer;
   user-select: none;
-  display: inline-block;
+  /* display set by component (inline when used inline, inline-block otherwise) */
 }
 
 .animated-letter {
@@ -366,76 +195,47 @@ a.wiki-link.unresolved {
   transition: all 0.3s ease;
 }
 
-/* ========== MOTION EFFECTS ========== */
-
-/* 1. Wave */
+/* Motion */
 @keyframes wave {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-0.35em); }
 }
-.anim-wave .animated-letter {
-  animation: wave 0.67s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.07s);
-}
+.anim-wave .animated-letter { animation: wave 0.67s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.07s); }
 
-/* 2. Bounce */
 @keyframes bounce {
   0%, 100% { transform: translateY(0) scale(1); }
   30% { transform: translateY(-0.5em) scale(1.2, 0.8); }
   50% { transform: translateY(0) scale(0.8, 1.2); }
   70% { transform: translateY(-0.15em) scale(1.05, 0.95); }
 }
-.anim-bounce .animated-letter {
-  animation: bounce 0.93s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-  animation-delay: calc(var(--letter-index) * 0.08s);
-}
+.anim-bounce .animated-letter { animation: bounce 0.93s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; animation-delay: calc(var(--letter-index) * 0.08s); }
 
-/* 3. Spin */
-@keyframes spin {
-  from { transform: rotateY(0deg); }
-  to { transform: rotateY(360deg); }
-}
-.anim-spin .animated-letter {
-  animation: spin 0.8s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.08s);
-}
+@keyframes spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+.anim-spin .animated-letter { animation: spin 0.8s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.08s); }
 
-/* 4. Jello */
 @keyframes jello {
   0%, 100% { transform: skewX(0deg) skewY(0deg); }
   25% { transform: skewX(-8deg) skewY(-3deg); }
   50% { transform: skewX(6deg) skewY(2deg); }
   75% { transform: skewX(-4deg) skewY(-1deg); }
 }
-.anim-jello .animated-letter {
-  animation: jello 0.67s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.06s);
-}
+.anim-jello .animated-letter { animation: jello 0.67s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.06s); }
 
-/* 5. Rubber */
 @keyframes rubber {
   0%, 100% { transform: scaleX(1) scaleY(1); }
   25% { transform: scaleX(1.4) scaleY(0.6); }
   50% { transform: scaleX(0.6) scaleY(1.4); }
   75% { transform: scaleX(1.2) scaleY(0.8); }
 }
-.anim-rubber .animated-letter {
-  animation: rubber 1.07s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-}
+.anim-rubber .animated-letter { animation: rubber 1.07s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.1s); }
 
-/* 6. Flip */
 @keyframes flip {
   0% { transform: perspective(400px) rotateX(0deg); }
   50% { transform: perspective(400px) rotateX(180deg); }
   100% { transform: perspective(400px) rotateX(360deg); }
 }
-.anim-flip .animated-letter {
-  animation: flip 1.33s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-}
+.anim-flip .animated-letter { animation: flip 1.33s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.1s); }
 
-/* 7. Shake */
 @keyframes shake {
   0%, 100% { transform: translate(0); }
   10% { transform: translate(-4px, 3px) rotate(-2deg); }
@@ -448,48 +248,28 @@ a.wiki-link.unresolved {
   80% { transform: translate(2px, -4px) rotate(1deg); }
   90% { transform: translate(-3px, 3px); }
 }
-.anim-shake .animated-letter {
-  animation: shake 0.4s linear infinite;
-}
+.anim-shake .animated-letter { animation: shake 0.4s linear infinite; }
 
-/* 8. Pulse */
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.5); }
-}
-.anim-pulse .animated-letter {
-  animation: pulse 0.8s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.08s);
-}
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
+.anim-pulse .animated-letter { animation: pulse 0.8s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.08s); }
 
-/* 9. Explode */
 @keyframes explode {
   0%, 100% { transform: translate(0) rotate(0deg) scale(1); opacity: 1; }
-  50% { 
-    transform: translate(
-      calc((var(--letter-index) - 3) * 15px), 
-      calc((var(--letter-index) - 3) * -10px)
-    ) rotate(calc((var(--letter-index) - 3) * 25deg)) scale(1.3); 
+  50% {
+    transform: translate(calc((var(--letter-index) - 3) * 15px), calc((var(--letter-index) - 3) * -10px)) rotate(calc((var(--letter-index) - 3) * 25deg)) scale(1.3);
     opacity: 0.7;
   }
 }
-.anim-explode .animated-letter {
-  animation: explode 1.07s ease-in-out infinite;
-}
+.anim-explode .animated-letter { animation: explode 1.07s ease-in-out infinite; }
 
-/* 10. Squish */
 @keyframes squish {
   0%, 100% { transform: scaleX(1) scaleY(1); }
   25% { transform: scaleX(0.3) scaleY(1.7); }
   50% { transform: scaleX(1.7) scaleY(0.3); }
   75% { transform: scaleX(0.6) scaleY(1.4); }
 }
-.anim-squish .animated-letter {
-  animation: squish 0.8s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.06s);
-}
+.anim-squish .animated-letter { animation: squish 0.8s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.06s); }
 
-/* 11. Tornado */
 @keyframes tornado {
   0% { transform: rotate(0deg) translateY(0); }
   25% { transform: rotate(90deg) translateY(-5px); }
@@ -497,26 +277,150 @@ a.wiki-link.unresolved {
   75% { transform: rotate(270deg) translateY(5px); }
   100% { transform: rotate(360deg) translateY(0); }
 }
-.anim-tornado .animated-letter {
-  animation: tornado 1.07s linear infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-}
+.anim-tornado .animated-letter { animation: tornado 1.07s linear infinite; animation-delay: calc(var(--letter-index) * 0.1s); }
 
-/* 12. Float */
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(-3deg); }
   25% { transform: translateY(-8px) rotate(3deg); }
   50% { transform: translateY(-3px) rotate(-2deg); }
   75% { transform: translateY(-10px) rotate(2deg); }
 }
-.anim-float .animated-letter {
-  animation: float 2.67s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.2s);
+.anim-float .animated-letter { animation: float 2.67s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.2s); }
+
+/* ===== Additional pure-motion effects (no color) ===== */
+
+@keyframes wobble {
+  0%, 100% { transform: skewX(0) rotate(0); }
+  25% { transform: skewX(-4deg) rotate(-1deg); }
+  50% { transform: skewX(4deg) rotate(1deg); }
+  75% { transform: skewX(-2deg) rotate(-0.5deg); }
 }
+.anim-wobble .animated-letter { animation: wobble 0.6s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.05s); }
 
-/* ========== COLOR EFFECTS ========== */
+@keyframes swing {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+.anim-swing .animated-letter { animation: swing 0.9s ease-in-out infinite; transform-origin: 50% 100%; animation-delay: calc(var(--letter-index) * 0.06s); }
 
-/* 13. Rainbow */
+@keyframes pendulum {
+  0%, 100% { transform: rotate(-18deg); }
+  50% { transform: rotate(18deg); }
+}
+.anim-pendulum .animated-letter { animation: pendulum 1.4s ease-in-out infinite; transform-origin: 50% 0%; }
+
+@keyframes shimmy {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+.anim-shimmy .animated-letter { animation: shimmy 0.15s linear infinite; }
+
+@keyframes hop {
+  0%, 30%, 100% { transform: translateY(0); }
+  60% { transform: translateY(-12px); }
+}
+.anim-hop .animated-letter { animation: hop 0.8s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.08s); }
+
+@keyframes levitate {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.anim-levitate .animated-letter { animation: levitate 2s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.12s); }
+
+@keyframes plunge {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(10px); }
+  60% { transform: translateY(0); }
+}
+.anim-plunge .animated-letter { animation: plunge 0.85s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.07s); }
+
+@keyframes stretch {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.5); }
+}
+.anim-stretch .animated-letter { animation: stretch 0.9s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.05s); }
+
+@keyframes squeeze {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.6); }
+}
+.anim-squeeze .animated-letter { animation: squeeze 0.9s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.05s); }
+
+@keyframes tall {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.5); }
+}
+.anim-tall .animated-letter { animation: tall 0.9s ease-in-out infinite; transform-origin: 50% 100%; animation-delay: calc(var(--letter-index) * 0.05s); }
+
+@keyframes short {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.6); }
+}
+.anim-short .animated-letter { animation: short 0.9s ease-in-out infinite; transform-origin: 50% 100%; animation-delay: calc(var(--letter-index) * 0.05s); }
+
+@keyframes flip-v {
+  0% { transform: rotateX(0); }
+  100% { transform: rotateX(360deg); }
+}
+.anim-flip-v .animated-letter { animation: flip-v 1.4s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.08s); }
+
+@keyframes mirror {
+  0%, 49% { transform: scaleX(1); }
+  50%, 100% { transform: scaleX(-1); }
+}
+.anim-mirror .animated-letter { animation: mirror 1.6s steps(2) infinite; animation-delay: calc(var(--letter-index) * 0.1s); }
+
+@keyframes ripple {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.anim-ripple .animated-letter { animation: ripple 1.5s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.15s); }
+
+@keyframes sway {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+.anim-sway .animated-letter { animation: sway 2.2s ease-in-out infinite; }
+
+@keyframes corkscrew {
+  0% { transform: rotate(0) translateY(0); }
+  50% { transform: rotate(180deg) translateY(-6px); }
+  100% { transform: rotate(360deg) translateY(0); }
+}
+.anim-corkscrew .animated-letter { animation: corkscrew 1.4s linear infinite; animation-delay: calc(var(--letter-index) * 0.08s); }
+
+@keyframes cascade {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(15px); }
+}
+.anim-cascade .animated-letter { animation: cascade 1.2s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.12s); }
+
+@keyframes zip {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-12px); }
+  40% { transform: translateX(12px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+}
+.anim-zip .animated-letter { animation: zip 0.4s ease-out infinite; }
+
+@keyframes lean {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.anim-lean .animated-letter { animation: lean 2.4s ease-in-out infinite; }
+
+@keyframes quiver {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-0.5px, -0.5px); }
+  50% { transform: translate(0.5px, 0.5px); }
+  75% { transform: translate(-0.5px, 0.5px); }
+}
+.anim-quiver .animated-letter { animation: quiver 0.1s linear infinite; }
+
+/* Color */
 @keyframes rainbow {
   0% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
   16% { color: #ff8800; text-shadow: 0 0 10px #ff8800; }
@@ -526,29 +430,14 @@ a.wiki-link.unresolved {
   83% { color: #8800ff; text-shadow: 0 0 10px #8800ff; }
   100% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
 }
-.anim-rainbow .animated-letter {
-  animation: rainbow 2s linear infinite;
-  animation-delay: calc(var(--letter-index) * 0.12s);
-  font-weight: bold;
-}
+.anim-rainbow .animated-letter { animation: rainbow 2s linear infinite; animation-delay: calc(var(--letter-index) * 0.12s); font-weight: bold; }
 
-/* 14. Neon */
 @keyframes neon {
-  0%, 100% { 
-    color: #fff;
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de;
-  }
-  50% { 
-    color: #ff00de;
-    text-shadow: 0 0 2px #fff, 0 0 5px #ff00de, 0 0 10px #ff00de;
-  }
+  0%, 100% { color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de; }
+  50% { color: #ff00de; text-shadow: 0 0 2px #fff, 0 0 5px #ff00de, 0 0 10px #ff00de; }
 }
-.anim-neon .animated-letter {
-  animation: neon 1.07s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.06s);
-}
+.anim-neon .animated-letter { animation: neon 1.07s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.06s); }
 
-/* 15. Disco */
 @keyframes disco {
   0% { color: #ff0080; background: #000; text-shadow: 0 0 20px #ff0080; }
   20% { color: #00ff80; background: #200020; text-shadow: 0 0 20px #00ff80; }
@@ -557,60 +446,22 @@ a.wiki-link.unresolved {
   80% { color: #00ffff; background: #002000; text-shadow: 0 0 20px #00ffff; }
   100% { color: #ff0080; background: #000; text-shadow: 0 0 20px #ff0080; }
 }
-.anim-disco .animated-letter {
-  animation: disco 0.67s steps(1) infinite;
-  animation-delay: calc(var(--letter-index) * 0.05s);
-  padding: 0 2px;
-  border-radius: 2px;
-}
+.anim-disco .animated-letter { animation: disco 0.67s steps(1) infinite; animation-delay: calc(var(--letter-index) * 0.05s); padding: 0 2px; border-radius: 2px; }
 
-/* 16. Fire 🔥 */
 @keyframes fire {
-  0%, 100% { 
-    color: #ff0000;
-    text-shadow: 0 -3px 10px #ff6600, 0 -5px 20px #ff3300, 0 -7px 30px #ff0000;
-    transform: translateY(0);
-  }
-  25% { 
-    color: #ff3300;
-    text-shadow: 0 -5px 15px #ffcc00, 0 -8px 25px #ff6600, 0 -10px 35px #ff3300;
-    transform: translateY(-2px);
-  }
-  50% { 
-    color: #ff6600;
-    text-shadow: 0 -4px 12px #ffff00, 0 -6px 22px #ffcc00, 0 -8px 32px #ff6600;
-    transform: translateY(-1px);
-  }
-  75% { 
-    color: #ff4400;
-    text-shadow: 0 -6px 18px #ff9900, 0 -9px 28px #ff6600, 0 -11px 38px #ff3300;
-    transform: translateY(-3px);
-  }
+  0%, 100% { color: #ff0000; text-shadow: 0 -3px 10px #ff6600, 0 -5px 20px #ff3300, 0 -7px 30px #ff0000; transform: translateY(0); }
+  25% { color: #ff3300; text-shadow: 0 -5px 15px #ffcc00, 0 -8px 25px #ff6600, 0 -10px 35px #ff3300; transform: translateY(-2px); }
+  50% { color: #ff6600; text-shadow: 0 -4px 12px #ffff00, 0 -6px 22px #ffcc00, 0 -8px 32px #ff6600; transform: translateY(-1px); }
+  75% { color: #ff4400; text-shadow: 0 -6px 18px #ff9900, 0 -9px 28px #ff6600, 0 -11px 38px #ff3300; transform: translateY(-3px); }
 }
-.anim-fire .animated-letter {
-  animation: fire 0.53s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.05s);
-}
+.anim-fire .animated-letter { animation: fire 0.53s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.05s); }
 
-/* 17. Ice ❄️ */
 @keyframes ice {
-  0%, 100% { 
-    color: #a0e6ff;
-    text-shadow: 0 0 5px #fff, 0 0 10px #a0e6ff, 0 0 20px #60c0ff;
-    transform: scale(1);
-  }
-  50% { 
-    color: #60c0ff;
-    text-shadow: 0 0 8px #fff, 0 0 15px #80d4ff, 0 0 25px #40a0ff, 0 2px 3px rgba(255,255,255,0.8);
-    transform: scale(1.05);
-  }
+  0%, 100% { color: #a0e6ff; text-shadow: 0 0 5px #fff, 0 0 10px #a0e6ff, 0 0 20px #60c0ff; transform: scale(1); }
+  50% { color: #60c0ff; text-shadow: 0 0 8px #fff, 0 0 15px #80d4ff, 0 0 25px #40a0ff, 0 2px 3px rgba(255,255,255,0.8); transform: scale(1.05); }
 }
-.anim-ice .animated-letter {
-  animation: ice 1.6s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-}
+.anim-ice .animated-letter { animation: ice 1.6s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.1s); }
 
-/* 18. Galaxy 🌌 */
 @keyframes galaxy {
   0% { color: #ff00ff; text-shadow: 0 0 10px #ff00ff, 2px 2px 20px #0000ff; }
   25% { color: #00ffff; text-shadow: 0 0 10px #00ffff, -2px 2px 20px #ff00ff; }
@@ -618,28 +469,11 @@ a.wiki-link.unresolved {
   75% { color: #ff6600; text-shadow: 0 0 10px #ff6600, -2px -2px 20px #ffff00; }
   100% { color: #ff00ff; text-shadow: 0 0 10px #ff00ff, 2px 2px 20px #0000ff; }
 }
-.anim-galaxy .animated-letter {
-  animation: galaxy 2.67s linear infinite;
-  animation-delay: calc(var(--letter-index) * 0.15s);
-  background: linear-gradient(45deg, #000033, #330033, #003333);
-  -webkit-background-clip: text;
-  padding: 0 1px;
-}
+.anim-galaxy .animated-letter { animation: galaxy 2.67s linear infinite; animation-delay: calc(var(--letter-index) * 0.15s); background: linear-gradient(45deg, #000033, #330033, #003333); -webkit-background-clip: text; padding: 0 1px; }
 
-/* 19. Sunset 🌅 */
-@keyframes sunset {
-  0%, 100% { color: #ff6b35; }
-  25% { color: #f7931e; }
-  50% { color: #ff0080; }
-  75% { color: #8b5cf6; }
-}
-.anim-sunset .animated-letter {
-  animation: sunset 2.67s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.2s);
-  text-shadow: 0 2px 10px currentColor;
-}
+@keyframes sunset { 0%, 100% { color: #ff6b35; } 25% { color: #f7931e; } 50% { color: #ff0080; } 75% { color: #8b5cf6; } }
+.anim-sunset .animated-letter { animation: sunset 2.67s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.2s); text-shadow: 0 2px 10px currentColor; }
 
-/* 20. Candy 🍭 */
 @keyframes candy {
   0% { color: #ff69b4; transform: rotate(-5deg); }
   25% { color: #87ceeb; transform: rotate(5deg); }
@@ -647,47 +481,18 @@ a.wiki-link.unresolved {
   75% { color: #ffd700; transform: rotate(3deg); }
   100% { color: #ff69b4; transform: rotate(-5deg); }
 }
-.anim-candy .animated-letter {
-  animation: candy 1.07s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-  font-weight: bold;
-}
+.anim-candy .animated-letter { animation: candy 1.07s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.1s); font-weight: bold; }
 
-/* 21. Matrix 💻 */
 @keyframes matrix {
-  0%, 100% { 
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
-    opacity: 1;
-  }
-  50% { 
-    color: #003300;
-    text-shadow: 0 0 2px #00ff00;
-    opacity: 0.7;
-  }
+  0%, 100% { color: #00ff00; text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; opacity: 1; }
+  50% { color: #003300; text-shadow: 0 0 2px #00ff00; opacity: 0.7; }
 }
-.anim-matrix .animated-letter {
-  animation: matrix 0.4s steps(2) infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-  font-family: "Courier New", monospace;
-  background: #000;
-  padding: 0 2px;
-}
+.anim-matrix .animated-letter { animation: matrix 0.4s steps(2) infinite; animation-delay: calc(var(--letter-index) * 0.1s); font-family: "Courier New", monospace; background: #000; padding: 0 2px; }
 
-/* 22. Holographic ✨ */
 @keyframes holographic {
-  0% { 
-    background-position: 0% 50%;
-    filter: hue-rotate(0deg);
-  }
-  50% { 
-    background-position: 100% 50%;
-    filter: hue-rotate(180deg);
-  }
-  100% { 
-    background-position: 0% 50%;
-    filter: hue-rotate(360deg);
-  }
+  0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+  50% { background-position: 100% 50%; filter: hue-rotate(180deg); }
+  100% { background-position: 0% 50%; filter: hue-rotate(360deg); }
 }
 .anim-holographic .animated-letter {
   background: linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #8800ff, #ff0088);
@@ -698,240 +503,86 @@ a.wiki-link.unresolved {
   animation-delay: calc(var(--letter-index) * 0.1s);
 }
 
-/* ========== PATTERN EFFECTS ========== */
-
-/* 23. Zebra 🦓 */
+/* Pattern */
 @keyframes zebra {
-  0%, 100% { 
-    color: #000;
-    background: linear-gradient(90deg, #fff 50%, #000 50%);
-    background-size: 4px 100%;
-  }
-  50% { 
-    color: #fff;
-    background: linear-gradient(90deg, #000 50%, #fff 50%);
-    background-size: 4px 100%;
-  }
+  0%, 100% { color: #000; background: linear-gradient(90deg, #fff 50%, #000 50%); background-size: 4px 100%; }
+  50% { color: #fff; background: linear-gradient(90deg, #000 50%, #fff 50%); background-size: 4px 100%; }
 }
-.anim-zebra .animated-letter {
-  animation: zebra 0.67s steps(1) infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-  -webkit-background-clip: text;
-  padding: 0 2px;
-}
+.anim-zebra .animated-letter { animation: zebra 0.67s steps(1) infinite; animation-delay: calc(var(--letter-index) * 0.1s); -webkit-background-clip: text; padding: 0 2px; }
 
-/* 24. Leopard 🐆 */
 @keyframes leopard {
-  0%, 100% { 
-    color: #c9a227;
-    text-shadow: 2px 2px 0 #000, -1px -1px 0 #8b4513;
-  }
-  50% { 
-    color: #8b4513;
-    text-shadow: -2px 2px 0 #000, 1px -1px 0 #c9a227;
-  }
+  0%, 100% { color: #c9a227; text-shadow: 2px 2px 0 #000, -1px -1px 0 #8b4513; }
+  50% { color: #8b4513; text-shadow: -2px 2px 0 #000, 1px -1px 0 #c9a227; }
 }
-.anim-leopard .animated-letter {
-  animation: leopard 0.8s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.08s);
-  font-weight: bold;
-}
+.anim-leopard .animated-letter { animation: leopard 0.8s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.08s); font-weight: bold; }
 
-/* 25. Tiger 🐯 */
 @keyframes tiger {
-  0%, 100% { 
-    color: #ff6600;
-    text-shadow: 3px 0 #000, -3px 0 #000;
-  }
-  50% { 
-    color: #000;
-    text-shadow: 3px 0 #ff6600, -3px 0 #ff6600;
-  }
+  0%, 100% { color: #ff6600; text-shadow: 3px 0 #000, -3px 0 #000; }
+  50% { color: #000; text-shadow: 3px 0 #ff6600, -3px 0 #ff6600; }
 }
-.anim-tiger .animated-letter {
-  animation: tiger 0.53s steps(1) infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-  font-weight: 900;
-}
+.anim-tiger .animated-letter { animation: tiger 0.53s steps(1) infinite; animation-delay: calc(var(--letter-index) * 0.1s); font-weight: 900; }
 
-/* 26. Cow 🐄 */
 @keyframes cow {
   0%, 100% { color: #000; background: #fff; }
   33% { color: #fff; background: #000; }
   66% { color: #000; background: #fff; }
 }
-.anim-cow .animated-letter {
-  animation: cow 1.07s steps(1) infinite;
-  animation-delay: calc(var(--letter-index) * 0.15s);
-  border-radius: 50%;
-  padding: 0 4px;
-}
+.anim-cow .animated-letter { animation: cow 1.07s steps(1) infinite; animation-delay: calc(var(--letter-index) * 0.15s); border-radius: 50%; padding: 0 4px; }
 
-/* 27. Glitter ✨ */
 @keyframes glitter {
-  0%, 100% { 
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ffd700;
-    opacity: 1;
-  }
-  25% { 
-    text-shadow: 2px -2px 8px #ff69b4, -2px 2px 8px #00ffff;
-    opacity: 0.8;
-  }
-  50% { 
-    text-shadow: -3px 1px 10px #ffd700, 3px -1px 10px #ff1493;
-    opacity: 1;
-  }
-  75% { 
-    text-shadow: 1px 3px 8px #00ff00, -1px -3px 8px #ff6600;
-    opacity: 0.9;
-  }
+  0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ffd700; opacity: 1; }
+  25% { text-shadow: 2px -2px 8px #ff69b4, -2px 2px 8px #00ffff; opacity: 0.8; }
+  50% { text-shadow: -3px 1px 10px #ffd700, 3px -1px 10px #ff1493; opacity: 1; }
+  75% { text-shadow: 1px 3px 8px #00ff00, -1px -3px 8px #ff6600; opacity: 0.9; }
 }
-.anim-glitter .animated-letter {
-  animation: glitter 0.4s linear infinite;
-  color: #ffd700;
-}
+.anim-glitter .animated-letter { animation: glitter 0.4s linear infinite; color: #ffd700; }
 
-/* 28. Sparkle 💫 */
 @keyframes sparkle {
-  0%, 100% { 
-    transform: scale(1) rotate(0deg);
-    text-shadow: 0 0 5px #fff;
-  }
-  25% { 
-    transform: scale(1.3) rotate(10deg);
-    text-shadow: 0 0 20px #ffff00, 5px 5px 30px #ff00ff;
-  }
-  50% { 
-    transform: scale(0.8) rotate(-5deg);
-    text-shadow: 0 0 10px #00ffff;
-  }
-  75% { 
-    transform: scale(1.2) rotate(5deg);
-    text-shadow: -5px -5px 25px #00ff00, 0 0 15px #fff;
-  }
+  0%, 100% { transform: scale(1) rotate(0deg); text-shadow: 0 0 5px #fff; }
+  25% { transform: scale(1.3) rotate(10deg); text-shadow: 0 0 20px #ffff00, 5px 5px 30px #ff00ff; }
+  50% { transform: scale(0.8) rotate(-5deg); text-shadow: 0 0 10px #00ffff; }
+  75% { transform: scale(1.2) rotate(5deg); text-shadow: -5px -5px 25px #00ff00, 0 0 15px #fff; }
 }
-.anim-sparkle .animated-letter {
-  animation: sparkle 0.8s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.08s);
-  color: #fff;
-}
+.anim-sparkle .animated-letter { animation: sparkle 0.8s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.08s); color: #fff; }
 
-/* ========== TEXTURE EFFECTS ========== */
-
-/* 29. Furry 🧸 */
+/* Texture */
 @keyframes furry {
-  0%, 100% { 
-    text-shadow: 
-      1px 0 2px #8B4513, -1px 0 2px #8B4513,
-      0 1px 2px #A0522D, 0 -1px 2px #A0522D,
-      2px 2px 3px #D2691E, -2px -2px 3px #D2691E;
-    transform: translateX(0);
-  }
+  0%, 100% { text-shadow: 1px 0 2px #8B4513, -1px 0 2px #8B4513, 0 1px 2px #A0522D, 0 -1px 2px #A0522D, 2px 2px 3px #D2691E, -2px -2px 3px #D2691E; transform: translateX(0); }
   25% { transform: translateX(1px) translateY(-1px); }
   50% { transform: translateX(-1px) translateY(1px); }
   75% { transform: translateX(1px) translateY(1px); }
 }
-.anim-furry .animated-letter {
-  animation: furry 0.27s linear infinite;
-  color: #8B4513;
-  font-weight: bold;
-}
+.anim-furry .animated-letter { animation: furry 0.27s linear infinite; color: #8B4513; font-weight: bold; }
 
-/* 30. Slime 🟢 */
 @keyframes slime {
-  0%, 100% { 
-    transform: scaleY(1) translateY(0);
-    color: #32cd32;
-    text-shadow: 0 5px 10px rgba(50, 205, 50, 0.5);
-  }
-  50% { 
-    transform: scaleY(1.3) translateY(5px);
-    color: #228b22;
-    text-shadow: 0 10px 20px rgba(34, 139, 34, 0.7);
-  }
+  0%, 100% { transform: scaleY(1) translateY(0); color: #32cd32; text-shadow: 0 5px 10px rgba(50, 205, 50, 0.5); }
+  50% { transform: scaleY(1.3) translateY(5px); color: #228b22; text-shadow: 0 10px 20px rgba(34, 139, 34, 0.7); }
 }
-.anim-slime .animated-letter {
-  animation: slime 1.07s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-}
+.anim-slime .animated-letter { animation: slime 1.07s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.1s); }
 
-/* 31. Chrome 🔧 */
 @keyframes chrome {
-  0%, 100% { 
-    background: linear-gradient(180deg, #fff 0%, #c0c0c0 25%, #808080 50%, #c0c0c0 75%, #fff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: brightness(1);
-  }
-  50% { 
-    filter: brightness(1.5);
-  }
+  0%, 100% { background: linear-gradient(180deg, #fff 0%, #c0c0c0 25%, #808080 50%, #c0c0c0 75%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: brightness(1); }
+  50% { filter: brightness(1.5); }
 }
-.anim-chrome .animated-letter {
-  animation: chrome 1.33s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-  font-weight: 900;
-}
+.anim-chrome .animated-letter { animation: chrome 1.33s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.1s); font-weight: 900; }
 
-/* 32. Lava 🌋 */
 @keyframes lava {
-  0%, 100% { 
-    color: #ff0000;
-    text-shadow: 0 0 10px #ff6600, 0 0 20px #ff3300, 0 5px 30px #ff0000;
-    transform: translateY(0);
-  }
-  33% { 
-    color: #ff6600;
-    text-shadow: 0 0 15px #ffcc00, 0 0 25px #ff6600, 0 8px 35px #ff3300;
-    transform: translateY(-3px);
-  }
-  66% { 
-    color: #ff3300;
-    text-shadow: 0 0 12px #ff9900, 0 0 22px #ff6600, 0 3px 32px #ff0000;
-    transform: translateY(2px);
-  }
+  0%, 100% { color: #ff0000; text-shadow: 0 0 10px #ff6600, 0 0 20px #ff3300, 0 5px 30px #ff0000; transform: translateY(0); }
+  33% { color: #ff6600; text-shadow: 0 0 15px #ffcc00, 0 0 25px #ff6600, 0 8px 35px #ff3300; transform: translateY(-3px); }
+  66% { color: #ff3300; text-shadow: 0 0 12px #ff9900, 0 0 22px #ff6600, 0 3px 32px #ff0000; transform: translateY(2px); }
 }
-.anim-lava .animated-letter {
-  animation: lava 0.8s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.08s);
-}
+.anim-lava .animated-letter { animation: lava 0.8s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.08s); }
 
-/* 33. Underwater 🌊 */
 @keyframes underwater {
-  0%, 100% { 
-    transform: translateY(0) translateX(0) rotate(0deg);
-    color: #006994;
-    filter: blur(0px);
-  }
-  25% { 
-    transform: translateY(-3px) translateX(2px) rotate(2deg);
-    color: #40e0d0;
-    filter: blur(0.5px);
-  }
-  50% { 
-    transform: translateY(2px) translateX(-2px) rotate(-1deg);
-    color: #00ced1;
-    filter: blur(0px);
-  }
-  75% { 
-    transform: translateY(-2px) translateX(1px) rotate(1deg);
-    color: #48d1cc;
-    filter: blur(0.3px);
-  }
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); color: #006994; filter: blur(0px); }
+  25% { transform: translateY(-3px) translateX(2px) rotate(2deg); color: #40e0d0; filter: blur(0.5px); }
+  50% { transform: translateY(2px) translateX(-2px) rotate(-1deg); color: #00ced1; filter: blur(0px); }
+  75% { transform: translateY(-2px) translateX(1px) rotate(1deg); color: #48d1cc; filter: blur(0.3px); }
 }
-.anim-underwater .animated-letter {
-  animation: underwater 2.67s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.15s);
-  text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
-}
+.anim-underwater .animated-letter { animation: underwater 2.67s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.15s); text-shadow: 0 0 10px rgba(0, 150, 255, 0.5); }
 
-/* 34. Electric ⚡ */
 @keyframes electric {
-  0%, 100% { 
-    color: #ffff00;
-    text-shadow: 0 0 5px #fff, 0 0 10px #ffff00, 0 0 20px #ffff00;
-    transform: translate(0);
-  }
+  0%, 100% { color: #ffff00; text-shadow: 0 0 5px #fff, 0 0 10px #ffff00, 0 0 20px #ffff00; transform: translate(0); }
   10% { transform: translate(-2px, 1px); color: #fff; }
   20% { transform: translate(2px, -1px); }
   30% { transform: translate(-1px, -2px); color: #87ceeb; }
@@ -942,18 +593,11 @@ a.wiki-link.unresolved {
   80% { transform: translate(1px, -2px); }
   90% { transform: translate(-2px, 2px); color: #87ceeb; }
 }
-.anim-electric .animated-letter {
-  animation: electric 0.27s linear infinite;
-}
+.anim-electric .animated-letter { animation: electric 0.27s linear infinite; }
 
-/* ========== STYLE EFFECTS ========== */
-
-/* 35. Glitch */
+/* Style */
 @keyframes glitch {
-  0%, 100% { 
-    transform: translate(0);
-    text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
-  }
+  0%, 100% { transform: translate(0); text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
   10% { transform: translate(-3px, 2px) skewX(5deg); }
   20% { transform: translate(3px, -2px) skewX(-3deg); text-shadow: -3px 0 #ff0000, 3px 0 #00ff00; }
   30% { transform: translate(-2px, -3px); }
@@ -964,184 +608,63 @@ a.wiki-link.unresolved {
   80% { transform: translate(2px, -3px) skewX(-2deg); }
   90% { transform: translate(-3px, 3px); text-shadow: 3px 0 #ff0000, -3px 0 #00ff00; }
 }
-.anim-glitch .animated-letter {
-  animation: glitch 0.27s steps(1) infinite;
-}
+.anim-glitch .animated-letter { animation: glitch 0.27s steps(1) infinite; }
 
-/* 36. Retro 📺 */
 @keyframes retro {
-  0%, 100% { 
-    color: #ff6b6b;
-    text-shadow: 3px 3px 0 #4ecdc4, 6px 6px 0 #ffe66d;
-  }
-  50% { 
-    color: #4ecdc4;
-    text-shadow: -3px 3px 0 #ff6b6b, -6px 6px 0 #ffe66d;
-  }
+  0%, 100% { color: #ff6b6b; text-shadow: 3px 3px 0 #4ecdc4, 6px 6px 0 #ffe66d; }
+  50% { color: #4ecdc4; text-shadow: -3px 3px 0 #ff6b6b, -6px 6px 0 #ffe66d; }
 }
-.anim-retro .animated-letter {
-  animation: retro 1.07s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-  font-weight: 900;
-}
+.anim-retro .animated-letter { animation: retro 1.07s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.1s); font-weight: 900; }
 
-/* 37. Comic 💥 */
 @keyframes comic {
-  0%, 100% { 
-    transform: scale(1) rotate(0deg);
-    color: #ff0000;
-    text-shadow: 2px 2px 0 #000, 4px 4px 0 #ffff00;
-  }
-  25% { 
-    transform: scale(1.2) rotate(-5deg);
-    color: #0000ff;
-  }
-  50% { 
-    transform: scale(0.9) rotate(5deg);
-    color: #00ff00;
-    text-shadow: -2px 2px 0 #000, -4px 4px 0 #ff00ff;
-  }
-  75% { 
-    transform: scale(1.1) rotate(-3deg);
-    color: #ffff00;
-  }
+  0%, 100% { transform: scale(1) rotate(0deg); color: #ff0000; text-shadow: 2px 2px 0 #000, 4px 4px 0 #ffff00; }
+  25% { transform: scale(1.2) rotate(-5deg); color: #0000ff; }
+  50% { transform: scale(0.9) rotate(5deg); color: #00ff00; text-shadow: -2px 2px 0 #000, -4px 4px 0 #ff00ff; }
+  75% { transform: scale(1.1) rotate(-3deg); color: #ffff00; }
 }
-.anim-comic .animated-letter {
-  animation: comic 0.67s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.06s);
-  font-family: "Comic Sans MS", cursive;
-  font-weight: bold;
-}
+.anim-comic .animated-letter { animation: comic 0.67s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.06s); font-family: "Comic Sans MS", cursive; font-weight: bold; }
 
-/* 38. Graffiti 🎨 */
 @keyframes graffiti {
-  0%, 100% { 
-    transform: skewX(-5deg) rotate(-2deg);
-    color: #ff1493;
-    text-shadow: 3px 3px 0 #000, -1px -1px 0 #fff;
-  }
-  33% { 
-    transform: skewX(3deg) rotate(1deg);
-    color: #00ff7f;
-  }
-  66% { 
-    transform: skewX(-2deg) rotate(-1deg);
-    color: #ffa500;
-  }
+  0%, 100% { transform: skewX(-5deg) rotate(-2deg); color: #ff1493; text-shadow: 3px 3px 0 #000, -1px -1px 0 #fff; }
+  33% { transform: skewX(3deg) rotate(1deg); color: #00ff7f; }
+  66% { transform: skewX(-2deg) rotate(-1deg); color: #ffa500; }
 }
-.anim-graffiti .animated-letter {
-  animation: graffiti 0.8s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.08s);
-  font-weight: 900;
-  font-style: italic;
-}
+.anim-graffiti .animated-letter { animation: graffiti 0.8s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.08s); font-weight: 900; font-style: italic; }
 
-/* 39. Psychedelic 🍄 */
 @keyframes psychedelic {
-  0% { 
-    filter: hue-rotate(0deg) saturate(200%);
-    transform: scale(1) rotate(0deg);
-  }
-  25% { 
-    filter: hue-rotate(90deg) saturate(300%);
-    transform: scale(1.2) rotate(5deg);
-  }
-  50% { 
-    filter: hue-rotate(180deg) saturate(200%);
-    transform: scale(0.9) rotate(-5deg);
-  }
-  75% { 
-    filter: hue-rotate(270deg) saturate(300%);
-    transform: scale(1.1) rotate(3deg);
-  }
-  100% { 
-    filter: hue-rotate(360deg) saturate(200%);
-    transform: scale(1) rotate(0deg);
-  }
+  0% { filter: hue-rotate(0deg) saturate(200%); transform: scale(1) rotate(0deg); }
+  25% { filter: hue-rotate(90deg) saturate(300%); transform: scale(1.2) rotate(5deg); }
+  50% { filter: hue-rotate(180deg) saturate(200%); transform: scale(0.9) rotate(-5deg); }
+  75% { filter: hue-rotate(270deg) saturate(300%); transform: scale(1.1) rotate(3deg); }
+  100% { filter: hue-rotate(360deg) saturate(200%); transform: scale(1) rotate(0deg); }
 }
-.anim-psychedelic .animated-letter {
-  animation: psychedelic 1.33s linear infinite;
-  animation-delay: calc(var(--letter-index) * 0.1s);
-  color: #ff00ff;
-  text-shadow: 0 0 10px currentColor;
-}
+.anim-psychedelic .animated-letter { animation: psychedelic 1.33s linear infinite; animation-delay: calc(var(--letter-index) * 0.1s); color: #ff00ff; text-shadow: 0 0 10px currentColor; }
 
-/* 40. Vaporwave 🌴 */
 @keyframes vaporwave {
-  0%, 100% { 
-    color: #ff71ce;
-    text-shadow: 0 0 10px #ff71ce, 4px 4px 0 #01cdfe;
-  }
-  50% { 
-    color: #01cdfe;
-    text-shadow: 0 0 10px #01cdfe, -4px 4px 0 #ff71ce;
-  }
+  0%, 100% { color: #ff71ce; text-shadow: 0 0 10px #ff71ce, 4px 4px 0 #01cdfe; }
+  50% { color: #01cdfe; text-shadow: 0 0 10px #01cdfe, -4px 4px 0 #ff71ce; }
 }
-.anim-vaporwave .animated-letter {
-  animation: vaporwave 2s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.12s);
-  font-style: italic;
-}
+.anim-vaporwave .animated-letter { animation: vaporwave 2s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.12s); font-style: italic; }
 
-/* ========== SPECIAL EFFECTS ========== */
+/* Special */
+.anim-scramble .animated-letter { animation: shake 0.11s linear infinite; font-family: monospace; color: #00ff00; background: #000; padding: 0 1px; }
 
-/* 41. Scramble (JS-driven) */
-.anim-scramble .animated-letter {
-  animation: shake 0.11s linear infinite;
-  font-family: monospace;
-  color: #00ff00;
-  background: #000;
-  padding: 0 1px;
-}
-
-/* 42. Drip 💧 */
 @keyframes drip {
-  0%, 100% { 
-    transform: translateY(0) scaleY(1);
-    opacity: 1;
-  }
-  50% { 
-    transform: translateY(8px) scaleY(1.5);
-    opacity: 0.7;
-  }
+  0%, 100% { transform: translateY(0) scaleY(1); opacity: 1; }
+  50% { transform: translateY(8px) scaleY(1.5); opacity: 0.7; }
 }
-.anim-drip .animated-letter {
-  animation: drip 1.33s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.12s);
-  color: #4169e1;
-  text-shadow: 0 5px 10px rgba(65, 105, 225, 0.5);
-}
+.anim-drip .animated-letter { animation: drip 1.33s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.12s); color: #4169e1; text-shadow: 0 5px 10px rgba(65, 105, 225, 0.5); }
 
-/* 43. Balloon 🎈 */
 @keyframes balloon {
-  0%, 100% { 
-    transform: translateY(0) scale(1);
-    color: #ff69b4;
-  }
-  25% { 
-    transform: translateY(-10px) scale(1.1);
-    color: #ff1493;
-  }
-  50% { 
-    transform: translateY(-5px) scale(1.05);
-    color: #ff69b4;
-  }
-  75% { 
-    transform: translateY(-12px) scale(1.15);
-    color: #ff1493;
-  }
+  0%, 100% { transform: translateY(0) scale(1); color: #ff69b4; }
+  25% { transform: translateY(-10px) scale(1.1); color: #ff1493; }
+  50% { transform: translateY(-5px) scale(1.05); color: #ff69b4; }
+  75% { transform: translateY(-12px) scale(1.15); color: #ff1493; }
 }
-.anim-balloon .animated-letter {
-  animation: balloon 2s ease-in-out infinite;
-  animation-delay: calc(var(--letter-index) * 0.15s);
-}
+.anim-balloon .animated-letter { animation: balloon 2s ease-in-out infinite; animation-delay: calc(var(--letter-index) * 0.15s); }
 
-/* 44. Confetti 🎊 */
 @keyframes confetti {
-  0%, 100% { 
-    transform: translateY(0) rotate(0deg);
-    color: #ff0000;
-  }
+  0%, 100% { transform: translateY(0) rotate(0deg); color: #ff0000; }
   12.5% { color: #ff8800; transform: translateY(-5px) rotate(45deg); }
   25% { color: #ffff00; transform: translateY(3px) rotate(-30deg); }
   37.5% { color: #00ff00; transform: translateY(-8px) rotate(60deg); }
@@ -1150,7 +673,72 @@ a.wiki-link.unresolved {
   75% { color: #8800ff; transform: translateY(8px) rotate(-60deg); }
   87.5% { color: #ff00ff; transform: translateY(-5px) rotate(45deg); }
 }
-.anim-confetti .animated-letter {
-  animation: confetti 1.07s linear infinite;
-  animation-delay: calc(var(--letter-index) * 0.08s);
+.anim-confetti .animated-letter { animation: confetti 1.07s linear infinite; animation-delay: calc(var(--letter-index) * 0.08s); }
+
+/* ===========================================
+   GALLERY — Inspiration Board (preserved)
+   =========================================== */
+
+.gallery-canvas {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  margin-left: calc(-50vw + 50%);
+  padding: 80px 60px 120px;
+  overflow: hidden;
+}
+
+.gallery-frame {
+  position: absolute;
+  cursor: grab;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.4s ease;
+}
+
+.gallery-frame:hover {
+  z-index: 100 !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.gallery-frame--painting {
+  background: #1c1812;
+  padding: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(247, 233, 200, 0.18);
+}
+
+.gallery-frame--painting::after {
+  content: attr(data-title);
+  display: block;
+  text-align: center;
+  font-size: 10px;
+  color: #a89e8b;
+  padding-top: 6px;
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
+.gallery-frame--text {
+  background: rgba(28, 24, 18, 0.92);
+  padding: 20px 24px;
+  max-width: 280px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #f4f0e8;
+  border-left: 2px solid #d4a24e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-frame--text .attribution { display: block; margin-top: 10px; font-size: 11px; color: #a89e8b; font-style: italic; }
+
+@media (max-width: 768px) {
+  .gallery-canvas { padding: 40px 20px; }
+  .gallery-frame {
+    position: relative !important;
+    top: auto !important; left: auto !important; right: auto !important;
+    transform: none !important;
+    margin: 20px auto;
+    max-width: 90%;
+  }
 }
