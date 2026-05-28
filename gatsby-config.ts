@@ -9,14 +9,14 @@ const config: GatsbyConfig = {
     // You can overwrite values here that are used for the SEO component
     // You can also add new values here to query them like usual
     // See all options: https://github.com/LekoArts/gatsby-themes/blob/main/themes/gatsby-theme-minimal-blog/gatsby-config.mjs
-    siteTitle: `More Useless`,
-    siteTitleAlt: `More Useless`,
-    siteHeadline: `More Useless`,
+    siteTitle: `more useless`,
+    siteTitleAlt: `more useless`,
+    siteHeadline: `more useless`,
     siteUrl: `https://more-useless.com`,
     siteDescription: ``,
     siteImage: `/og-image.png`,
     siteLanguage: `en`,
-    author: `More Useless`,
+    author: `more useless`,
   },
   trailingSlash: `always`,
   plugins: [
@@ -62,9 +62,9 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `More Useless`,
-        short_name: `More Useless`,
-        description: `A collection of curiosities`,
+        name: `more useless`,
+        short_name: `more useless`,
+        description: `a collection of curiosities`,
         start_url: `/`,
         background_color: `#000000`,
         theme_color: `#000000`,
@@ -129,7 +129,7 @@ const config: GatsbyConfig = {
   }
 }`,
             output: `rss.xml`,
-            title: `More Useless - A Collection of Curiosities`,
+            title: `more useless — a collection of curiosities`,
           },
         ],
       },
