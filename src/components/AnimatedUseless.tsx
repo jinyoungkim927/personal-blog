@@ -3,51 +3,8 @@ import * as React from "react"
 import { jsx } from "theme-ui"
 import { useState, useCallback, useRef, useEffect } from "react"
 
-// Pool of animation effects.
-// Motion-heavy: 33 motion + 4 color = ~11% chance of a color animation.
 const ANIMATION_EFFECTS = [
-  // Original motion
-  { name: "wave", className: "anim-wave" },
-  { name: "bounce", className: "anim-bounce" },
-  { name: "spin", className: "anim-spin" },
-  { name: "jello", className: "anim-jello" },
-  { name: "rubber", className: "anim-rubber" },
-  { name: "flip", className: "anim-flip" },
-  { name: "shake", className: "anim-shake" },
-  { name: "pulse", className: "anim-pulse" },
-  { name: "explode", className: "anim-explode" },
-  { name: "squish", className: "anim-squish" },
-  { name: "tornado", className: "anim-tornado" },
-  { name: "float", className: "anim-float" },
-  { name: "balloon", className: "anim-balloon" },
-
-  // New pure-motion effects
-  { name: "wobble", className: "anim-wobble" },
-  { name: "swing", className: "anim-swing" },
-  { name: "pendulum", className: "anim-pendulum" },
-  { name: "shimmy", className: "anim-shimmy" },
-  { name: "hop", className: "anim-hop" },
-  { name: "levitate", className: "anim-levitate" },
-  { name: "plunge", className: "anim-plunge" },
-  { name: "stretch", className: "anim-stretch" },
-  { name: "squeeze", className: "anim-squeeze" },
-  { name: "tall", className: "anim-tall" },
-  { name: "short", className: "anim-short" },
-  { name: "flip-v", className: "anim-flip-v" },
   { name: "mirror", className: "anim-mirror" },
-  { name: "ripple", className: "anim-ripple" },
-  { name: "sway", className: "anim-sway" },
-  { name: "corkscrew", className: "anim-corkscrew" },
-  { name: "cascade", className: "anim-cascade" },
-  { name: "zip", className: "anim-zip" },
-  { name: "lean", className: "anim-lean" },
-  { name: "quiver", className: "anim-quiver" },
-
-  // Color/texture — kept rare (~11% of the pool)
-  { name: "fire", className: "anim-fire" },
-  { name: "ice", className: "anim-ice" },
-  { name: "sparkle", className: "anim-sparkle" },
-  { name: "glitter", className: "anim-glitter" },
 ]
 
 // Shuffle array (Fisher-Yates)

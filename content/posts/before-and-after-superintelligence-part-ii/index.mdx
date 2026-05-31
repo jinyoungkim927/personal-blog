@@ -25,12 +25,12 @@ Above, <Math>{"A"}</Math> and <Math>{"B"}</Math> are empirical constants to repr
 I think I have a couple unorthodox views regarding what is 'valuable data' going into the future: 
 
 - i) All data is useful, including the long tail of 'garbage'.
-	- The shift in [Synthetic Data](/snippets/synthetic-data/) has so far been towards more specialised data - through post training processes like [GRPO](/snippets/grpo/) or [Monte Carlo Tree Search](/snippets/monte-carlo-tree-search/), the intuition being that higher signal to noise ratio is being properly 'juiced'. However, I think in the same way mass pretraining was critical for LLMs, I think mass pretraining of the world will be important for world models or robotics.
+	- The shift in Synthetic Data has so far been towards more specialised data - through post training processes like GRPO or Monte Carlo Tree Search, the intuition being that higher signal to noise ratio is being properly 'juiced'. However, I think in the same way mass pretraining was critical for LLMs, I think mass pretraining of the world will be important for world models or robotics.
 	- Besides, the garbage is being recycled! LLMs themselves are really good at cleaning and processing data - both through more efficient data engineering pipelines and manually spot-checking. This enables dirty data to be in cleaner, usable states, increasing the effective quantity of data.  
 - ii) Data factories will form. 
 	- As much as I hope for a data marketplace for efficient price discovery, it seems unlikely one will form. Unlike commodities, that are rivalrous, the marginal cost of selling data is zero. The supply is somewhat unbounded. 
-	- However, I believe like how <span style={{color: "#999", cursor: "not-allowed"}}>oil refineries</span> are gangantuan facilities of tremendous complexity to distill 'useless oil' into 'useful data' of multiple tiers/tranches, I believe a tremendous amount of compute and effort will go into cleaning data and applying different transformations to get it to a more 'useful' state. 
-	- Also, metrics for additional data point(s) contribution to model performance are a critical gap in academic literature at the moment. Essentially, it would be pretty awesome to have 'data Shapley values' in [Gradient Boosted Models](/snippets/gradient-boosted-models/) for transformers or other billion parameter + deep learning models. 
+	- However, I believe like how oil refineries are gangantuan facilities of tremendous complexity to distill 'useless oil' into 'useful data' of multiple tiers/tranches, I believe a tremendous amount of compute and effort will go into cleaning data and applying different transformations to get it to a more 'useful' state. 
+	- Also, metrics for additional data point(s) contribution to model performance are a critical gap in academic literature at the moment. Essentially, it would be pretty awesome to have 'data Shapley values' in Gradient Boosted Models for transformers or other billion parameter + deep learning models. 
 - iii) Foundation model pre-training is theft. 
 	- I firmly believe AI models can do a lot of good. For example, I think discovering new drugs, progressing scientific research is generally good under the right hands. And these models have democratised knowledge in a way that is deeply powerful - maybe even enabling a von Neumann like polymath to resurface in the 21st century. But we can't ignore that the way they're trained is very, very wrong. 
 	- First off, note that for the entire existence of the internet's duration, the terms and conditions on which people passed over their data involved false consent. Nobody understands where their data is going, how its is used, what data even means in most cases, and yet to access services companies have been able to harvest their data, hiding behind a wall of text. We have signed thousands of false contracts over our life-spans.
@@ -51,13 +51,13 @@ Automated scientists will give us the ability to:
 
 I wonder about three challenges: 
 1. How do we experiment in this automated way without having the False Discovery Rate (FDR) explode? 
-	- Standard [p-value](/snippets/p-value/) < 0.05 thresholds become meaningless with stringent corrections, meaning each experiments need higher power, i.e. more data, i.e. more resources. This could lead to industralized p-hacking at levels we've never seen. 
-	- <span style={{color: "#999", cursor: "not-allowed"}}>Multiple Hypothesis Testing</span> is going to become even more critical. Through fields like genomics, finance, this has become a focus of academic statistical research, with tools like [e-value](/snippets/e-value/)s becoming more powerful - but it's hard to make them a meaningful part of a research pipeline. 
+	- Standard p-value < 0.05 thresholds become meaningless with stringent corrections, meaning each experiments need higher power, i.e. more data, i.e. more resources. This could lead to industralized p-hacking at levels we've never seen. 
+	- Multiple Hypothesis Testing is going to become even more critical. Through fields like genomics, finance, this has become a focus of academic statistical research, with tools like e-values becoming more powerful - but it's hard to make them a meaningful part of a research pipeline. 
 2. Can AI scientists perform paradigm shifts (Mode 1), rather than Kuhnian normal science which is puzzle solving within a paradigm (Mode 2)? 
-	- So far, this is a deep question about <span style={{color: "#999", cursor: "not-allowed"}}>Transformer</span>s. Why haven't they discovered new scientific discoveries or insights amidst the huge amount of data they have stored in themselves? 
+	- So far, this is a deep question about Transformers. Why haven't they discovered new scientific discoveries or insights amidst the huge amount of data they have stored in themselves? 
 	- A recent worldview update in early 2026 for me was that Terence Tao recently posted about the [first non-trivial discovery in mathematics made by AI](https://mathstodon.xyz/@tao/115855840223258103). Pure science progression vs. applied experimental discoveries is more Mode 1. However, the discovery was more Mode 2 in flavour according to Tao. 
 3. How do we get AI scientists to know what experiments to run or what ideas to use? 
-	- The best scientists have multi-month planning horizons that evolve through <span style={{color: "#999", cursor: "not-allowed"}}>Bayesian</span> updates. Models struggle to incorporate this knowledge in a deep way yet. 
+	- The best scientists have multi-month planning horizons that evolve through Bayesian updates. Models struggle to incorporate this knowledge in a deep way yet. 
 	- There are also open statistical questions! Very exciting fields include post selection inference, high dimensional simultaneous testing with power, and Bayesian experimental design. 
 
 I think the world would look very different with automated science in two ways: 
@@ -72,7 +72,7 @@ I think the world would look very different with automated science in two ways:
 
 Through a friend, I recently learned of a mind-blowing statistic regarding Apple in China. 
 
-> ... Demand from China’s 1.4 billion people indirectly supports, across all industries, between 1 million and 2.6 million jobs in America; whereas, by Tim Cook’s estimate, Apple alone supports 5 million jobs in China—3 million in manufacturing and another 1.8 million in app development? ... one super-corporation has more of an impact on job creation in China than all of China has on America.
+> ... Demand from China’s 1.4 billion people indirectly supports, across all industries, between 1 million and 2.6 million jobs in America; whereas, by Tim Cook’s estimate, Apple alone supports 5 million jobs in China - 3 million in manufacturing and another 1.8 million in app development? ... one super-corporation has more of an impact on job creation in China than all of China has on America.
 
 How do we ensure that all AI wealth does not get concentrated in the prosperous American city of San Francisco? Before, as we see above, wealth had real trickle down effects in this way on a global scale. But there is no need for this to be the case in a world with AI. 
 
