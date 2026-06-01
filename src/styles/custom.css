@@ -1,5 +1,5 @@
 /* ===========================================
-   PAINTERLY DARK — overrides
+   PAINTERLY DARK - overrides
    Tag colors and sepia accents removed.
    New tag styling lives inside React components (theme-ui sx).
    Animation keyframes for AnimatedUseless preserved below.
@@ -19,7 +19,7 @@ main,
   align-items: center;
 }
 
-/* article content (post pages) — readable measure */
+/* article content (post pages) - readable measure */
 article {
   max-width: 720px;
   margin-left: auto;
@@ -88,7 +88,7 @@ blockquote {
 }
 
 /* ===========================================
-   GRAPH BUTTON & MODAL — kept for post pages
+   GRAPH BUTTON & MODAL - kept for post pages
    =========================================== */
 
 .graph-button {
@@ -181,7 +181,7 @@ a.wiki-link.unresolved {
 }
 
 /* ===========================================
-   ANIMATED USELESS — 44 effects, preserved
+   ANIMATED USELESS - 44 effects, preserved
    =========================================== */
 
 .animated-useless {
@@ -676,7 +676,7 @@ a.wiki-link.unresolved {
 .anim-confetti .animated-letter { animation: confetti 1.07s linear infinite; animation-delay: calc(var(--letter-index) * 0.08s); }
 
 /* ===========================================
-   GALLERY — Inspiration Board (preserved)
+   GALLERY - Inspiration Board (preserved)
    =========================================== */
 
 .gallery-canvas {

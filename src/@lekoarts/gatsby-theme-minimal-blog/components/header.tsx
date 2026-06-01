@@ -46,11 +46,11 @@ const Header = () => {
         zIndex: 5,
       }}
     >
-      {/* tree home-button only on inner pages — homepage doesn't need it */}
+      {/* tree home-button only on inner pages - homepage doesn't need it */}
       {!isHome ? (
         <Link
           to="/"
-          aria-label="more useless — home"
+          aria-label="more useless - home"
           sx={{
             display: `inline-flex`,
             alignItems: `center`,

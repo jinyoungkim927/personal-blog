@@ -41,7 +41,7 @@ const SnippetTemplate: React.FC<React.PropsWithChildren<PageProps<SnippetProps>>
         <time>{mdxSnippet.displayDate || mdxSnippet.date}</time>
         {mdxSnippet.tags && mdxSnippet.tags.length > 0 && (
           <React.Fragment>
-            {` — `}
+            {` - `}
             <ItemTags tags={mdxSnippet.tags} />
           </React.Fragment>
         )}

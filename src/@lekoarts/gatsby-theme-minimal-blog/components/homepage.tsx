@@ -42,7 +42,7 @@ const Homepage = () => {
 
   return (
     <Layout>
-      {/* painterly hero bg — only mounted on homepage */}
+      {/* painterly hero bg - only mounted on homepage */}
       <Global
         styles={{
           body: {
@@ -62,7 +62,7 @@ const Homepage = () => {
           },
         }}
       />
-      {/* HERO — masthead + sumi ink tree */}
+      {/* HERO - masthead + sumi ink tree */}
       <section
         sx={{
           position: `relative`,
@@ -111,7 +111,7 @@ const Homepage = () => {
           <circle cx="172" cy="60" r="2.6" fill="#bf3a1c" opacity="0.95" />
         </svg>
 
-        {/* masthead — matches demo HTML exactly */}
+        {/* masthead - matches demo HTML exactly */}
         <h1
           sx={{
             fontFamily: `heading`,

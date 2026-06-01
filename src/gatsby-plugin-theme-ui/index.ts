@@ -1,17 +1,17 @@
-// Painterly dark theme — Fujimura mineral pigments on warm ink
+// Painterly dark theme - Fujimura mineral pigments on warm ink
 const theme = {
   config: {
     useColorSchemeMediaQuery: false,
   },
   colors: {
     // surface
-    text: "#f4f0e8",          // bone — body text on dark
-    background: "#000000",    // true black — seamless overscroll
+    text: "#f4f0e8",          // bone - body text on dark
+    background: "#000000",    // true black - seamless overscroll
     heading: "#fdf8ec",       // brighter bone for titles
     secondary: "#a89e8b",     // muted bone for meta
     muted: "#1c1812",         // surface elevation
     divide: "rgba(247,233,200,0.22)",
-    // accent — Fujimura gold leaf (was ember vermillion)
+    // accent - Fujimura gold leaf (was ember vermillion)
     primary: "#d4a24e",
     accent: "#d4a24e",
     accentSoft: "rgba(212,162,78,0.5)",
