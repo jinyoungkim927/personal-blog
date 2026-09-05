@@ -32,8 +32,24 @@ const projects: WritingItem[] = [
   },
   {
     href: `mailto:jinyoungkim927@gmail.com?subject=Paper%20reading%20group`,
-    title: `A paper reading group of extremely talented, intellectually vibrant people. Come read with us.`,
+    title: `NY paper reading group. Come read with some of my talented, intellectually vibrant friends.`,
     date: `June 2026 onwards`,
+  },
+]
+
+// writing that lives elsewhere, slotted into the list by date
+const elsewhere: (WritingItem & { sort: string })[] = [
+  {
+    href: `https://arxiv.org/abs/2410.06234`,
+    title: `TEOChat: A Large Vision-Language Assistant for Temporal Earth Observation Data`,
+    date: `October 2024`,
+    sort: `2024-10`,
+  },
+  {
+    href: `https://publishing.hardiegrant.com/en-us/books/the-anti-racism-kit-by-jinyoung-kim/9781761211171`,
+    title: `The Anti-Racism Kit`,
+    date: `2024`,
+    sort: `2024-06`,
   },
 ]
 
@@ -45,12 +61,15 @@ const Homepage = () => {
           slug
           title
           date(formatString: "MMMM YYYY")
+          sort: date(formatString: "YYYY-MM")
         }
       }
     }
   `)
 
-  const posts: WritingItem[] = data.allPost.nodes
+  const posts: WritingItem[] = [...data.allPost.nodes, ...elsewhere]
+    .sort((a: { sort: string }, b: { sort: string }) => b.sort.localeCompare(a.sort))
+    .map(({ sort, ...item }: WritingItem & { sort: string }) => item)
 
   return (
     <Layout>
