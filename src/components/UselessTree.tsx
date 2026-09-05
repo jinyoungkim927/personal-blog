@@ -5,15 +5,20 @@ import { Link } from "gatsby"
 
 // Zhuangzi's tree is useless as timber, so no one cuts it down, so it grows
 // enormous. Hover the mark and it does exactly that; leave and it draws back.
+// A thick root runs down the left margin and limbs spread from it across the
+// page. Growth starts slowly and gathers speed the longer the cursor stays.
 
-type Segment = { d: string; len: number; depth: number; dist: number; jitter: number }
+type Segment = { d: string; len: number; depth: number; dist: number; width: number; jitter: number }
 type Tree = { segments: Segment[]; reach: number }
 
-const MAX_DEPTH = 5
-// every tip advances at this many px per second; a branch starts the moment
-// its parent's tip reaches it, so the whole thing grows continuously
-const GROW_SPEED = 230
-const SHRINK_SPEED = 650
+const MAX_DEPTH = 6
+// growth speed in px/s starts at V0 and rises by ACCEL every second
+const V0 = 40
+const ACCEL = 50
+const SHRINK_SPEED = 550
+
+// when the growing tip reaches a point `dist` px along the tree
+const timeAt = (dist: number) => (-V0 + Math.sqrt(V0 * V0 + 2 * ACCEL * dist)) / ACCEL
 
 // deterministic, so the same tree grows every time
 const mulberry32 = (seed: number) => () => {
@@ -41,14 +46,13 @@ const quadLength = (x0: number, y0: number, cx: number, cy: number, x1: number, 
 const growTree = (ox: number, oy: number, width: number, height: number): Tree => {
   const rand = mulberry32(20260905)
   const segments: Segment[] = []
-  const margin = 60
+  const margin = 120
   let reach = 0
 
-  const limb = (x: number, y: number, angle: number, length: number, depth: number, dist: number) => {
-    if (depth > MAX_DEPTH || length < 14) return
+  const push = (x: number, y: number, angle: number, length: number, depth: number, dist: number, strokeWidth: number) => {
     const ex = x + Math.cos(angle) * length
     const ey = y + Math.sin(angle) * length
-    const bend = (rand() - 0.5) * length * 0.55
+    const bend = (rand() - 0.5) * length * 0.5
     const mx = (x + ex) / 2 - Math.sin(angle) * bend
     const my = (y + ey) / 2 + Math.cos(angle) * bend
     const len = quadLength(x, y, mx, my, ex, ey)
@@ -57,22 +61,52 @@ const growTree = (ox: number, oy: number, width: number, height: number): Tree =
       len,
       depth,
       dist,
+      width: strokeWidth,
       jitter: rand(),
     })
     reach = Math.max(reach, dist + len)
-    if (ex < -margin || ex > width + margin || ey < -margin || ey > height + margin) return
-    const kids = depth === 0 || rand() < 0.2 ? 3 : 2
+    const offscreen = ex < -margin || ex > width + margin || ey < -margin || ey > height + margin
+    return { ex, ey, len, offscreen }
+  }
+
+  // a limb and everything that grows out of it
+  const branch = (x: number, y: number, angle: number, length: number, depth: number, dist: number) => {
+    if (depth > MAX_DEPTH || length < 14) return
+    const seg = push(x, y, angle, length, depth, dist, 5 * Math.pow(0.7, depth - 1))
+    if (seg.offscreen) return
+    const kids = depth <= 2 || rand() < 0.2 ? 3 : 2
     for (let i = 0; i < kids; i++) {
       const spread = 0.5 + rand() * 0.4
       const turn = (i - (kids - 1) / 2) * spread + (rand() - 0.5) * 0.35
-      limb(ex, ey, angle + turn, length * (0.7 + rand() * 0.14), depth + 1, dist + len)
+      branch(seg.ex, seg.ey, angle + turn, length * (0.7 + rand() * 0.14), depth + 1, dist + seg.len)
     }
   }
 
-  const trunk = Math.hypot(width, height) * 0.21
-  // primary limbs fan out from the crown of the icon into the page (y grows downward)
-  const limbs = [-0.4, 0.2, 0.8, 1.35, 1.95]
-  limbs.forEach((angle, i) => limb(ox, oy, angle, trunk * (0.75 + (i % 2) * 0.25), 0, 0))
+  // the root: four thick segments running down the left margin, wandering a
+  // little, with limbs sprouting at each joint (y grows downward; angle 0 = right)
+  const trunkWidths = [7.5, 7, 6.2, 5.4]
+  // limbs mostly reach sideways, since the viewport is short and wide
+  const limbPlan: [number, number][][] = [
+    [[-0.28, 0.38], [Math.PI + 0.22, 0.2]],
+    [[-0.05, 0.4], [Math.PI - 0.02, 0.24]],
+    [[0.28, 0.36], [Math.PI - 0.28, 0.22]],
+    [[0.62, 0.32], [Math.PI - 0.62, 0.2], [1.25, 0.24]],
+  ]
+  const segLen = (height * 0.44) / 4
+  let x = ox
+  let y = oy
+  let dist = 0
+  let angle = Math.PI / 2 + (ox > 200 ? 0.32 : -0.08)
+  for (let k = 0; k < 4; k++) {
+    const seg = push(x, y, angle, segLen, 0, dist, trunkWidths[k])
+    x = seg.ex
+    y = seg.ey
+    dist += seg.len
+    angle = Math.PI / 2 + (rand() - 0.5) * 0.25
+    for (const [a, f] of limbPlan[k]) {
+      branch(x, y, a + (rand() - 0.5) * 0.15, width * f, 1, dist)
+    }
+  }
   return { segments, reach }
 }
 
@@ -100,13 +134,13 @@ const UselessTree: React.FC = () => {
   const { segments, reach } = tree
   const [size, setSize] = React.useState({ w: 0, h: 0 })
   const [grown, setGrown] = React.useState(false)
+  const [pinned, setPinned] = React.useState(false)
+  const [isHome, setIsHome] = React.useState(false)
   const [reduceMotion, setReduceMotion] = React.useState(false)
   const keyRef = React.useRef(``)
 
-  React.useEffect(() => {
-    setReduceMotion(window.matchMedia(`(prefers-reduced-motion: reduce)`).matches)
-  }, [])
-
+  // lay the branches out (hidden) as soon as the page is up, so the first
+  // hover animates from nothing instead of popping in
   const prepare = React.useCallback(() => {
     const el = linkRef.current
     if (!el) return
@@ -114,7 +148,7 @@ const UselessTree: React.FC = () => {
     const w = window.innerWidth
     const h = window.innerHeight
     const ox = Math.round(rect.left + rect.width / 2)
-    const oy = Math.round(rect.top + 3)
+    const oy = Math.round(rect.bottom - 2)
     const key = `${w}x${h}@${ox},${oy}`
     if (key === keyRef.current) return
     keyRef.current = key
@@ -122,33 +156,62 @@ const UselessTree: React.FC = () => {
     setTree(growTree(ox, oy, w, h))
   }, [])
 
+  React.useEffect(() => {
+    setReduceMotion(window.matchMedia(`(prefers-reduced-motion: reduce)`).matches)
+    setIsHome(window.location.pathname === `/`)
+    prepare()
+    let timer: number | undefined
+    const onResize = () => {
+      window.clearTimeout(timer)
+      timer = window.setTimeout(prepare, 150)
+    }
+    window.addEventListener(`resize`, onResize)
+    return () => {
+      window.clearTimeout(timer)
+      window.removeEventListener(`resize`, onResize)
+    }
+  }, [prepare])
+
   const grow = React.useCallback(() => {
     prepare()
-    // let the branches mount hidden and get styled before they start drawing,
-    // otherwise the first hover pops in with no transition
+    // if the branches were just (re)built, let them mount hidden and get
+    // styled before they start drawing
     window.setTimeout(() => {
       void document.body.offsetHeight
       setGrown(true)
     }, 0)
   }, [prepare])
 
-  const shrink = React.useCallback(() => setGrown(false), [])
+  const shrink = React.useCallback(() => {
+    if (!pinned) setGrown(false)
+  }, [pinned])
 
-  // /#tree grows it without a mouse, so it can be linked to and seen on a phone
-  React.useEffect(() => {
-    if (window.location.hash === `#tree`) grow()
-  }, [grow])
+  // on the home page the mark has nowhere to go, so a click (or a tap, on a
+  // phone) keeps the tree grown until the next click
+  const onClick = React.useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!isHome) return
+      e.preventDefault()
+      if (pinned) {
+        setPinned(false)
+        setGrown(false)
+      } else {
+        setPinned(true)
+        grow()
+      }
+    },
+    [isHome, pinned, grow]
+  )
 
   return (
     <React.Fragment>
       <Link
         ref={linkRef}
         to="/"
-        aria-label="more useless - home"
+        aria-label={isHome ? `the useless tree` : `more useless - home`}
         onMouseEnter={grow}
         onMouseLeave={shrink}
-        onFocus={grow}
-        onBlur={shrink}
+        onClick={onClick}
         sx={{
           display: `inline-flex`,
           color: `text`,
@@ -178,21 +241,20 @@ const UselessTree: React.FC = () => {
         >
           <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
             {segments.map((s, i) => {
-              const width = Math.max(0.6, 3.2 * Math.pow(0.72, s.depth))
               // Hidden: the dash sits just before the path's start, far enough that
               // its round cap can't show as a dot, and the gap is longer than the
               // path so the next dash can't creep in from the far end either.
-              const hidden = s.len + width + 2
-              const growDelay = s.dist / GROW_SPEED + s.jitter * 0.12
-              const growDuration = Math.max(0.15, s.len / GROW_SPEED)
+              const hidden = s.len + s.width + 2
+              const growDelay = timeAt(s.dist) + s.jitter * 0.08
+              const growDuration = Math.max(0.12, timeAt(s.dist + s.len) - timeAt(s.dist))
               const shrinkDelay = (reach - (s.dist + s.len)) / SHRINK_SPEED
               const shrinkDuration = Math.max(0.12, s.len / SHRINK_SPEED)
               return (
                 <path
                   key={i}
                   d={s.d}
-                  strokeWidth={width}
-                  opacity={0.62 - s.depth * 0.06}
+                  strokeWidth={s.width}
+                  opacity={s.depth === 0 ? 0.78 : 0.7 - s.depth * 0.05}
                   style={{
                     strokeDasharray: `${s.len} ${s.len + 60}`,
                     strokeDashoffset: grown ? 0 : hidden,
@@ -234,7 +296,7 @@ const UselessTree: React.FC = () => {
             transition: reduceMotion
               ? `none`
               : grown
-              ? `opacity 1.2s ease ${(reach / GROW_SPEED + 0.3).toFixed(2)}s`
+              ? `opacity 1.2s ease ${(timeAt(reach) + 0.3).toFixed(2)}s`
               : `opacity 0.4s ease`,
           }}
         >
