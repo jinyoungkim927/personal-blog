@@ -28,12 +28,12 @@ const projects: WritingItem[] = [
   {
     href: `https://arxiv.org/abs/2607.28918`,
     title: `An astrophysics paper applying sequential hypothesis testing techniques to measure how fast our universe is accelerating`,
-    date: `July 2026`,
+    date: `2026-07`,
   },
   {
     href: `mailto:jinyoungkim927@gmail.com?subject=Paper%20reading%20group`,
     title: `NY paper reading group. Come read with some of my talented, intellectually vibrant friends.`,
-    date: `June 2026 onwards`,
+    date: `since 2026-02`,
   },
 ]
 
@@ -44,7 +44,7 @@ const Homepage = () => {
         nodes {
           slug
           title
-          date(formatString: "MMMM YYYY")
+          date(formatString: "YYYY-MM")
         }
       }
     }

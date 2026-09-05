@@ -45,7 +45,7 @@ const config: GatsbyConfig = {
       options: {
         navigation: [{ title: `Writing`, slug: `/` }],
         externalLinks: [],
-        formatString: `MMMM YYYY`,
+        formatString: `YYYY-MM`,
       },
     },
     {

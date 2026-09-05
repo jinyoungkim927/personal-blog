@@ -39,7 +39,7 @@ const Post: React.FC<React.PropsWithChildren<PageProps<MBPostProps>>> = ({
       >
         {post.title}
       </h1>
-      <div sx={{ fontSize: `17px`, color: `secondary`, mt: `14px`, mb: `44px` }}>
+      <div sx={{ fontSize: `17px`, color: `secondary`, mt: `14px`, mb: `44px`, fontVariantNumeric: `lining-nums tabular-nums` }}>
         <time>{post.displayDate || post.date}</time>
       </div>
 

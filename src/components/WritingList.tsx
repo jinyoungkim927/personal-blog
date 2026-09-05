@@ -43,7 +43,7 @@ const Row: React.FC<{ item: WritingItem }> = ({ item }) => {
           fontSize: [`15px`, `17px`],
           color: `secondary`,
           whiteSpace: `nowrap`,
-          fontVariantNumeric: `oldstyle-nums tabular-nums`,
+          fontVariantNumeric: `lining-nums tabular-nums`,
         }}
       >
         {item.date}

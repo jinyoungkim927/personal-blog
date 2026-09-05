@@ -74,7 +74,7 @@ export const query = graphql`
     mdxSnippet(slug: { eq: $slug }) {
       slug
       title
-      date(formatString: "MMMM YYYY")
+      date(formatString: "YYYY-MM")
       displayDate
     }
   }
