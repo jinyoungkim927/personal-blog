@@ -29,6 +29,8 @@ html.night {
 html {
   background: var(--paper);
   color-scheme: light;
+  /* nothing on the page should ever scroll it sideways */
+  overflow-x: clip;
 }
 
 body {

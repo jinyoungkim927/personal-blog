@@ -27,12 +27,12 @@ const Label: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 const projects: WritingItem[] = [
   {
     href: `https://arxiv.org/abs/2607.28918`,
-    title: `An astrophysics paper applying sequential hypothesis testing techniques to measure how fast our universe is accelerating`,
+    title: `A cosmology paper applying sequential hypothesis testing techniques to measure how fast our universe is accelerating`,
     date: `2026-07`,
   },
   {
     href: `mailto:jinyoungkim927@gmail.com?subject=Paper%20reading%20group`,
-    title: `NY paper reading group. Come read with some of my talented, intellectually vibrant friends.`,
+    title: `NY paper reading group. Come read with some of my talented, vibrant friends.`,
     date: `since 2026-02`,
   },
 ]
