@@ -2,14 +2,15 @@
 import * as React from "react"
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
+import Location from "../../../components/Location"
 
-// Zhuangzi's useless tree - the site's one mark
+// Zhuangzi's useless tree - the site's one mark, and the way home
 const TreeIcon: React.FC = () => (
   <svg
     viewBox="0 0 200 320"
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden
-    sx={{ width: `16px`, height: `26px`, display: `block`, flexShrink: 0 }}
+    sx={{ width: `18px`, height: `29px`, display: `block` }}
   >
     <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
       <path d="M 100 320 C 96 280 104 240 100 200 C 96 160 102 120 98 80 C 96 50 102 30 100 16" strokeWidth="12" />
@@ -36,32 +37,14 @@ const Header = () => (
       aria-label="more useless - home"
       sx={{
         display: `inline-flex`,
-        alignItems: `center`,
-        gap: `10px`,
         color: `text`,
-        textDecoration: `none`,
-        fontStyle: `italic`,
-        fontSize: `19px`,
         transition: `color 0.15s ease`,
         "&:hover": { color: `secondary` },
       }}
     >
       <TreeIcon />
-      <span>more useless</span>
     </Link>
-
-    <Link
-      to="/#subscribe"
-      sx={{
-        color: `secondary`,
-        textDecoration: `none`,
-        fontSize: `17px`,
-        transition: `color 0.15s ease`,
-        "&:hover": { color: `text` },
-      }}
-    >
-      Subscribe
-    </Link>
+    <Location />
   </header>
 )
 

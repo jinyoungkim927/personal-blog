@@ -1,28 +1,12 @@
 /** @jsx jsx */
 import * as React from "react"
 import { jsx } from "theme-ui"
-import { HeadFC, Link, graphql, useStaticQuery } from "gatsby"
+import { HeadFC, graphql, useStaticQuery } from "gatsby"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
 import SubscribeButton from "../../../components/SubscribeButton"
 import WritingList, { WritingItem } from "../../../components/WritingList"
-import hiddenSnippets from "../../../../scripts/hidden_snippets.json"
-
-const Label: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <h2
-    sx={{
-      fontSize: `13px`,
-      fontWeight: 400,
-      letterSpacing: `0.14em`,
-      textTransform: `uppercase`,
-      color: `secondary`,
-      m: 0,
-      mb: `10px`,
-    }}
-  >
-    {children}
-  </h2>
-)
+import AnimatedUseless from "../../../components/AnimatedUseless"
 
 const Homepage = () => {
   const data = useStaticQuery(graphql`
@@ -34,103 +18,93 @@ const Homepage = () => {
           date(formatString: "MMMM YYYY")
         }
       }
-      allMdxSnippet(sort: { title: ASC }) {
-        nodes {
-          slug
-          title
-        }
-      }
     }
   `)
 
   const posts: WritingItem[] = data.allPost.nodes
-  const hidden = new Set<string>(hiddenSnippets.hidden || [])
-  const notes: { slug: string; title: string }[] = data.allMdxSnippet.nodes.filter(
-    (n: { slug: string }) => !hidden.has(n.slug.split(`/`).filter(Boolean).pop() || ``)
-  )
 
   return (
     <Layout>
-      <section className="prose" sx={{ mt: [`56px`, `96px`] }}>
+      <section className="prose" sx={{ mt: [`48px`, `80px`] }}>
         <img
           src="/jin.jpg"
           alt="Jin Kim"
           width={148}
-          height={185}
+          height={148}
           sx={{
             width: `148px`,
-            height: `185px`,
+            height: `148px`,
             objectFit: `cover`,
             borderRadius: `3px`,
             display: `block`,
           }}
         />
-        <h1
-          sx={{
-            fontSize: [`34px`, `40px`],
-            fontWeight: 400,
-            lineHeight: 1.1,
-            letterSpacing: `-0.005em`,
-            m: 0,
-            mt: `36px`,
-          }}
-        >
-          Jin Kim
-        </h1>
-        <p sx={{ mt: `22px`, mb: 0 }}>
+        <p sx={{ mt: `32px`, mb: 0 }}>
           Hi! I'm <a href="https://www.linkedin.com/in/jinkim2/">Jin</a>, a quantitative
           researcher at Two Sigma.
         </p>
+        <p sx={{ mt: `18px`, mb: 0 }}>Previously, I:</p>
+        <ul sx={{ mt: `10px`, mb: 0 }}>
+          <li>studied maths at Stanford</li>
+          <li>
+            wrote{` `}
+            <a href="https://creative.gov.au/news-events/news/announcing-shortlists-2025-prime-ministers-literary-awards">
+              a nationally award winning book on anti-racism
+            </a>
+          </li>
+          <li>
+            was personally hired by Eric Schmidt to work at{` `}
+            <a href="https://www.forbes.com/sites/sarahemerson/2024/01/23/eric-schmidts-secret-white-stork-project-aims-to-build-ai-combat-drones/">
+              his stealth drone startup
+            </a>
+          </li>
+          <li>interned on D.E. Shaw's energy trading desk</li>
+          <li>
+            did AI research at the <a href="https://cs.stanford.edu/~ermon/website/">Ermon group</a>
+            {` `}and <a href="https://stanfordmlgroup.github.io">Stanford ML group</a> under Andrew Ng
+          </li>
+        </ul>
         <p sx={{ mt: `18px`, mb: 0 }}>
-          Previously, I studied maths at Stanford, wrote{` `}
-          <a href="https://creative.gov.au/news-events/news/announcing-shortlists-2025-prime-ministers-literary-awards">
-            a nationally award winning book on anti-racism
+          I believe we are{` `}
+          <a href="https://ctext.org/zhuangzi/man-in-the-world-associated-with/ens#n2746">
+            amidst a time when what is useless becomes useful
           </a>
-          , was personally hired by Eric Schmidt after winning a hackathon to work at{` `}
-          <a href="https://www.forbes.com/sites/sarahemerson/2024/01/23/eric-schmidts-secret-white-stork-project-aims-to-build-ai-combat-drones/">
-            his stealth drone startup
-          </a>
-          , interned on D.E. Shaw's energy trading desk, and did AI research at the{` `}
-          <a href="https://cs.stanford.edu/~ermon/website/">Ermon group</a> and{` `}
-          <a href="https://stanfordmlgroup.github.io">Stanford ML group</a> under Andrew Ng.
-        </p>
-        <p sx={{ mt: `18px`, mb: 0 }}>
-          I love learning and hacking on (useless) things, especially when it is{` `}
-          <Link to="/orthogonality/">orthogonal</Link> to what I know.
+          {` `}and what is useful is becoming useless. To the pursuit of the{` `}
+          <AnimatedUseless text="useless" inline />.
         </p>
         <p sx={{ mt: `18px`, mb: 0 }}>Outside of work, I have recently:</p>
         <ul sx={{ mt: `10px`, mb: 0 }}>
           <li>
-            7/26: published an astrophysics paper applying sequential hypothesis testing
-            techniques to measure how fast our universe is accelerating,{` `}
-            <a href="https://arxiv.org/abs/2607.28918">arxiv.org/abs/2607.28918</a>
+            7/26: published <a href="https://arxiv.org/abs/2607.28918">an astrophysics paper</a>
+            {` `}applying sequential hypothesis testing techniques to measure how fast our universe
+            is accelerating
           </li>
           <li>
-            6/26 onwards: been leading a paper reading group of some extremely talented and
-            intellectually vibrant people
+            6/26 onwards: been leading a paper reading group of extremely talented, intellectually
+            vibrant people.{` `}
+            <a href="mailto:jinyoungkim927@gmail.com?subject=Paper%20reading%20group">
+              Come read with us.
+            </a>
           </li>
         </ul>
       </section>
 
       <section sx={{ mt: `64px` }}>
-        <Label>Writing</Label>
+        <h2
+          sx={{
+            fontSize: `13px`,
+            fontWeight: 400,
+            letterSpacing: `0.14em`,
+            textTransform: `uppercase`,
+            color: `secondary`,
+            m: 0,
+            mb: `10px`,
+          }}
+        >
+          Writing
+        </h2>
         <WritingList items={posts} />
       </section>
-
-      {notes.length > 0 && (
-        <section className="prose" sx={{ mt: `48px` }}>
-          <Label>Notes</Label>
-          <p sx={{ fontSize: [`17px`, `19px`], lineHeight: 1.6, color: `#4a463f`, m: 0 }}>
-            Short explanations I wrote for myself:{` `}
-            {notes.map((note, i) => (
-              <React.Fragment key={note.slug}>
-                <Link to={note.slug}>{note.title}</Link>
-                {i < notes.length - 1 ? `, ` : `.`}
-              </React.Fragment>
-            ))}
-          </p>
-        </section>
-      )}
 
       <section id="subscribe" sx={{ mt: `56px` }}>
         <SubscribeButton label="Get new essays by email" />
