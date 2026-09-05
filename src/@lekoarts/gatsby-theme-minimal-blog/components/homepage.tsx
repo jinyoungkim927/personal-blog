@@ -8,6 +8,35 @@ import SubscribeButton from "../../../components/SubscribeButton"
 import WritingList, { WritingItem } from "../../../components/WritingList"
 import AnimatedUseless from "../../../components/AnimatedUseless"
 
+const Label: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <h2
+    sx={{
+      fontSize: `13px`,
+      fontWeight: 400,
+      letterSpacing: `0.14em`,
+      textTransform: `uppercase`,
+      color: `secondary`,
+      m: 0,
+      mb: `10px`,
+    }}
+  >
+    {children}
+  </h2>
+)
+
+const projects: WritingItem[] = [
+  {
+    href: `https://arxiv.org/abs/2607.28918`,
+    title: `An astrophysics paper applying sequential hypothesis testing techniques to measure how fast our universe is accelerating`,
+    date: `July 2026`,
+  },
+  {
+    href: `mailto:jinyoungkim927@gmail.com?subject=Paper%20reading%20group`,
+    title: `A paper reading group of extremely talented, intellectually vibrant people. Come read with us.`,
+    date: `June 2026 onwards`,
+  },
+]
+
 const Homepage = () => {
   const data = useStaticQuery(graphql`
     query {
@@ -36,16 +65,18 @@ const Homepage = () => {
             height: `148px`,
             objectFit: `cover`,
             borderRadius: `3px`,
+            outline: `1px solid rgba(28, 27, 24, 0.08)`,
+            outlineOffset: `-1px`,
             display: `block`,
           }}
         />
-        <p sx={{ mt: `32px`, mb: 0 }}>
-          Hi! I'm <a href="https://www.linkedin.com/in/jinkim2/">Jin</a>, a quantitative
-          researcher at Two Sigma.
-        </p>
+        <p sx={{ mt: `32px`, mb: 0 }}>Hi! I'm Jin Kim, a quantitative researcher at Two Sigma.</p>
         <p sx={{ mt: `18px`, mb: 0 }}>Previously, I:</p>
         <ul sx={{ mt: `10px`, mb: 0 }}>
-          <li>studied maths at Stanford</li>
+          <li>
+            studied maths at Stanford, advised by Professor{` `}
+            <a href="https://candes.su.domains/">Emmanuel Candès</a>
+          </li>
           <li>
             wrote{` `}
             <a href="https://creative.gov.au/news-events/news/announcing-shortlists-2025-prime-ministers-literary-awards">
@@ -67,43 +98,23 @@ const Homepage = () => {
         <p sx={{ mt: `18px`, mb: 0 }}>
           I believe we are{` `}
           <a href="https://ctext.org/zhuangzi/man-in-the-world-associated-with/ens#n2746">
-            amidst a time when what is useless becomes useful
+            amidst a time when what is useless is becoming useful
           </a>
-          {` `}and what is useful is becoming useless. To the pursuit of the{` `}
-          <AnimatedUseless text="useless" inline />.
+          {` `}and what is useful is becoming useless.{` `}
+          <em>
+            To pursuing the <AnimatedUseless text="useless" inline />.
+          </em>
         </p>
-        <p sx={{ mt: `18px`, mb: 0 }}>Recently, I have:</p>
-        <ul sx={{ mt: `10px`, mb: 0 }}>
-          <li>
-            July 2026: published <a href="https://arxiv.org/abs/2607.28918">an astrophysics paper</a>
-            {` `}applying sequential hypothesis testing techniques to measure how fast our universe
-            is accelerating
-          </li>
-          <li>
-            June 2026 onwards: been leading a paper reading group of extremely talented, intellectually
-            vibrant people.{` `}
-            <a href="mailto:jinyoungkim927@gmail.com?subject=Paper%20reading%20group">
-              Come read with us.
-            </a>
-          </li>
-        </ul>
       </section>
 
       <section sx={{ mt: `64px` }}>
-        <h2
-          sx={{
-            fontSize: `13px`,
-            fontWeight: 400,
-            letterSpacing: `0.14em`,
-            textTransform: `uppercase`,
-            color: `secondary`,
-            m: 0,
-            mb: `10px`,
-          }}
-        >
-          Writing
-        </h2>
+        <Label>Writing</Label>
         <WritingList items={posts} />
+      </section>
+
+      <section sx={{ mt: `48px` }}>
+        <Label>Recent projects</Label>
+        <WritingList items={projects} />
       </section>
 
       <section id="subscribe" sx={{ mt: `56px` }}>

@@ -37,18 +37,41 @@ del {
   color: #7a756b;
 }
 
-/* links inside running text get a hairline; navigation links style themselves */
+/* links inside running text get a hairline that sits below the descenders;
+   navigation links style themselves */
 article a,
 .prose a {
   color: #1c1b18;
-  text-decoration: none;
-  border-bottom: 1px solid #c9c2b4;
-  transition: border-color 0.15s ease;
+  text-decoration: underline;
+  text-decoration-color: #c9c2b4;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: auto;
+  transition: text-decoration-color 0.15s ease;
 }
 
 article a:hover,
 .prose a:hover {
-  border-bottom-color: #1c1b18;
+  text-decoration-color: #1c1b18;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid #1c1b18;
+  outline-offset: 3px;
+}
+
+.prose {
+  hanging-punctuation: first;
+}
+
+article li,
+.prose li {
+  text-wrap: pretty;
+}
+
+article h1 {
+  text-wrap: balance;
 }
 
 /* ===========================================
@@ -81,11 +104,19 @@ article ol {
   padding-left: 28px;
 }
 
-/* home page lists hang their bullets in the margin so the text keeps the full measure */
+/* home page lists hang their bullets in the margin so the text keeps the full
+   measure; on a phone there is no margin to hang them in */
 .prose ul,
 .prose ol {
   padding-left: 0;
   list-style-position: outside;
+}
+
+@media (max-width: 640px) {
+  .prose ul,
+  .prose ol {
+    padding-left: 1.1em;
+  }
 }
 
 article li,
