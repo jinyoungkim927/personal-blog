@@ -69,7 +69,7 @@ const Homepage = () => {
           <a href="https://ctext.org/zhuangzi/man-in-the-world-associated-with/ens#n2746">
             amidst a time when what is useless becomes useful
           </a>
-          {` `}and what is useful is becoming useless. To the pursuit of the{` `}
+          {` `}and what is useful is becoming useless. I am pursuing the{` `}
           <AnimatedUseless text="useless" inline />.
         </p>
         <p sx={{ mt: `18px`, mb: 0 }}>Outside of work, I have recently:</p>
