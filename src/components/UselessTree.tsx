@@ -15,7 +15,7 @@ const MAX_DEPTH = 6
 // growth speed in px/s starts at V0 and rises by ACCEL every second
 const V0 = 40
 const ACCEL = 50
-const SHRINK_SPEED = 550
+const SHRINK_SPEED = 1600
 
 // when the growing tip reaches a point `dist` px along the tree
 const timeAt = (dist: number) => (-V0 + Math.sqrt(V0 * V0 + 2 * ACCEL * dist)) / ACCEL
