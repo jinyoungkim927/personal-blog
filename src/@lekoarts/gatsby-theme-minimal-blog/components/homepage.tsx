@@ -108,13 +108,13 @@ const Homepage = () => {
       </section>
 
       <section sx={{ mt: `64px` }}>
-        <Label>Writing</Label>
-        <WritingList items={posts} />
+        <Label>Recent projects</Label>
+        <WritingList items={projects} />
       </section>
 
       <section sx={{ mt: `48px` }}>
-        <Label>Recent projects</Label>
-        <WritingList items={projects} />
+        <Label>Writing</Label>
+        <WritingList items={posts} />
       </section>
 
       <section id="subscribe" sx={{ mt: `56px` }}>
