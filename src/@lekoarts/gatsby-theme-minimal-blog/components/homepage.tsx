@@ -97,21 +97,21 @@ const Homepage = () => {
             <a href="https://candes.su.domains/">Emmanuel Candès</a>
           </li>
           <li>
-            wrote{` `}
-            <a href="https://creative.gov.au/news-events/news/announcing-shortlists-2025-prime-ministers-literary-awards">
-              a nationally award winning book on anti-racism
-            </a>
-          </li>
-          <li>
-            was personally hired by Eric Schmidt to work at{` `}
+            was personally hired by Eric Schmidt to do ML research at{` `}
             <a href="https://www.forbes.com/sites/sarahemerson/2024/01/23/eric-schmidts-secret-white-stork-project-aims-to-build-ai-combat-drones/">
               his stealth drone startup
             </a>
           </li>
-          <li>interned on D.E. Shaw's energy trading desk</li>
           <li>
             researched AI at the <a href="https://cs.stanford.edu/~ermon/website/">Ermon group</a>
             {` `}and <a href="https://stanfordmlgroup.github.io">Stanford ML group</a> under Andrew Ng
+          </li>
+          <li>interned on D.E. Shaw's energy trading desk</li>
+          <li>
+            wrote{` `}
+            <a href="https://creative.gov.au/news-events/news/announcing-shortlists-2025-prime-ministers-literary-awards">
+              a nationally award winning book on anti-racism
+            </a>
           </li>
         </ul>
         <p sx={{ mt: `18px`, mb: 0 }}>
