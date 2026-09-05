@@ -48,8 +48,8 @@ const elsewhere: (WritingItem & { sort: string })[] = [
   {
     href: `https://publishing.hardiegrant.com/en-us/books/the-anti-racism-kit-by-jinyoung-kim/9781761211171`,
     title: `The Anti-Racism Kit`,
-    date: `2024`,
-    sort: `2024-06`,
+    date: `July 2024`,
+    sort: `2024-07`,
   },
 ]
 
