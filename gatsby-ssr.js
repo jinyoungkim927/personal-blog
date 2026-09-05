@@ -3,13 +3,21 @@ import * as React from "react"
 // Import KaTeX CSS for SSR
 import "katex/dist/katex.min.css"
 
-export const onRenderBody = ({ setHeadComponents }) => {
+// decide day or night before anything paints: the visitor's saved choice,
+// otherwise the system setting
+const modeScript = `(function(){try{var m=localStorage.getItem("mode");if(!m){m=window.matchMedia("(prefers-color-scheme: dark)").matches?"night":"day"}if(m==="night"){document.documentElement.classList.add("night")}}catch(e){}})();`
+
+export const onRenderBody = ({ setHeadComponents, setPreBodyComponents }) => {
   if (typeof global !== "undefined") {
     global.document = global.document || {
       createElement: () => ({}),
       createElementNS: () => ({ setAttribute: () => {} }),
     }
   }
+
+  setPreBodyComponents([
+    <script key="mode" dangerouslySetInnerHTML={{ __html: modeScript }} />,
+  ])
 
   setHeadComponents([
     <link key="favicon-svg" rel="icon" type="image/svg+xml" href="/favicon.svg" />,

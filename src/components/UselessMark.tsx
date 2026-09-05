@@ -203,7 +203,7 @@ const UselessMark: React.FC = () => {
 
   const enter = () => {
     if (!state.current.blobs.length) makeCanopy()
-    const night = window.matchMedia(`(prefers-color-scheme: dark)`).matches
+    const night = document.documentElement.classList.contains(`night`)
     state.current.night = night
     if (canvasRef.current) canvasRef.current.style.mixBlendMode = night ? `screen` : `multiply`
     state.current.target = 1

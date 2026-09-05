@@ -13,21 +13,22 @@
   --plate-dim: 1;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #151410;
-    --ink: #e6e0d3;
-    --sec: #9a9385;
-    --rule: #2d2a24;
-    --muted: #211f1a;
-    --under: #4d4840;
-    --plate-dim: 0.8;
-  }
+/* the mode is one class on <html>, set before paint from the visitor's saved
+   choice or, failing that, the system; the switch in the header flips it */
+html.night {
+  --paper: #151410;
+  --ink: #e6e0d3;
+  --sec: #9a9385;
+  --rule: #2d2a24;
+  --muted: #211f1a;
+  --under: #4d4840;
+  --plate-dim: 0.8;
+  color-scheme: dark;
 }
 
 html {
   background: var(--paper);
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 body {

@@ -1,41 +1,28 @@
-// Letter - warm paper, one serif, nothing decorative. At night the paper is ink.
-import { lightThemeVars, darkThemeVars } from "@lekoarts/gatsby-theme-minimal-blog/src/utils/prism-themes"
+// Letter - warm paper, one serif, nothing decorative. The colours live as CSS
+// variables in custom.css (day on :root, night on html.night); theme-ui's tokens
+// just point at them, so the mode switch is a single class on <html>.
+import { lightThemeVars } from "@lekoarts/gatsby-theme-minimal-blog/src/utils/prism-themes"
 
 const serif = `'EB Garamond', Garamond, Georgia, 'Times New Roman', serif`
 
 const theme = {
   config: {
-    // follow the system, no toggle, no memory
-    useColorSchemeMediaQuery: `system`,
+    useColorSchemeMediaQuery: false,
+    useLocalStorage: false,
     initialColorModeName: `light`,
   },
   colors: {
-    text: `#1c1b18`,
-    background: `#fbf9f4`,
-    heading: `#1c1b18`,
-    secondary: `#7a756b`,
-    muted: `#f1ede4`,
-    divide: `#e6e1d6`,
-    underline: `#c9c2b4`,
-    primary: `#1c1b18`,
-    toggleIcon: `#1c1b18`,
-    highlightLineBg: `rgba(0, 0, 0, 0.04)`,
+    text: `var(--ink)`,
+    background: `var(--paper)`,
+    heading: `var(--ink)`,
+    secondary: `var(--sec)`,
+    muted: `var(--muted)`,
+    divide: `var(--rule)`,
+    underline: `var(--under)`,
+    primary: `var(--ink)`,
+    toggleIcon: `var(--ink)`,
+    highlightLineBg: `rgba(128, 124, 116, 0.08)`,
     ...lightThemeVars,
-    modes: {
-      dark: {
-        text: `#e6e0d3`,
-        background: `#151410`,
-        heading: `#f3eee2`,
-        secondary: `#9a9385`,
-        muted: `#211f1a`,
-        divide: `#2d2a24`,
-        underline: `#4d4840`,
-        primary: `#e6e0d3`,
-        toggleIcon: `#e6e0d3`,
-        highlightLineBg: `rgba(255, 255, 255, 0.05)`,
-        ...darkThemeVars,
-      },
-    },
   },
   fonts: {
     body: serif,
