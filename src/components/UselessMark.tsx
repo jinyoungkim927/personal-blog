@@ -4,32 +4,19 @@ import { jsx } from "theme-ui"
 import { Link } from "gatsby"
 
 // Zhuangzi's tree: gnarled enough that no carpenter would want it, which is
-// why it gets to grow old. Hover it and its shade settles over the page.
+// why it gets to grow old. Hover it and its shade settles over the page; move
+// past it and it bends in the wind you make, then settles.
 
-export const TREE_PATHS: [string, number][] = [
-  [`M 104 320 C 70 270 140 240 96 190 C 60 150 132 120 98 84 C 72 58 112 40 100 14`, 13],
-  [`M 96 190 C 70 176 40 186 22 172`, 9],
-  [`M 110 176 C 140 166 150 138 182 132`, 9],
-  [`M 98 84 C 74 78 60 56 38 52`, 8],
-  [`M 106 96 C 136 92 152 70 176 74`, 8],
-  [`M 101 40 C 118 30 128 14 148 10`, 7],
-  [`M 22 172 C 16 160 8 158 4 148`, 6],
+const TRUNK: [string, number] = [`M 104 320 C 70 270 140 240 96 190 C 60 150 132 120 98 84 C 72 58 112 40 100 14`, 13]
+// each branch with the point it grows from, so it can sway about its own base
+const BRANCHES: { d: string; w: number; x: number; y: number }[] = [
+  { d: `M 96 190 C 70 176 40 186 22 172`, w: 9, x: 96, y: 190 },
+  { d: `M 110 176 C 140 166 150 138 182 132`, w: 9, x: 110, y: 176 },
+  { d: `M 98 84 C 74 78 60 56 38 52`, w: 8, x: 98, y: 84 },
+  { d: `M 106 96 C 136 92 152 70 176 74`, w: 8, x: 106, y: 96 },
+  { d: `M 101 40 C 118 30 128 14 148 10`, w: 7, x: 101, y: 40 },
+  { d: `M 22 172 C 16 160 8 158 4 148`, w: 6, x: 22, y: 172 },
 ]
-
-export const TreeIcon: React.FC<{ size?: number }> = ({ size = 18 }) => (
-  <svg
-    viewBox="0 0 200 320"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden
-    sx={{ width: `${size}px`, height: `${Math.round(size * 1.6)}px`, display: `block` }}
-  >
-    <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-      {TREE_PATHS.map(([d, w]) => (
-        <path key={d} d={d} strokeWidth={w} />
-      ))}
-    </g>
-  </svg>
-)
 
 type Blob = { x: number; y: number; r: number; p: number; s: number }
 type Fleck = { x: number; y: number; r: number; p: number }
@@ -45,6 +32,58 @@ const mulberry32 = (seed: number) => () => {
 const UselessMark: React.FC = () => {
   const linkRef = React.useRef<HTMLAnchorElement>(null)
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
+  const rootRef = React.useRef<SVGGElement>(null)
+  const branchRefs = React.useRef<(SVGGElement | null)[]>([])
+  const breeze = React.useRef({ raf: 0, a: 0, v: 0, b: 0, bv: 0, gust: 0, lastX: 0, lastT: 0 })
+
+  // the cursor is a wind: its horizontal speed, weighted by how close it
+  // passes, pushes the trunk; two damped springs bring trunk and branches back
+  React.useEffect(() => {
+    if (window.matchMedia(`(prefers-reduced-motion: reduce)`).matches) return
+    const tick = () => {
+      const st = breeze.current
+      st.gust *= 0.85
+      const target = Math.max(-14, Math.min(14, st.gust))
+      st.v += -0.045 * (st.a - target) - 0.12 * st.v
+      st.a += st.v
+      st.bv += -0.06 * (st.b - st.a * 1.6) - 0.16 * st.bv
+      st.b += st.bv
+      const still = Math.abs(st.gust) < 0.01 && Math.abs(st.a) < 0.01 && Math.abs(st.v) < 0.005 && Math.abs(st.b - st.a) < 0.01 && Math.abs(st.bv) < 0.005
+      if (still) {
+        st.a = st.v = st.b = st.bv = st.gust = 0
+        rootRef.current?.removeAttribute(`transform`)
+        branchRefs.current.forEach((g) => g?.removeAttribute(`transform`))
+        st.raf = 0
+        return
+      }
+      rootRef.current?.setAttribute(`transform`, `rotate(${st.a.toFixed(2)} 104 320)`)
+      branchRefs.current.forEach((g, i) => {
+        const b = BRANCHES[i]
+        g?.setAttribute(`transform`, `rotate(${((st.b - st.a) * (0.5 + (i % 3) * 0.25)).toFixed(2)} ${b.x} ${b.y})`)
+      })
+      st.raf = requestAnimationFrame(tick)
+    }
+    const onMove = (e: MouseEvent) => {
+      const st = breeze.current
+      const now = performance.now()
+      const link = linkRef.current
+      if (st.lastT && link) {
+        const dt = Math.max(1, now - st.lastT)
+        const vx = Math.max(-3, Math.min(3, (e.clientX - st.lastX) / dt))
+        const r = link.getBoundingClientRect()
+        const d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - r.bottom)
+        st.gust += vx * 14 * Math.max(0, 1 - d / 900)
+      }
+      st.lastX = e.clientX
+      st.lastT = now
+      if (!st.raf) st.raf = requestAnimationFrame(tick)
+    }
+    window.addEventListener(`mousemove`, onMove, { passive: true })
+    return () => {
+      window.removeEventListener(`mousemove`, onMove)
+      cancelAnimationFrame(breeze.current.raf)
+    }
+  }, [])
   const state = React.useRef({ alpha: 0, target: 0, raf: 0, blobs: [] as Blob[], flecks: [] as Fleck[], reduce: false })
 
   // a canopy's worth of soft dark patches, laid out from wherever the mark is,
@@ -172,7 +211,26 @@ const UselessMark: React.FC = () => {
           "&:hover": { color: `secondary` },
         }}
       >
-        <TreeIcon />
+        <svg
+          viewBox="0 0 200 320"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden
+          sx={{ width: `18px`, height: `29px`, display: `block`, overflow: `visible` }}
+        >
+          <g ref={rootRef} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+            <path d={TRUNK[0]} strokeWidth={TRUNK[1]} />
+            {BRANCHES.map((b, i) => (
+              <g
+                key={b.d}
+                ref={(el) => {
+                  branchRefs.current[i] = el
+                }}
+              >
+                <path d={b.d} strokeWidth={b.w} />
+              </g>
+            ))}
+          </g>
+        </svg>
       </Link>
       <canvas
         ref={canvasRef}
