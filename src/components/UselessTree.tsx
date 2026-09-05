@@ -6,9 +6,14 @@ import { Link } from "gatsby"
 // Zhuangzi's tree is useless as timber, so no one cuts it down, so it grows
 // enormous. Hover the mark and it does exactly that; leave and it draws back.
 
-type Segment = { d: string; len: number; depth: number }
+type Segment = { d: string; len: number; depth: number; dist: number; jitter: number }
+type Tree = { segments: Segment[]; reach: number }
 
 const MAX_DEPTH = 5
+// every tip advances at this many px per second; a branch starts the moment
+// its parent's tip reaches it, so the whole thing grows continuously
+const GROW_SPEED = 230
+const SHRINK_SPEED = 650
 
 // deterministic, so the same tree grows every time
 const mulberry32 = (seed: number) => () => {
@@ -33,37 +38,42 @@ const quadLength = (x0: number, y0: number, cx: number, cy: number, x1: number, 
   return len
 }
 
-const growTree = (ox: number, oy: number, width: number, height: number): Segment[] => {
+const growTree = (ox: number, oy: number, width: number, height: number): Tree => {
   const rand = mulberry32(20260905)
   const segments: Segment[] = []
   const margin = 60
+  let reach = 0
 
-  const limb = (x: number, y: number, angle: number, length: number, depth: number) => {
-    if (depth > MAX_DEPTH || length < 8) return
+  const limb = (x: number, y: number, angle: number, length: number, depth: number, dist: number) => {
+    if (depth > MAX_DEPTH || length < 14) return
     const ex = x + Math.cos(angle) * length
     const ey = y + Math.sin(angle) * length
     const bend = (rand() - 0.5) * length * 0.55
     const mx = (x + ex) / 2 - Math.sin(angle) * bend
     const my = (y + ey) / 2 + Math.cos(angle) * bend
+    const len = quadLength(x, y, mx, my, ex, ey)
     segments.push({
       d: `M ${x.toFixed(1)} ${y.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`,
-      len: quadLength(x, y, mx, my, ex, ey),
+      len,
       depth,
+      dist,
+      jitter: rand(),
     })
+    reach = Math.max(reach, dist + len)
     if (ex < -margin || ex > width + margin || ey < -margin || ey > height + margin) return
     const kids = depth === 0 || rand() < 0.2 ? 3 : 2
     for (let i = 0; i < kids; i++) {
       const spread = 0.5 + rand() * 0.4
       const turn = (i - (kids - 1) / 2) * spread + (rand() - 0.5) * 0.35
-      limb(ex, ey, angle + turn, length * (0.7 + rand() * 0.14), depth + 1)
+      limb(ex, ey, angle + turn, length * (0.7 + rand() * 0.14), depth + 1, dist + len)
     }
   }
 
   const trunk = Math.hypot(width, height) * 0.21
   // primary limbs fan out from the crown of the icon into the page (y grows downward)
   const limbs = [-0.4, 0.2, 0.8, 1.35, 1.95]
-  limbs.forEach((angle, i) => limb(ox, oy, angle, trunk * (0.75 + (i % 2) * 0.25), 0))
-  return segments
+  limbs.forEach((angle, i) => limb(ox, oy, angle, trunk * (0.75 + (i % 2) * 0.25), 0, 0))
+  return { segments, reach }
 }
 
 const TreeIcon: React.FC = () => (
@@ -86,7 +96,8 @@ const TreeIcon: React.FC = () => (
 
 const UselessTree: React.FC = () => {
   const linkRef = React.useRef<HTMLAnchorElement>(null)
-  const [segments, setSegments] = React.useState<Segment[]>([])
+  const [tree, setTree] = React.useState<Tree>({ segments: [], reach: 0 })
+  const { segments, reach } = tree
   const [size, setSize] = React.useState({ w: 0, h: 0 })
   const [grown, setGrown] = React.useState(false)
   const [reduceMotion, setReduceMotion] = React.useState(false)
@@ -108,7 +119,7 @@ const UselessTree: React.FC = () => {
     if (key === keyRef.current) return
     keyRef.current = key
     setSize({ w, h })
-    setSegments(growTree(ox, oy, w, h))
+    setTree(growTree(ox, oy, w, h))
   }, [])
 
   const grow = React.useCallback(() => {
@@ -166,23 +177,34 @@ const UselessTree: React.FC = () => {
           }}
         >
           <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-            {segments.map((s, i) => (
-              <path
-                key={i}
-                d={s.d}
-                strokeWidth={Math.max(0.6, 3.2 * Math.pow(0.72, s.depth))}
-                opacity={0.62 - s.depth * 0.06}
-                style={{
-                  strokeDasharray: s.len,
-                  strokeDashoffset: grown ? 0 : s.len,
-                  transition: reduceMotion
-                    ? `none`
-                    : grown
-                    ? `stroke-dashoffset ${0.5 + 0.12 * (MAX_DEPTH - s.depth)}s cubic-bezier(0.3, 0.5, 0.3, 1) ${s.depth * 0.32}s`
-                    : `stroke-dashoffset 0.4s ease-in ${(MAX_DEPTH - s.depth) * 0.07}s`,
-                }}
-              />
-            ))}
+            {segments.map((s, i) => {
+              const width = Math.max(0.6, 3.2 * Math.pow(0.72, s.depth))
+              // Hidden: the dash sits just before the path's start, far enough that
+              // its round cap can't show as a dot, and the gap is longer than the
+              // path so the next dash can't creep in from the far end either.
+              const hidden = s.len + width + 2
+              const growDelay = s.dist / GROW_SPEED + s.jitter * 0.12
+              const growDuration = Math.max(0.15, s.len / GROW_SPEED)
+              const shrinkDelay = (reach - (s.dist + s.len)) / SHRINK_SPEED
+              const shrinkDuration = Math.max(0.12, s.len / SHRINK_SPEED)
+              return (
+                <path
+                  key={i}
+                  d={s.d}
+                  strokeWidth={width}
+                  opacity={0.62 - s.depth * 0.06}
+                  style={{
+                    strokeDasharray: `${s.len} ${s.len + 60}`,
+                    strokeDashoffset: grown ? 0 : hidden,
+                    transition: reduceMotion
+                      ? `none`
+                      : grown
+                      ? `stroke-dashoffset ${growDuration.toFixed(2)}s linear ${growDelay.toFixed(2)}s`
+                      : `stroke-dashoffset ${shrinkDuration.toFixed(2)}s linear ${shrinkDelay.toFixed(2)}s`,
+                  }}
+                />
+              )
+            })}
           </g>
         </svg>
       )}
@@ -212,8 +234,8 @@ const UselessTree: React.FC = () => {
             transition: reduceMotion
               ? `none`
               : grown
-              ? `opacity 0.9s ease ${MAX_DEPTH * 0.32 + 0.2}s`
-              : `opacity 0.3s ease`,
+              ? `opacity 1.2s ease ${(reach / GROW_SPEED + 0.3).toFixed(2)}s`
+              : `opacity 0.4s ease`,
           }}
         >
           Everyone knows the use of the useful, but no one knows the use of the useless.

@@ -60,7 +60,7 @@ const Homepage = () => {
           </li>
           <li>interned on D.E. Shaw's energy trading desk</li>
           <li>
-            did AI research at the <a href="https://cs.stanford.edu/~ermon/website/">Ermon group</a>
+            researched AI at the <a href="https://cs.stanford.edu/~ermon/website/">Ermon group</a>
             {` `}and <a href="https://stanfordmlgroup.github.io">Stanford ML group</a> under Andrew Ng
           </li>
         </ul>
@@ -69,10 +69,10 @@ const Homepage = () => {
           <a href="https://ctext.org/zhuangzi/man-in-the-world-associated-with/ens#n2746">
             amidst a time when what is useless becomes useful
           </a>
-          {` `}and what is useful is becoming useless. I am pursuing the{` `}
+          {` `}and what is useful is becoming useless. To the pursuit of the{` `}
           <AnimatedUseless text="useless" inline />.
         </p>
-        <p sx={{ mt: `18px`, mb: 0 }}>Outside of work, I have recently:</p>
+        <p sx={{ mt: `18px`, mb: 0 }}>Recently, I have:</p>
         <ul sx={{ mt: `10px`, mb: 0 }}>
           <li>
             July 2026: published <a href="https://arxiv.org/abs/2607.28918">an astrophysics paper</a>
