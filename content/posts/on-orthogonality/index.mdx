@@ -53,7 +53,7 @@ But what about moments of major miscommunication? When we bicker with loved ones
 
 Viewing this misunderstanding from the perspective of orthogonalisation tells us it's not just a 'blind spot', a little patch you can't see when you're backing out of a parking spot. It's an entire dimension of reality. The above passage from Zhuangzi captures this viscerally for me. For a quail, it doesn't understand the Peng that is flying for thousands of kilometres in the sky. There are things that completely fly over our heads (in a dimensional sense, literally). To a consciousness confined to a subspace, an orthogonal vector is invisible.
 
-In this model so far, gaining a new dimension is impossible - we have a fixed model of communication where we only hear things the way we can. But we know this isn't the case. We've all had the magical experience of seeing things in ways we haven't before. After all, mathematically, discovering new dimensions is sort of trivial. You just need a single example that can't be expressed as a linear combination of your basis vectors. One counterexample immediately proves the new dimension exists. The real problem isn't that orthogonal dimensions are _undetectable_—it's that without encountering them, you have no reason to suspect they exist. The world's a mysterious place.
+In this model so far, gaining a new dimension is impossible - we have a fixed model of communication where we only hear things the way we can. But we know this isn't the case. We've all had the magical experience of seeing things in ways we haven't before. After all, mathematically, discovering new dimensions is sort of trivial. You just need a single example that can't be expressed as a linear combination of your basis vectors. One counterexample immediately proves the new dimension exists. The real problem isn't that orthogonal dimensions are _undetectable_. It's that without encountering them, you have no reason to suspect they exist. The world's a mysterious place.
 
 ## 2. Take different risks:
 
@@ -75,15 +75,15 @@ Expected return is simply:
 
 <Math display>{"\\mu_p = \\mathbf{w}^T \\boldsymbol{\\mu}"}</Math>
 
-The diagonal terms <Math>{"w_i^2 \\sigma_i^2"}</Math> represent each asset's individual risk contribution—these scale with the square of your allocation.
+The diagonal terms <Math>{"w_i^2 \\sigma_i^2"}</Math> represent each asset's individual risk contribution; these scale with the square of your allocation.
 
 But the off-diagonal terms <Math>{"2w_i w_j \\rho_{ij} \\sigma_i \\sigma_j"}</Math> are where diversification happens. With <Math>{"n"}</Math> assets, you have <Math>{"n"}</Math> diagonal terms but <Math>{"\\frac{n(n-1)}{2}"}</Math> off-diagonal terms. As <Math>{"n"}</Math> grows large, the off-diagonal correlations dominate. If correlations are low, adding more assets drives portfolio variance toward zero even while maintaining positive expected returns. You get the numerator (returns) without the denominator (risk).
 
-The critical insight is in the off-diagonal terms: <Math>{"2w_i w_j \\rho_{ij} \\sigma_i \\sigma_j"}</Math>. When assets are _orthogonal_ (<Math>{"\\rho = 0"}</Math>), these terms vanish entirely—you get pure variance reduction with no interference. But when <Math>{"\\rho > 0"}</Math>, these positive cross-terms _add_ to your total variance, contaminating the diversification benefit.
+The critical insight is in the off-diagonal terms: <Math>{"2w_i w_j \\rho_{ij} \\sigma_i \\sigma_j"}</Math>. When assets are _orthogonal_ (<Math>{"\\rho = 0"}</Math>), these terms vanish entirely: you get pure variance reduction with no interference. But when <Math>{"\\rho > 0"}</Math>, these positive cross-terms _add_ to your total variance, contaminating the diversification benefit.
 
-With <Math>{"n"}</Math> assets, you have <Math>{"n"}</Math> variance terms but <Math>{"\\frac{n(n-1)}{2}"}</Math> correlation terms. As <Math>{"n"}</Math> grows, the correlations increasingly dominate the portfolio variance. If those correlations are near zero (orthogonal dimensions), your portfolio variance shrinks proportional to <Math>{"\\frac{1}{n}"}</Math>—you get the law of large numbers working for you. But if <Math>{"\\rho"}</Math> is high across all pairs, you're essentially holding one asset in <Math>{"n"}</Math> different wrappers.
+With <Math>{"n"}</Math> assets, you have <Math>{"n"}</Math> variance terms but <Math>{"\\frac{n(n-1)}{2}"}</Math> correlation terms. As <Math>{"n"}</Math> grows, the correlations increasingly dominate the portfolio variance. If those correlations are near zero (orthogonal dimensions), your portfolio variance shrinks proportional to <Math>{"\\frac{1}{n}"}</Math>. You get the law of large numbers working for you. But if <Math>{"\\rho"}</Math> is high across all pairs, you're essentially holding one asset in <Math>{"n"}</Math> different wrappers.
 
-Orthogonality isn't just helpful—it's the _only_ thing that makes diversification work. Without it, <Math>{"\\mathbf{w}^T \\Sigma \\mathbf{w}"}</Math> doesn't shrink as you add dimensions; it stays stubbornly high because the covariance matrix remains rank-deficient in the effective dimension space.
+Orthogonality isn't just helpful. It's the _only_ thing that makes diversification work. Without it, <Math>{"\\mathbf{w}^T \\Sigma \\mathbf{w}"}</Math> doesn't shrink as you add dimensions; it stays stubbornly high because the covariance matrix remains rank-deficient in the effective dimension space.
 
 So what about in day to day life? Well, we could find dimensions that are genuinely uncorrelated with your existing sources of satisfaction. Just as uncorrelated assets let you increase returns without proportionally increasing risk, uncorrelated life investments let you increase total well-being without cannibalizing what you already have.
 
@@ -113,7 +113,7 @@ To find orthogonal components, we compute the mean absolute correlation |r| for 
 
 <Figure src={featureOrthogonality} alt="Feature orthogonality score" caption="Contribution & Impact has the lowest mean correlation" />
 
-**Contribution & Impact** has the lowest mean correlation—it's the most independent from my other life dimensions, signalling it's an orthogonal asset.
+**Contribution & Impact** has the lowest mean correlation, making it the most independent from my other life dimensions, signalling it's an orthogonal asset.
 
 What does this mean practically?
 - When I invest time in career advancement, it correlates with decreased well-being and social life (PC2 tradeoff)
@@ -132,7 +132,7 @@ In portfolio terms: I'm overweight correlated assets (career, health, relationsh
 > What you can't understand  
 > ...  
 > For the times they are a-changin'  
-> — Bob Dylan, "The Times They Are A-Changin'"
+> - Bob Dylan, "The Times They Are A-Changin'"
 
 <SpotifyTrack trackId="52vA3CYKZqZVdQnzRrdZt6" startTime={107} size="compact" />
 

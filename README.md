@@ -1,12 +1,8 @@
-# More Useless - A Collection of Curiosities
+# More Useless
 
-Welcome to the wonderfully pointless corner of the internet at [more-useless.com](https://more-useless.com)
+Source for [more-useless.com](https://more-useless.com).
 
-## 🎯 About
-
-This site is a delightful collection of wonderfully useless things, random thoughts, and curious discoveries. Because sometimes the most interesting things are the least practical.
-
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 

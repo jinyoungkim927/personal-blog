@@ -8,11 +8,11 @@ tags:
   - optimization
 ---
 
-The Transformer architecture (introduced in "Attention Is All You Need", 2017) is the foundation of modern language models. Its key innovation was showing that attention alone—without recurrence or convolution—is sufficient for state-of-the-art sequence modeling.
+The Transformer architecture (introduced in "Attention Is All You Need", 2017) is the foundation of modern language models. Its key innovation was showing that attention alone - without recurrence or convolution - is sufficient for state-of-the-art sequence modeling.
 
 ### Why Attention Matters
 
-Before transformers, models like RNNs processed sequences step by step. This was slow and made it hard to learn long-range dependencies—by the time you reached the end of a sentence, information from the beginning had faded.
+Before transformers, models like RNNs processed sequences step by step. This was slow and made it hard to learn long-range dependencies: by the time you reached the end of a sentence, information from the beginning had faded.
 
 Attention lets every position look directly at every other position. Want to know what "it" refers to in a sentence? The model can directly attend to the relevant noun, even if it's far away.
 
@@ -33,7 +33,7 @@ Attention scores = softmax(QK^T / √d). The output is these scores weighted sum
 - Encoder: bidirectional (can see the whole sequence). Used for understanding tasks.
 - Decoder: causal/masked (can only see past tokens). Used for generation.
 
-Modern LLMs like GPT are decoder-only—they just predict the next token, one at a time.
+Modern LLMs like GPT are decoder-only: they just predict the next token, one at a time.
 
 ### Why It Scales
 
