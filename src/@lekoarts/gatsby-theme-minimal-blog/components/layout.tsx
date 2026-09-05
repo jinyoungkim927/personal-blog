@@ -18,8 +18,7 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
         "*": { boxSizing: `inherit` },
         "[hidden]": { display: `none` },
         html: {
-          // black so the overscroll bounce at top/bottom is black, not painterly
-          backgroundColor: `#000`,
+          backgroundColor: get(t, `colors.background`),
         },
         body: {
           margin: 0,
@@ -28,10 +27,6 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
           fontFamily: get(t, `fonts.body`),
           WebkitFontSmoothing: `antialiased`,
           backgroundColor: get(t, `colors.background`),
-        },
-        "::selection": {
-          backgroundColor: get(t, `colors.primary`),
-          color: get(t, `colors.background`),
         },
       })}
     />

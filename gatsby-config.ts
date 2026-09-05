@@ -1,6 +1,5 @@
 import "dotenv/config"
 import type { GatsbyConfig, PluginRef } from "gatsby"
-import features from "./src/config/features"
 
 const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
@@ -13,7 +12,7 @@ const config: GatsbyConfig = {
     siteTitleAlt: `more useless`,
     siteHeadline: `more useless`,
     siteUrl: `https://more-useless.com`,
-    siteDescription: ``,
+    siteDescription: `Jin Kim, quantitative researcher at Two Sigma. Essays and notes.`,
     siteImage: `/og-image.png`,
     siteLanguage: `en`,
     author: `more useless`,
@@ -44,13 +43,9 @@ const config: GatsbyConfig = {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
       options: {
-        navigation: [
-          { title: `Posts`, slug: `/` },
-          ...(features.graphEnabled ? [{ title: `Graph`, slug: `/graph` }] : []),
-          { title: `Snippets`, slug: `/gallery` },
-          { title: `About`, slug: `/about` },
-        ],
+        navigation: [{ title: `Writing`, slug: `/` }],
         externalLinks: [],
+        formatString: `MMMM YYYY`,
       },
     },
     {
@@ -64,10 +59,10 @@ const config: GatsbyConfig = {
       options: {
         name: `more useless`,
         short_name: `more useless`,
-        description: `a collection of curiosities`,
+        description: `Jin Kim, quantitative researcher at Two Sigma. Essays and notes.`,
         start_url: `/`,
-        background_color: `#000000`,
-        theme_color: `#000000`,
+        background_color: `#fbf9f4`,
+        theme_color: `#fbf9f4`,
         display: `standalone`,
         icons: [
           {
@@ -129,7 +124,7 @@ const config: GatsbyConfig = {
   }
 }`,
             output: `rss.xml`,
-            title: `more useless — a collection of curiosities`,
+            title: `more useless`,
           },
         ],
       },

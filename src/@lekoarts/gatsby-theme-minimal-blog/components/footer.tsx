@@ -6,34 +6,29 @@ import { Link } from "gatsby"
 const Footer = () => (
   <footer
     sx={{
-      mt: 6,
-      pt: 4,
-      pb: 4,
-      borderTop: `1px solid`,
-      borderColor: `rgba(247,233,200,0.14)`,
+      mt: `72px`,
+      pb: [`48px`, `64px`],
       display: `flex`,
       justifyContent: `space-between`,
       alignItems: `baseline`,
       flexWrap: `wrap`,
-      gap: 2,
-      fontFamily: `monospace`,
-      fontSize: `11px`,
-      letterSpacing: `0.12em`,
-      color: `rgba(244,240,232,0.45)`,
+      gap: `16px 28px`,
+      fontSize: `17px`,
+      color: `secondary`,
+      a: {
+        color: `secondary`,
+        textDecoration: `none`,
+        transition: `color 0.15s ease`,
+        "&:hover": { color: `text` },
+      },
     }}
   >
-    <span>© {new Date().getFullYear()} jinyoungkim</span>
-    <Link
-      to="/disclaimer/"
-      sx={{
-        color: `rgba(244,240,232,0.45)`,
-        textDecoration: `none`,
-        transition: `color 0.2s`,
-        "&:hover": { color: `ember` },
-      }}
-    >
-      disclaimer
-    </Link>
+    <div sx={{ display: `flex`, gap: `28px` }}>
+      <a href="https://x.com/jinkim00000">Twitter</a>
+      <a href="https://www.linkedin.com/in/jinkim2/">LinkedIn</a>
+      <a href="mailto:jinyoungkim927@gmail.com">Email</a>
+    </div>
+    <Link to="/disclaimer/">Disclaimer</Link>
   </footer>
 )
 

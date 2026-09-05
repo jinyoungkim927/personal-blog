@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import * as React from "react"
 import { jsx } from "theme-ui"
+import { Link } from "gatsby"
 import type { HeadFC, PageProps } from "gatsby"
 import Layout from "./layout"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
-import PostFooter from "@lekoarts/gatsby-theme-minimal-blog/src/components/post-footer"
 import SubscribeButton from "../../../components/SubscribeButton"
 
 export type MBPostProps = {
@@ -27,74 +27,41 @@ const Post: React.FC<React.PropsWithChildren<PageProps<MBPostProps>>> = ({
   children,
 }) => (
   <Layout>
-    <article
-      sx={{
-        maxWidth: `720px`,
-        mx: `auto`,
-        width: `100%`,
-      }}
-    >
+    <article sx={{ mt: [`56px`, `96px`] }}>
       <h1
         sx={{
-          fontFamily: `body`,
-          fontWeight: 500,
-          fontSize: [`28px`, `34px`, `38px`],
-          lineHeight: 1.2,
-          letterSpacing: `-0.012em`,
-          color: `heading`,
+          fontSize: [`34px`, `46px`],
+          fontWeight: 400,
+          lineHeight: 1.1,
+          letterSpacing: `-0.005em`,
           m: 0,
-          mt: [3, 4],
-          mb: 3,
         }}
       >
         {post.title}
       </h1>
-
-      <div
-        sx={{
-          display: `flex`,
-          flexWrap: `wrap`,
-          alignItems: `center`,
-          gap: 2,
-          fontFamily: `monospace`,
-          fontSize: `11px`,
-          letterSpacing: `0.08em`,
-          textTransform: `uppercase`,
-          color: `rgba(244,240,232,0.6)`,
-          mb: 3,
-        }}
-      >
+      <div sx={{ fontSize: `17px`, color: `secondary`, mt: `14px`, mb: `44px` }}>
         <time>{post.displayDate || post.date}</time>
-        {post.timeToRead && (
-          <React.Fragment>
-            <span sx={{ opacity: 0.5 }}>·</span>
-            <span>{post.timeToRead} min read</span>
-          </React.Fragment>
-        )}
       </div>
 
-      <div
-        sx={{
-          height: `1px`,
-          bg: `rgba(247,233,200,0.18)`,
-          mb: 4,
-        }}
-      />
+      <section sx={{ ".gatsby-resp-image-wrapper": { my: 4 } }}>{children}</section>
 
-      <section
-        sx={{
-          ".gatsby-resp-image-wrapper": {
-            my: [4, 4, 5],
-            borderRadius: `2px`,
-            boxShadow: `0 16px 24px rgba(0,0,0,0.4)`,
-          },
-        }}
-      >
-        {children}
-      </section>
-
-      <SubscribeButton />
-      <PostFooter post={post} />
+      <div sx={{ mt: `56px` }}>
+        <SubscribeButton label="Get the next essay by email" />
+      </div>
+      <div sx={{ mt: `40px` }}>
+        <Link
+          to="/"
+          sx={{
+            fontSize: `17px`,
+            color: `secondary`,
+            textDecoration: `none`,
+            borderBottom: `none`,
+            "&:hover": { color: `text` },
+          }}
+        >
+          ← All writing
+        </Link>
+      </div>
     </article>
   </Layout>
 )

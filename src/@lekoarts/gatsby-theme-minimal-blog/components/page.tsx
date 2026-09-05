@@ -1,6 +1,8 @@
+/** @jsx jsx */
 import * as React from "react"
+import { jsx } from "theme-ui"
 import type { HeadFC, PageProps } from "gatsby"
-import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
+import Layout from "./layout"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
 
 export type MBPageProps = {
@@ -14,10 +16,21 @@ export type MBPageProps = {
 
 const Page: React.FC<PageProps<MBPageProps>> = ({ data: { page }, children }) => (
   <Layout>
-    {/* Title removed - just show the content */}
-    <section style={{ marginTop: "32px" }}>
+    <article sx={{ mt: [`56px`, `96px`] }}>
+      <h1
+        sx={{
+          fontSize: [`34px`, `40px`],
+          fontWeight: 400,
+          lineHeight: 1.1,
+          letterSpacing: `-0.005em`,
+          m: 0,
+          mb: `32px`,
+        }}
+      >
+        {page.title}
+      </h1>
       {children}
-    </section>
+    </article>
   </Layout>
 )
 
@@ -26,4 +39,3 @@ export default Page
 export const Head: HeadFC<MBPageProps> = ({ data: { page } }) => (
   <Seo title={page.title} description={page.excerpt} />
 )
-

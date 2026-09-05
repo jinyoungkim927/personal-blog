@@ -5,11 +5,31 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Homepage redirects to blog (same content)
+# The about page moved onto the homepage
 [[redirects]]
-  from = "/"
-  to = "/blog/"
-  status = 200
+  from = "/about"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/"
+  to = "/"
+  status = 301
+  force = true
+
+# Retired pages
+[[redirects]]
+  from = "/gallery/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/graph/*"
+  to = "/"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/*"

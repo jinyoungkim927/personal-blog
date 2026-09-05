@@ -4,7 +4,25 @@ import { useState } from "react"
 // TODO: Replace with your Buttondown username after signing up at buttondown.email
 const BUTTONDOWN_USERNAME = "jinyoung"
 
-const SubscribeButton: React.FC = () => {
+const textButton: React.CSSProperties = {
+  background: "transparent",
+  border: "none",
+  borderBottom: "1px solid #c9c2b4",
+  borderRadius: 0,
+  color: "#7a756b",
+  font: "inherit",
+  fontSize: "17px",
+  lineHeight: 1.3,
+  cursor: "pointer",
+  padding: "0 0 1px",
+  margin: 0,
+}
+
+type SubscribeButtonProps = {
+  label?: string
+}
+
+const SubscribeButton: React.FC<SubscribeButtonProps> = ({ label = "Subscribe" }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -67,23 +85,8 @@ const SubscribeButton: React.FC = () => {
         <form name="newsletter" data-netlify="true" hidden>
           <input type="email" name="email" />
         </form>
-        <button
-          onClick={() => setIsOpen(true)}
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "#8b6f47",
-            fontSize: "14px",
-            cursor: "pointer",
-            padding: "8px 0",
-            textDecoration: "underline",
-            textUnderlineOffset: "3px",
-            marginTop: "24px",
-            display: "block",
-            textAlign: "left",
-          }}
-        >
-          subscribe
+        <button type="button" onClick={() => setIsOpen(true)} style={textButton}>
+          {label}
         </button>
       </>
     )
@@ -91,110 +94,71 @@ const SubscribeButton: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div
-        style={{
-          marginTop: "24px",
-          padding: "20px",
-          background: "rgba(139, 111, 71, 0.08)",
-          borderRadius: "8px",
-          fontSize: "14px",
-          lineHeight: "1.6",
-          color: "#3d2817",
-          textAlign: "left",
-        }}
-      >
-        <p style={{ margin: 0 }}>
-          Hi! Please email jinyoungkim927 at gmail dot com for thoughts and suggestions, especially if they're useless{" "}
-          <img 
-            src="/favicon.svg" 
-            alt="🌳" 
-            style={{ 
-              width: "18px", 
-              height: "18px", 
-              display: "inline",
-              verticalAlign: "text-bottom",
-              marginLeft: "2px",
-            }} 
-          />
-        </p>
-      </div>
+      <p style={{ margin: 0, fontSize: "19px", lineHeight: 1.6, color: "#4a463f" }}>
+        Hi! Please email jinyoungkim927 at gmail dot com for thoughts and suggestions, especially
+        if they're useless.
+      </p>
     )
   }
 
   return (
-    <div
+    <form
+      onSubmit={handleSubmit}
       style={{
-        marginTop: "24px",
-        padding: "20px",
-        background: "rgba(139, 111, 71, 0.05)",
-        borderRadius: "8px",
-        textAlign: "left",
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "center",
+        gap: "10px",
       }}
     >
-      <form
-        onSubmit={handleSubmit}
+      <input
+        type="email"
+        name="email"
+        placeholder="you@example.com"
+        aria-label="Email address"
+        required
+        autoFocus
         style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-          textAlign: "left",
+          font: "inherit",
+          fontSize: "17px",
+          padding: "8px 12px",
+          border: "1px solid #c9c2b4",
+          borderRadius: "3px",
+          background: "#ffffff",
+          color: "#1c1b18",
+          minWidth: "240px",
+          flexGrow: 1,
+          maxWidth: "320px",
+        }}
+      />
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        style={{
+          font: "inherit",
+          fontSize: "17px",
+          padding: "8px 16px",
+          background: "#1c1b18",
+          color: "#fbf9f4",
+          border: "none",
+          borderRadius: "3px",
+          cursor: isSubmitting ? "wait" : "pointer",
+          opacity: isSubmitting ? 0.7 : 1,
         }}
       >
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-          style={{
-            padding: "10px 12px",
-            border: "1px solid #e8e0d5",
-            borderRadius: "6px",
-            fontSize: "14px",
-            background: "#faf8f3",
-            color: "#3d2817",
-            textAlign: "left",
-          }}
-        />
-        
-        {error && (
-          <p style={{ color: "#b91c1c", fontSize: "13px", margin: 0 }}>{error}</p>
-        )}
-        
-        <div style={{ display: "flex", gap: "12px", marginTop: "4px" }}>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            style={{
-              padding: "10px 20px",
-              background: "#8b6f47",
-              color: "white",
-              border: "none",
-              borderRadius: "6px",
-              fontSize: "14px",
-              cursor: isSubmitting ? "wait" : "pointer",
-              opacity: isSubmitting ? 0.7 : 1,
-            }}
-          >
-            {isSubmitting ? "..." : "subscribe"}
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsOpen(false)}
-            style={{
-              padding: "10px 16px",
-              background: "transparent",
-              color: "#8b7a6f",
-              border: "1px solid #e8e0d5",
-              borderRadius: "6px",
-              fontSize: "14px",
-              cursor: "pointer",
-            }}
-          >
-            cancel
-          </button>
-        </div>
-      </form>
-    </div>
+        {isSubmitting ? "…" : "Subscribe"}
+      </button>
+      <button
+        type="button"
+        onClick={() => setIsOpen(false)}
+        style={{ ...textButton, borderBottom: "none" }}
+      >
+        Cancel
+      </button>
+      {error && (
+        <p style={{ color: "#8a2f1f", fontSize: "17px", margin: 0, width: "100%" }}>{error}</p>
+      )}
+    </form>
   )
 }
 
