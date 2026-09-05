@@ -75,12 +75,12 @@ const Homepage = () => {
         <p sx={{ mt: `18px`, mb: 0 }}>Outside of work, I have recently:</p>
         <ul sx={{ mt: `10px`, mb: 0 }}>
           <li>
-            7/26: published <a href="https://arxiv.org/abs/2607.28918">an astrophysics paper</a>
+            July 2026: published <a href="https://arxiv.org/abs/2607.28918">an astrophysics paper</a>
             {` `}applying sequential hypothesis testing techniques to measure how fast our universe
             is accelerating
           </li>
           <li>
-            6/26 onwards: been leading a paper reading group of extremely talented, intellectually
+            June 2026 onwards: been leading a paper reading group of extremely talented, intellectually
             vibrant people.{` `}
             <a href="mailto:jinyoungkim927@gmail.com?subject=Paper%20reading%20group">
               Come read with us.

@@ -95,12 +95,23 @@ const AnimatedUseless: React.FC<AnimatedUselessProps> = ({
       clearInterval(scrambleIntervalRef.current)
     }
   }, [text])
-  
+
+  // Touch screens have no hover: a tap plays the effect for a moment
+  const touchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const handleTouchStart = useCallback(() => {
+    if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current)
+    handleMouseEnter()
+    touchTimeoutRef.current = setTimeout(handleMouseLeave, 2400)
+  }, [handleMouseEnter, handleMouseLeave])
+
   // Cleanup
   useEffect(() => {
     return () => {
       if (scrambleIntervalRef.current) {
         clearInterval(scrambleIntervalRef.current)
+      }
+      if (touchTimeoutRef.current) {
+        clearTimeout(touchTimeoutRef.current)
       }
     }
   }, [])
@@ -112,6 +123,7 @@ const AnimatedUseless: React.FC<AnimatedUselessProps> = ({
       className={`animated-useless ${isHovered && currentEffect ? currentEffect.className : ""}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
       sx={{
         display: inline ? "inline" : "inline-block",
         cursor: "pointer",
