@@ -84,7 +84,7 @@ const UselessMark: React.FC = () => {
       cancelAnimationFrame(breeze.current.raf)
     }
   }, [])
-  const state = React.useRef({ alpha: 0, target: 0, raf: 0, blobs: [] as Blob[], flecks: [] as Fleck[], reduce: false })
+  const state = React.useRef({ alpha: 0, target: 0, raf: 0, blobs: [] as Blob[], flecks: [] as Fleck[], reduce: false, night: false })
 
   // a canopy's worth of soft dark patches, laid out from wherever the mark is,
   // and the sun-flecks that get through it
@@ -136,7 +136,22 @@ const UselessMark: React.FC = () => {
       st.alpha += (st.target - st.alpha) * (st.target ? (st.reduce ? 1 : 0.012) : 0.03)
       ctx.setTransform(d, 0, 0, d, 0, 0)
       ctx.clearRect(0, 0, c.width / d, c.height / d)
-      if (st.alpha > 0.002) {
+      if (st.alpha > 0.002 && st.night) {
+        // at night the same canopy lets moonlight through instead of casting shade
+        ctx.globalCompositeOperation = `source-over`
+        for (const f of st.flecks) {
+          const x = f.x + 9 * Math.sin(t * 0.22 + f.p)
+          const y = f.y + 5 * Math.sin(t * 0.29 + f.p * 1.7)
+          const r = f.r * 1.5
+          const g = ctx.createRadialGradient(x, y, 0, x, y, r)
+          g.addColorStop(0, `rgba(230,224,210,${(0.16 * st.alpha).toFixed(3)})`)
+          g.addColorStop(1, `rgba(230,224,210,0)`)
+          ctx.fillStyle = g
+          ctx.beginPath()
+          ctx.arc(x, y, r, 0, 6.2832)
+          ctx.fill()
+        }
+      } else if (st.alpha > 0.002) {
         ctx.globalCompositeOperation = `source-over`
         for (const b of st.blobs) {
           const x = b.x + 7 * Math.sin(t * 0.25 * b.s + b.p)
@@ -188,6 +203,9 @@ const UselessMark: React.FC = () => {
 
   const enter = () => {
     if (!state.current.blobs.length) makeCanopy()
+    const night = window.matchMedia(`(prefers-color-scheme: dark)`).matches
+    state.current.night = night
+    if (canvasRef.current) canvasRef.current.style.mixBlendMode = night ? `screen` : `multiply`
     state.current.target = 1
     run()
   }

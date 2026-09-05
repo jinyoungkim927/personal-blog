@@ -7,9 +7,9 @@ const BUTTONDOWN_USERNAME = "jinyoung"
 const textButton: React.CSSProperties = {
   background: "transparent",
   border: "none",
-  borderBottom: "1px solid #c9c2b4",
+  borderBottom: "1px solid var(--under)",
   borderRadius: 0,
-  color: "#7a756b",
+  color: "var(--sec)",
   font: "inherit",
   fontSize: "17px",
   lineHeight: 1.3,
@@ -94,7 +94,7 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({ label = "Subscribe" }
 
   if (isSubmitted) {
     return (
-      <p style={{ margin: 0, fontSize: "19px", lineHeight: 1.6, color: "#4a463f" }}>
+      <p style={{ margin: 0, fontSize: "19px", lineHeight: 1.6, color: "var(--sec)" }}>
         Hi! Please email jinyoungkim927 at gmail dot com for thoughts and suggestions, especially
         if they're useless.
       </p>
@@ -122,10 +122,10 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({ label = "Subscribe" }
           font: "inherit",
           fontSize: "17px",
           padding: "8px 12px",
-          border: "1px solid #c9c2b4",
+          border: "1px solid var(--under)",
           borderRadius: "3px",
-          background: "#ffffff",
-          color: "#1c1b18",
+          background: "var(--muted)",
+          color: "var(--ink)",
           minWidth: "240px",
           flexGrow: 1,
           maxWidth: "320px",
@@ -138,8 +138,8 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({ label = "Subscribe" }
           font: "inherit",
           fontSize: "17px",
           padding: "8px 16px",
-          background: "#1c1b18",
-          color: "#fbf9f4",
+          background: "var(--ink)",
+          color: "var(--paper)",
           border: "none",
           borderRadius: "3px",
           cursor: isSubmitting ? "wait" : "pointer",
@@ -156,7 +156,7 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({ label = "Subscribe" }
         Cancel
       </button>
       {error && (
-        <p style={{ color: "#8a2f1f", fontSize: "17px", margin: 0, width: "100%" }}>{error}</p>
+        <p style={{ color: "var(--sec)", fontSize: "17px", margin: 0, width: "100%" }}>{error}</p>
       )}
     </form>
   )

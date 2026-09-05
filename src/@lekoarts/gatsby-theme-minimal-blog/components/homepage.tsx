@@ -65,7 +65,7 @@ const Homepage = () => {
             height: `148px`,
             objectFit: `cover`,
             borderRadius: `3px`,
-            outline: `1px solid rgba(28, 27, 24, 0.08)`,
+            outline: `1px solid rgba(128, 124, 116, 0.18)`,
             outlineOffset: `-1px`,
             display: `block`,
           }}

@@ -1,11 +1,12 @@
-// Letter - warm paper, one serif, nothing decorative
-import { lightThemeVars } from "@lekoarts/gatsby-theme-minimal-blog/src/utils/prism-themes"
+// Letter - warm paper, one serif, nothing decorative. At night the paper is ink.
+import { lightThemeVars, darkThemeVars } from "@lekoarts/gatsby-theme-minimal-blog/src/utils/prism-themes"
 
 const serif = `'EB Garamond', Garamond, Georgia, 'Times New Roman', serif`
 
 const theme = {
   config: {
-    useColorSchemeMediaQuery: false,
+    // follow the system, no toggle, no memory
+    useColorSchemeMediaQuery: `system`,
     initialColorModeName: `light`,
   },
   colors: {
@@ -20,6 +21,21 @@ const theme = {
     toggleIcon: `#1c1b18`,
     highlightLineBg: `rgba(0, 0, 0, 0.04)`,
     ...lightThemeVars,
+    modes: {
+      dark: {
+        text: `#e6e0d3`,
+        background: `#151410`,
+        heading: `#f3eee2`,
+        secondary: `#9a9385`,
+        muted: `#211f1a`,
+        divide: `#2d2a24`,
+        underline: `#4d4840`,
+        primary: `#e6e0d3`,
+        toggleIcon: `#e6e0d3`,
+        highlightLineBg: `rgba(255, 255, 255, 0.05)`,
+        ...darkThemeVars,
+      },
+    },
   },
   fonts: {
     body: serif,
@@ -104,7 +120,7 @@ const theme = {
       borderLeftStyle: `solid`,
       ml: 0,
       pl: `20px`,
-      color: `#4a463f`,
+      color: `secondary`,
     },
   },
 }
