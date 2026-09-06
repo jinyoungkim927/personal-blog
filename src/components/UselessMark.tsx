@@ -22,7 +22,6 @@ const BRANCHES: { d: string; w: number; x: number; y: number }[] = [
 
 type Blob = { x: number; y: number; r: number; p: number; s: number }
 type Fleck = { x: number; y: number; r: number; p: number }
-type Keep = { x: number; y: number; w: number; h: number }
 
 // deterministic, so the shade falls the same way every time
 const mulberry32 = (seed: number) => () => {
@@ -37,7 +36,7 @@ const UselessMark: React.FC = () => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
   const rootRef = React.useRef<SVGGElement>(null)
   const branchRefs = React.useRef<(SVGGElement | null)[]>([])
-  const shade = React.useRef({ alpha: 0, target: 0, raf: 0, blobs: [] as Blob[], flecks: [] as Fleck[], keep: [] as Keep[], reduce: false, night: false, pinned: false })
+  const shade = React.useRef({ alpha: 0, target: 0, raf: 0, blobs: [] as Blob[], flecks: [] as Fleck[], reduce: false, night: false, pinned: false })
   const breeze = React.useRef({ raf: 0, a: 0, v: 0, b: 0, bv: 0, gust: 0, lastX: 0, lastT: 0, lastY: 0 })
   const [isHome, setIsHome] = React.useState(false)
   const [touch, setTouch] = React.useState(false)
@@ -118,8 +117,7 @@ const UselessMark: React.FC = () => {
 
   // ---- the shade ----
   // a canopy's worth of soft dark patches sized to the window, laid out from
-  // wherever the mark is; the sun-flecks that get through it; and the places
-  // it must not fall, like the photograph
+  // wherever the mark is, and the sun-flecks that get through it
   const makeCanopy = React.useCallback(() => {
     const link = linkRef.current
     if (!link) return
@@ -144,14 +142,8 @@ const UselessMark: React.FC = () => {
       const rr = Math.sqrt(rand())
       flecks.push({ x: cx + Math.cos(a) * rr * rx * 0.92, y: cy + Math.sin(a) * rr * ry * 0.92, r: 18 + rand() * 48, p: rand() * 6.28 })
     }
-    const keep: Keep[] = []
-    document.querySelectorAll<HTMLElement>(`.prose img, figure.plate img`).forEach((img) => {
-      const r = img.getBoundingClientRect()
-      if (r.width > 0 && r.bottom > 0 && r.top < vh) keep.push({ x: r.left, y: r.top, w: r.width, h: r.height })
-    })
     shade.current.blobs = blobs
     shade.current.flecks = flecks
-    shade.current.keep = keep
   }, [])
 
   const resize = React.useCallback(() => {
@@ -218,17 +210,6 @@ const UselessMark: React.FC = () => {
             ctx.fillStyle = g
             ctx.beginPath()
             ctx.arc(x, y, f.r, 0, 6.2832)
-            ctx.fill()
-          }
-        }
-        // keep it off the photograph: a feathered clearing around each picture
-        ctx.globalCompositeOperation = `destination-out`
-        for (const k of st.keep) {
-          for (let i = 0; i < 10; i++) {
-            const pad = 22 - i * 2.4
-            ctx.fillStyle = `rgba(0,0,0,0.3)`
-            ctx.beginPath()
-            ctx.roundRect(k.x - pad, k.y - pad, k.w + pad * 2, k.h + pad * 2, 8)
             ctx.fill()
           }
         }

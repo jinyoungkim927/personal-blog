@@ -103,7 +103,7 @@ const Homepage = () => {
           </a>
           .{` `}
           <em>
-            To pursuing the <AnimatedUseless text="useless" inline />.
+            To being more <AnimatedUseless text="useless" inline />.
           </em>
         </p>
       </section>
